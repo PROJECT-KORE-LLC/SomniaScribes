@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SomniaScribes</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="thumbnail1.jpg">
+    <link rel="icon" type="image/jpeg" href="thumbnail1.jpg">
+
+    <style>
+        :root {
+            --primary: #D4AF37; 
+            --primary-glow: rgba(212, 175, 55, 0.6);
+            --hijack-glow: rgba(229, 149, 0, 0.7);
+            --glass: rgba(6, 6, 8, 0.98);
+            --somatic-tempo: 10s; 
+            --unison-ease: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+        }
+
+        .noir-mode { --primary: #D4AF37; --hijack-glow: rgba(229, 149, 0, 0.7); }
+        .lunar-mode { --primary: #A5F2F3; --hijack-glow: rgba(0, 150, 255, 0.6); }
+        .vellum-mode { --primary: #C2B280; --hijack-glow: rgba(101, 67, 33, 0.6); }
+        .amethyst-mode { --primary: #9966CC; --hijack-glow: rgba(150, 0, 255, 0.6); }
+
+        body, html {
+            margin: 0; padding: 0; background: #000;
+            overflow: hidden; font-family: 'Times New Roman', serif;
+            height: 100%; width: 100%; color: #F4EBD0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- BACKGROUND ENGINE (Fixed to Center) --- */
+        #bg-anchor {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('somniascribes.png'), radial-gradient(circle at center, #1a1a25 0%, #020204 100%);
+            background-size: cover; 
+            background-position: center center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            animation: somaticBreath var(--somatic-tempo) infinite alternate var(--unison-ease);
+        }
+        @keyframes somaticBreath { 0% { transform: scale(1); } 100% { transform: scale(1.12); } }
+
+        #glow-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, transparent 15%, var(--hijack-glow) 90%);
+            z-index: 5; pointer-events: none; mix-blend-mode: screen;
+            animation: glowPulse var(--somatic-tempo) infinite alternate var(--unison-ease);
+            transition: background 1.5s var(--unison-ease);
+        }
+        @keyframes glowPulse { 0% { opacity: 0.2; } 100% { opacity: 0.9; } }
+
+        #ui-viewport {
+            position: relative; z-index: 100; height: 100vh; width: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 20px; padding-top: 80px; box-sizing: border-box; transition: opacity 0.8s;
+        }
+        .cloaked { opacity: 0 !important; pointer-events: none !important; }
+
+        .archive-vault {
+            width: 100%; max-width: 950px; height: 68vh;
+            background: var(--glass); border: 2px solid var(--primary);
+            padding: 35px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px;
+            box-shadow: 0 0 100px #000, inset 0 0 60px var(--primary-glow);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+        }
+
+        .vault-header { border-bottom: 2px solid var(--primary); padding-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .vault-header h2 { margin: 0; font-size: 1.4rem; letter-spacing: 12px; text-transform: uppercase; color: var(--primary); text-shadow: 0 0 20px var(--primary-glow); }
+
+        #search-annals {
+            background: rgba(0,0,0,0.5); border: none; border-bottom: 1px solid var(--primary);
+            color: var(--primary); font-family: monospace; font-size: 0.8rem;
+            padding: 5px; outline: none; width: 180px; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        .annals-body { flex: 1; overflow-y: auto; padding-right: 15px; scrollbar-width: none; }
+        .annals-body::-webkit-scrollbar { display: none; }
+
+        .lore-entry { position: relative; margin-bottom: 25px; border-bottom: 1px solid rgba(212,175,55,0.15); padding-bottom: 15px; }
+        .entry-meta { font-size: 0.6rem; color: var(--primary); opacity: 0.5; letter-spacing: 2px; margin-bottom: 6px; }
+        .shred-btn { position: absolute; top: 0; right: 0; background: transparent; border: none; color: var(--primary); font-size: 1.1rem; cursor: pointer; opacity: 0.4; transition: 0.3s; }
+        .shred-btn:hover { opacity: 1; color: #ff4444; }
+
+        .lore-input { background: rgba(0,0,0,0.6); border: none; border-left: 4px solid var(--primary); color: var(--primary); padding: 15px; outline: none; resize: none; font-family: monospace; font-size: 1rem; }
+
+        .command-array { margin-top: 25px; display: flex; gap: 12px; flex-wrap: wrap; width: 100%; max-width: 950px; }
+        .lux-btn { background: rgba(0,0,0,0.7); border: 1px solid var(--primary); color: var(--primary); padding: 12px; cursor: pointer; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; flex: 1; text-align: center; transition: 0.4s; }
+        .lux-btn:hover { background: var(--primary-glow); box-shadow: 0 0 25px var(--primary-glow); }
+
+        .kore-footer { margin-top: 25px; font-size: 0.55rem; opacity: 0.4; letter-spacing: 6px; text-transform: uppercase; text-align: center; width: 100%; }
+
+        #cloak-btn { position: fixed; top: 25px; left: 25px; z-index: 2000; background: rgba(0,0,0,0.8); border: 1px solid var(--primary); color: var(--primary); padding: 10px 18px; font-size: 0.6rem; letter-spacing: 4px; backdrop-filter: blur(5px); cursor: pointer; transition: all 0.3s; }
+        #cloak-btn:hover { background: var(--primary-glow); }
+
+        @media (max-width: 600px) {
+            #ui-viewport { padding-top: 70px; }
+            .archive-vault { padding: 20px; height: 65vh; }
+            .vault-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            #search-annals { width: 100%; box-sizing: border-box; }
+            #cloak-btn { top: 15px; left: 15px; padding: 8px 14px; font-size: 0.5rem; }
+        }
+    </style>
+</head>
+<body id="master-body">
+
+    <button id="cloak-btn" onclick="toggleCloak(event)">CLOAK JOURNAL</button>
+    <div id="bg-anchor"></div>
+    <div id="glow-layer"></div>
+
+    <div id="ui-viewport">
+        <div class="archive-vault">
+            <div class="vault-header">
+                <div>
+                    <h2>SomniaScribes</h2>
+                    <div style="font-size: 0.55rem; opacity: 0.5; letter-spacing: 5px;">SOVEREIGN SOMATIC MEMORY</div>
+                </div>
+                <input type="text" id="search-annals" placeholder="SEARCH..." oninput="renderAnnals()">
+            </div>
+            
+            <div id="annals" class="annals-body"></div>
+            <textarea id="lore-editor" class="lore-input" rows="3" placeholder="BEGIN A NEW ENTRY... [ENTER TO COMMIT]"></textarea>
+        </div>
+
+        <div class="command-array">
+            <button class="lux-btn" onclick="jolt('noir')">Noir</button>
+            <button class="lux-btn" onclick="jolt('lunar')">Lunar</button>
+            <button class="lux-btn" onclick="jolt('vellum')">Vellum</button>
+            <button class="lux-btn" onclick="jolt('amethyst')">Amethyst</button>
+            <button class="lux-btn" onclick="exportVault()">Export JSON</button>
+            <button class="lux-btn" onclick="document.getElementById('import-trigger').click()">Import JSON</button>
+        </div>
+
+        <div class="kore-footer">© 2026 PROJECT KORE LLC // SOMNIASCRIBES</div>
+    </div>
+
+    <input type="file" id="import-trigger" style="display:none" accept=".json" onchange="importVault(event)">
+    <audio id="waves-atmosphere" src="fire.mp3" loop preload="auto"></audio>
+
+    <script>
+        let archive = JSON.parse(localStorage.getItem('kore_archive')) || [];
+        const waves = document.getElementById('waves-atmosphere');
+        let atmosphereInitialized = false;
+
+        window.onload = () => { renderAnnals(); };
+
+        function renderAnnals() {
+            const query = document.getElementById('search-annals').value.toLowerCase();
+            const container = document.getElementById('annals');
+            container.innerHTML = "";
+            archive.forEach((entry, index) => {
+                if (entry.text.toLowerCase().includes(query)) {
+                    const node = document.createElement('div');
+                    node.className = 'lore-entry';
+                    node.innerHTML = `
+                        <div class="entry-meta">${entry.timestamp}</div>
+                        <button class="shred-btn" onclick="shredEntry(${index})">✕</button>
+                        <div><span style="color:var(--primary); opacity:0.6; margin-right:10px;">></span> ${entry.text}</div>
+                    `;
+                    container.appendChild(node);
+                }
+            });
+            container.scrollTop = container.scrollHeight;
+        }
+
+        document.getElementById('lore-editor').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); commitLore(); }
+        });
+
+        function commitLore() {
+            const input = document.getElementById('lore-editor');
+            if (input.value.trim() === "") return;
+            const now = new Date();
+            const timestamp = now.toLocaleDateString() + " // " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            archive.push({ text: input.value, timestamp: timestamp });
+            localStorage.setItem('kore_archive', JSON.stringify(archive));
+            input.value = "";
+            renderAnnals();
+            playAtmosphere();
+        }
+
+        function shredEntry(index) {
+            archive.splice(index, 1);
+            localStorage.setItem('kore_archive', JSON.stringify(archive));
+            renderAnnals();
+        }
+
+        function jolt(palette) {
+            document.getElementById('master-body').className = palette + '-mode';
+            playAtmosphere();
+        }
+
+        function playAtmosphere() {
+            if (!atmosphereInitialized && waves) {
+                waves.volume = 0.3;
+                waves.play().catch(() => {});
+                atmosphereInitialized = true;
+            }
+        }
+
+        function toggleCloak(e) {
+            if (e) e.stopPropagation();
+            const viewport = document.getElementById('ui-viewport');
+            const isCloaked = viewport.classList.toggle('cloaked');
+            document.getElementById('cloak-btn').innerText = isCloaked ? "RESTORE JOURNAL" : "CLOAK JOURNAL";
+            playAtmosphere();
+        }
+
+        document.body.onclick = () => {
+            playAtmosphere();
+            if (document.getElementById('ui-viewport').classList.contains('cloaked')) toggleCloak();
+        };
+
+        function exportVault() {
+            const blob = new Blob([JSON.stringify(archive, null, 2)], {type: "application/json"});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = "SOMNIASCRIBES.json";
+            a.click();
+        }
+
+        function importVault(e) {
+            const reader = new FileReader();
+            reader.onload = (x) => {
+                try { archive = JSON.parse(x.target.result); localStorage.setItem('kore_archive', JSON.stringify(archive)); renderAnnals(); } 
+                catch(err) { alert("Import failed."); }
+            };
+            reader.readAsText(e.target.files[0]);
+        }
+    </script>
+</body>
+</html>
