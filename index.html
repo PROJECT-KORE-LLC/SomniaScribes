@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SOMNIASCRIBES</title>
+    <title>SomniaScribes</title>
     
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="thumbnail1.jpg">
@@ -43,7 +43,6 @@
         }
         @keyframes somaticBreath { 0% { transform: scale(1); } 100% { transform: scale(1.12); } }
 
-        /* --- SHIP STABILIZER FOR MOBILE --- */
         @media (max-width: 800px) {
             #bg-anchor { background-position: 65% center; }
         }
@@ -97,7 +96,6 @@
 
         .kore-footer { margin-top: 25px; font-size: 0.55rem; opacity: 0.4; letter-spacing: 6px; text-transform: uppercase; text-align: center; width: 100%; }
 
-        /* --- CLOAK BUTTON (RE-ANCHORED TO TOP-LEFT) --- */
         #cloak-btn { position: fixed; top: 25px; left: 25px; z-index: 2000; background: rgba(0,0,0,0.8); border: 1px solid var(--primary); color: var(--primary); padding: 10px 18px; font-size: 0.6rem; letter-spacing: 4px; backdrop-filter: blur(5px); cursor: pointer; transition: all 0.3s; }
         #cloak-btn:hover { background: var(--primary-glow); }
 
@@ -112,7 +110,7 @@
 </head>
 <body id="master-body">
 
-    <button id="cloak-btn" onclick="toggleCloak(event)">CLOAK LEDGER</button>
+    <button id="cloak-btn" onclick="toggleCloak(event)">CLOAK JOURNAL</button>
     <div id="bg-anchor"></div>
     <div id="glow-layer"></div>
 
@@ -127,7 +125,7 @@
             </div>
             
             <div id="annals" class="annals-body"></div>
-            <textarea id="lore-editor" class="lore-input" rows="3" placeholder="RECORD LORE... [ENTER TO COMMIT]"></textarea>
+            <textarea id="lore-editor" class="lore-input" rows="3" placeholder="BEGIN A NEW ENTRY... [ENTER TO COMMIT]"></textarea>
         </div>
 
         <div class="command-array">
@@ -139,7 +137,7 @@
             <button class="lux-btn" onclick="document.getElementById('import-trigger').click()">Import JSON</button>
         </div>
 
-        <div class="kore-footer">© 2026 PROJECT KORE LLC // ALL RIGHTS RESERVED</div>
+        <div class="kore-footer">© 2026 PROJECT KORE LLC // SOMNIASCRIBES</div>
     </div>
 
     <input type="file" id="import-trigger" style="display:none" accept=".json" onchange="importVault(event)">
@@ -148,6 +146,7 @@
     <script>
         let archive = [];
         try { archive = JSON.parse(localStorage.getItem('kore_archive')) || []; } catch(e) { archive = []; }
+
         const waves = document.getElementById('waves-atmosphere');
         let atmosphereInitialized = false;
 
@@ -160,6 +159,7 @@
             const query = document.getElementById('search-annals').value.toLowerCase();
             const container = document.getElementById('annals');
             container.innerHTML = "";
+
             archive.forEach((entry, index) => {
                 if (entry.text.toLowerCase().includes(query)) {
                     const node = document.createElement('div');
@@ -172,24 +172,35 @@
                     container.appendChild(node);
                 }
             });
-            if (archive.length === 0) container.innerHTML = "<p style='opacity:0.3; font-style:italic;'>The Ledger is silent.</p>";
+
+            if (archive.length === 0) {
+                container.innerHTML = "<p style='opacity:0.3; font-style:italic;'>The Journal is quiet.</p>";
+            }
+
             container.scrollTop = container.scrollHeight;
         }
 
         document.getElementById('lore-editor').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); commitLore(); }
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                commitLore();
+            }
         });
 
         function commitLore() {
             const input = document.getElementById('lore-editor');
             if (input.value.trim() === "") return;
+
             const now = new Date();
             const timestamp = now.toLocaleDateString() + " // " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
             archive.push({ text: input.value, timestamp: timestamp });
             localStorage.setItem('kore_archive', JSON.stringify(archive));
+
             input.value = "";
             renderAnnals();
             playAtmosphere();
+
             if (navigator.vibrate) navigator.vibrate([30, 50]);
         }
 
@@ -206,39 +217,51 @@
         }
 
         function playAtmosphere() {
-            if(!atmosphereInitialized && waves) {
+            if (!atmosphereInitialized && waves) {
                 waves.volume = 0.3;
                 waves.play().then(() => { atmosphereInitialized = true; }).catch(() => {});
             }
         }
 
         function toggleCloak(e) {
-            if(e) e.stopPropagation();
+            if (e) e.stopPropagation();
+
             const viewport = document.getElementById('ui-viewport');
             const isCloaked = viewport.classList.toggle('cloaked');
-            document.getElementById('cloak-btn').innerText = isCloaked ? "RESTORE LEDGER" : "CLOAK LEDGER";
+
+            document.getElementById('cloak-btn').innerText =
+                isCloaked ? "RESTORE JOURNAL" : "CLOAK JOURNAL";
+
             playAtmosphere();
         }
 
         document.body.onclick = () => {
             playAtmosphere();
-            if (document.getElementById('ui-viewport').classList.contains('cloaked')) toggleCloak();
+            if (document.getElementById('ui-viewport').classList.contains('cloaked')) {
+                toggleCloak();
+            }
         };
 
         function exportVault() {
             const blob = new Blob([JSON.stringify(archive, null, 2)], {type: "application/json"});
             const url = URL.createObjectURL(blob);
-            const a = document.createElement('a'); a.href = url; a.download = "KORE_VAULT.json"; a.click();
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "SOMNIASCRIBES.json";
+            a.click();
         }
 
         function importVault(e) {
             const reader = new FileReader();
-            reader.onload = (x) => { 
+            reader.onload = (x) => {
                 try {
-                    archive = JSON.parse(x.target.result); 
-                    localStorage.setItem('kore_archive', JSON.stringify(archive)); 
-                    renderAnnals(); 
-                } catch(err) { alert("Logic Error."); }
+                    archive = JSON.parse(x.target.result);
+                    localStorage.setItem('kore_archive', JSON.stringify(archive));
+                    renderAnnals();
+                } catch(err) {
+                    alert("Import failed — invalid file.");
+                }
             };
             reader.readAsText(e.target.files[0]);
         }
