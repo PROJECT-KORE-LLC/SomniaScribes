@@ -12,10 +12,10 @@ No rush. No pressure.
 ## Philosophy  
 SomniaScribes is built around four ideas:
 
-- **[Journal](ca://s?q=SomniaScribes_journal_topic)** — a simple place to write  
-- **[Local](ca://s?q=SomniaScribes_local_storage_topic)** — your words stay on your device  
-- **[Somatic](ca://s?q=SomniaScribes_somatic_topic)** — slow, grounding, atmospheric  
-- **[Ambient](ca://s?q=SomniaScribes_ambient_topic)** — warm visuals, soft audio, quiet UI
+- **A simple place to write** 
+- **Your words stay on your device**  
+- **Slow, grounding, atmospheric**  
+- **Warm visuals, soft audio, quiet UI**
 
 Any contribution should respect these principles:  
 calm, minimal, private, and warm.
