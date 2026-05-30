@@ -8,7 +8,7 @@ Ambient.
 Somatic.
 
 A small fire.  
-A still room.  
+A calm room.  
 Your thoughts, kept close.
 
 ## Features
