@@ -3,40 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SOMNIASCAPES // AMBIENCE MAKER</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <title>SOMNIASCAPES // COZY VIBE ENGINE</title>
     <style>
         /* ============================================================
-           SOMNIASCAPES — THE DIGITAL TOY SHELL
-           Luxurious • Calm • ND-Friendly • Frosted Glass Tabs
+           SOMNIASCAPES — COZY CHAOS ENVIRONMENT
+           Responsive • Soft • Expensive Glassmorphism
            ============================================================ */
 
         *, *::before, *::after { box-sizing: border-box; }
 
-        :root {
-            /* GLOBAL CONSTANTS (Does not change with palette) */
-            --glass: rgba(10, 15, 25, 0.7);
-            --text-muted: #a09ba5;
+        :root, html {
+            --glass: rgba(15, 20, 30, 0.45);
+            --text-muted: #b5b0bb;
             
-            /* DYNAMIC CONTROLS (Updated via JS/Sliders) */
             --bg-zoom: 1;
             --bg-bright: 0.85;
             --glow-opac: 0.3;
             --anim-speed: 10s;
 
-            /* LUNAR BASELINE (Moonlight Loading Default) */
             --primary: #e0e7ff; 
-            --primary-glow: rgba(224, 231, 255, 0.4);
+            --primary-glow: rgba(224, 231, 255, 0.5);
             --accent: #a5b4fc; 
-            --glass-border: rgba(199, 210, 254, 0.2);
+            --glass-border: rgba(255, 255, 255, 0.12);
             --text-main: #fdfbf7;
 
             --particle-color: var(--primary);
             --glow-color: var(--primary-glow);
         }
 
-        /* 10 COLOR PALETTES */
-        .lunar-mode { --primary: #e0e7ff; --accent: #a5b4fc; --primary-glow: rgba(224,231,255,0.4); --glass-border: rgba(199,210,254,0.2); --text-main: #fdfbf7; }
+        /* Color Palettes applied to the root so particles can see them! */
+        .lunar-mode { --primary: #e0e7ff; --accent: #a5b4fc; --primary-glow: rgba(224,231,255,0.4); --glass-border: rgba(255,255,255,0.15); --text-main: #fdfbf7; }
         .noir-mode { --primary: #D4AF37; --accent: #f59e0b; --primary-glow: rgba(212,175,55,0.4); --glass-border: rgba(212,175,55,0.2); --text-main: #F4EBD0; }
         .vellum-mode { --primary: #C2B280; --accent: #d97706; --primary-glow: rgba(194,178,128,0.4); --glass-border: rgba(194,178,128,0.2); --text-main: #fefce8; }
         .amethyst-mode { --primary: #d8b4e2; --accent: #2dd4bf; --primary-glow: rgba(216,180,226,0.4); --glass-border: rgba(216,180,226,0.2); --text-main: #e9d5ff; }
@@ -48,29 +44,66 @@
         .ghost-mode { --primary: #f8fafc; --accent: #cbd5e1; --primary-glow: rgba(248,250,252,0.4); --glass-border: rgba(248,250,252,0.2); --text-main: #ffffff; }
 
         body, html {
-            margin: 0; padding: 0; background: #000;
+            margin: 0; padding: 0; background: #050508;
             overflow: hidden; font-family: 'Georgia', serif;
-            height: 100vh; width: 100vw; color: var(--text-main);
+            height: 100dvh; width: 100vw; color: var(--text-main);
             -webkit-font-smoothing: antialiased; user-select: none;
         }
 
-        /* --- VISUAL CANVAS (The Room) --- */
-        #bg-anchor {
-            position: fixed; inset: 0; 
-            background: #020204 url('ship.png') no-repeat center center;
-            background-size: cover; z-index: 1;
-            transform: scale(var(--bg-zoom));
-            filter: brightness(var(--bg-bright));
-            transition: background 1.5s ease, filter 0.3s ease, transform 0.3s ease;
+        /* Allow typing and selection where it matters */
+        input, textarea { user-select: auto; }
+
+        /* --- STUNNING BOOT SCREEN --- */
+        #boot-screen {
+            position: fixed; inset: 0; z-index: 9999;
+            background: rgba(10, 10, 15, 0.7); backdrop-filter: blur(40px);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 1.5s ease-in-out;
+        }
+        
+        .kore-orb {
+            position: absolute; width: 350px; height: 350px;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            animation: orb-breathe 5s infinite alternate ease-in-out;
+            z-index: -1; pointer-events: none;
+        }
+        @keyframes orb-breathe { 0% { transform: scale(0.8); opacity: 0.4; filter: hue-rotate(0deg); } 100% { transform: scale(1.3); opacity: 0.9; filter: hue-rotate(15deg); } }
+
+        .boot-content {
+            max-width: 90%; width: 650px; padding: 50px; text-align: center;
+            border: 1px solid var(--glass-border); border-radius: 40px;
+            background: rgba(255,255,255,0.03); box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            position: relative; z-index: 10; backdrop-filter: blur(20px);
+        }
+        .boot-title {
+            color: var(--primary); font-size: clamp(1.8rem, 5vw, 2.8rem); letter-spacing: 12px; margin: 0 0 20px 0;
+            text-shadow: 0 0 30px var(--primary-glow); text-transform: uppercase; font-family: 'Times New Roman', serif;
+        }
+        .boot-disclaimer {
+            color: var(--text-main); font-size: 0.95rem; line-height: 1.8; letter-spacing: 1px;
+            margin-bottom: 35px; font-family: 'Georgia', serif; font-style: italic; opacity: 0.9;
         }
 
-        /* --- 10 GLOW ANIMATIONS --- */
+        /* --- VISUAL CANVAS --- */
+        #bg-anchor {
+            position: fixed; inset: 0; 
+            background: linear-gradient(135deg, #0f172a 0%, #000000 100%);
+            background-image: url('somniascribes.png'); /* The beautiful default */
+            background-size: cover; 
+            background-position: center center;
+            background-repeat: no-repeat;
+            z-index: 1; transform: scale(var(--bg-zoom));
+            filter: brightness(var(--bg-bright));
+            transition: background 1.5s ease, filter 0.5s ease, transform 0.5s ease;
+        }
+
         #glow-layer {
             position: fixed; inset: 0;
             background: radial-gradient(circle at 50% 50%, var(--glow-color) 0%, transparent 70%);
             z-index: 2; opacity: var(--glow-opac); pointer-events: none;
-            transition: opacity 0.3s ease, background 1s ease;
+            transition: opacity 0.5s ease, background 1.5s ease;
         }
+
         .glow-pulse { animation: g-pulse var(--anim-speed) infinite alternate ease-in-out; }
         .glow-breathe { animation: g-breathe var(--anim-speed) infinite alternate ease-in-out; }
         .glow-strobe { animation: g-strobe var(--anim-speed) infinite alternate linear; }
@@ -89,222 +122,238 @@
         @keyframes g-wave { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes g-flicker { 0%, 100% { opacity: var(--glow-opac); } 33% { opacity: calc(var(--glow-opac) * 0.3); } 66% { opacity: calc(var(--glow-opac) * 0.8); } }
 
-        #particleCanvas { position: fixed; inset: 0; z-index: 3; pointer-events: none; opacity: var(--glow-opac); transition: opacity 0.3s ease; }
+        #particleCanvas { position: fixed; inset: 0; z-index: 3; pointer-events: none; opacity: var(--glow-opac); transition: opacity 0.5s ease; }
 
-        /* --- UI LAYOUT (Mobile First & Centered) --- */
+        /* --- UI LAYOUT & PILL BUTTONS --- */
         #ui-wrapper {
-            position: relative; z-index: 100; height: 100vh; width: 100vw;
-            display: flex; flex-direction: column; align-items: center;
-            transition: opacity 0.8s ease; /* Smooth Fade for Cloak */
+            position: relative; z-index: 100; height: 100dvh; width: 100vw;
+            transition: opacity 0.8s ease; 
         }
         body.cloaked #ui-wrapper { opacity: 0; pointer-events: none; }
 
-        #top-nav { display: flex; gap: 10px; padding: 20px; width: 100%; justify-content: center; flex-wrap: wrap; }
-        
         .nav-logo { 
-            font-size: 1.5rem; letter-spacing: 8px; color: var(--primary); 
-            text-transform: uppercase; text-shadow: 0 0 15px var(--primary-glow); 
-            margin-top: auto; margin-bottom: 20px; text-align: center;
+            font-size: 1.3rem; letter-spacing: 6px; color: var(--primary); 
+            text-transform: uppercase; text-shadow: 0 0 20px var(--primary-glow); 
+            font-family: 'Times New Roman', serif;
         }
 
         .artifact-btn {
-            background: rgba(0,0,0,0.4); backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.3); backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border); color: var(--primary);
-            padding: 10px 20px; border-radius: 30px; cursor: pointer;
-            font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
-            transition: 0.4s ease; font-family: inherit;
+            padding: 10px 22px; border-radius: 50px; cursor: pointer;
+            font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+            transition: all 0.4s ease; font-family: monospace; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-        .artifact-btn:hover { border-color: var(--accent); color: #fff; box-shadow: 0 0 15px var(--primary-glow); }
+        .artifact-btn:hover { border-color: var(--accent); color: #fff; box-shadow: 0 0 20px var(--primary-glow); transform: translateY(-2px); background: rgba(255,255,255,0.05); }
 
         /* --- THE MAKER PANEL --- */
         #maker-panel {
-            width: 95%; max-width: 600px; margin-bottom: 40px;
-            background: var(--glass); backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border); border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            background: var(--glass); backdrop-filter: blur(35px);
+            border: 1px solid var(--glass-border); border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
             display: flex; flex-direction: column; overflow: hidden;
         }
 
-        .tab-bar { display: flex; border-bottom: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); }
+        .tab-bar { display: flex; border-bottom: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); flex-wrap: wrap; flex-shrink: 0; }
         .tab-btn {
-            flex: 1; background: transparent; border: none; color: var(--text-muted);
-            padding: 16px 0; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
-            cursor: pointer; transition: 0.3s; font-family: inherit; border-bottom: 2px solid transparent;
+            flex: 1; min-width: 70px; background: transparent; border: none; color: var(--text-muted);
+            padding: 18px 0; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+            cursor: pointer; transition: 0.3s; font-family: monospace; border-bottom: 2px solid transparent;
         }
-        .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(255,255,255,0.02); }
+        .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(255,255,255,0.03); font-weight: bold; }
         
-        .tab-content { display: none; padding: 20px; max-height: 45vh; overflow-y: auto; }
+        .tab-content { display: none; padding: 25px; overflow-y: auto; flex: 1; }
         .tab-content.active { display: flex; flex-direction: column; gap: 15px; }
         .tab-content::-webkit-scrollbar { width: 4px; }
-        .tab-content::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 2px; }
+        .tab-content::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 50px; }
+
+        /* RESPONSIVE LAYOUT LOGIC */
+        @media (min-width: 850px) {
+            #top-nav { position: absolute; top: 25px; right: 35px; display: flex; gap: 15px; align-items: center; }
+            .nav-logo { position: absolute; top: 30px; left: 35px; margin: 0; }
+            #maker-panel { position: absolute; left: 35px; top: 90px; bottom: 35px; width: 400px; margin: 0; }
+        }
+        @media (max-width: 849px) {
+            #ui-wrapper { display: flex; flex-direction: column; align-items: center; padding-bottom: 20px; overflow-y: auto; }
+            #top-nav { display: flex; gap: 10px; padding: 20px; width: 100%; justify-content: center; flex-wrap: wrap; }
+            .nav-logo { margin: 15px 0; }
+            #maker-panel { width: 95%; max-width: 500px; max-height: 70dvh; border-radius: 25px; }
+            .boot-content { padding: 30px; }
+        }
 
         /* --- CONTROLS --- */
         .upload-zone {
-            border: 1px dashed var(--glass-border); padding: 15px; text-align: center;
-            border-radius: 10px; cursor: pointer; color: var(--text-muted); font-size: 0.7rem;
-            text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--glass-border); padding: 18px; text-align: center;
+            border-radius: 20px; cursor: pointer; color: var(--text-muted); font-size: 0.75rem;
+            text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; background: rgba(0,0,0,0.1);
+            display: block; width: 100%; font-family: monospace;
         }
-        .upload-zone:hover { background: rgba(255,255,255,0.05); color: var(--primary); border-color: var(--primary); }
+        .upload-zone:hover { background: rgba(255,255,255,0.08); color: var(--primary); border-color: var(--primary); transform: translateY(-2px); }
         .upload-zone input { display: none; }
 
-        .btn-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-        @media (max-width: 500px) { .btn-grid { grid-template-columns: repeat(3, 1fr); } }
+        .btn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; }
         
         .toy-btn {
-            background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border);
-            color: var(--text-main); padding: 10px; border-radius: 8px; cursor: pointer;
+            background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
+            color: var(--text-main); padding: 12px; border-radius: 30px; cursor: pointer;
             font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase;
-            transition: 0.3s; font-family: inherit;
+            transition: all 0.3s ease; font-family: monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
-        .toy-btn:hover, .toy-btn.active { border-color: var(--accent); background: rgba(255,255,255,0.05); color: var(--accent); }
+        .toy-btn:hover { border-color: var(--accent); background: rgba(255,255,255,0.1); color: var(--text-main); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .toy-btn.active { border-color: var(--primary); background: var(--primary); color: #000; font-weight: bold; box-shadow: 0 0 15px var(--primary-glow); }
 
-        h4.section-title { margin: 0 0 5px 0; font-size: 0.65rem; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; }
+        h4.section-title { margin: 0 0 8px 0; font-size: 0.7rem; color: var(--primary); letter-spacing: 3px; text-transform: uppercase; opacity: 0.8; font-family: monospace; }
 
         /* --- AUDIO MIXER --- */
         .mixer-card {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 10px 14px; background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; gap: 10px;
+            padding: 12px 18px; background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border); border-radius: 50px; gap: 8px;
+            transition: all 0.3s ease;
         }
-        .mixer-card.playing { border-color: var(--accent); background: rgba(45, 212, 191, 0.05); }
-        .mixer-btn { background: none; border: none; color: var(--text-muted); font-size: 0.8rem; text-align: left; cursor: pointer; font-family: inherit; flex: 1; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .mixer-card.playing .mixer-btn { color: var(--accent); text-shadow: 0 0 10px rgba(45, 212, 191, 0.5); }
-        .mixer-slider { -webkit-appearance: none; width: 80px; height: 3px; background: rgba(255,255,255,0.1); outline: none; border-radius: 2px; }
-        .mixer-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; background: var(--accent); border-radius: 50%; cursor: pointer; box-shadow: 0 0 8px var(--primary-glow); }
+        .mixer-card:hover { background: rgba(255,255,255,0.06); }
+        .mixer-card.playing { border-color: var(--accent); background: rgba(255,255,255,0.1); box-shadow: 0 0 15px rgba(0,0,0,0.2); }
+        .mixer-btn { background: none; border: none; color: var(--text-muted); font-size: 0.85rem; text-align: left; cursor: pointer; font-family: 'Georgia', serif; flex: 1; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: 0.3s; }
+        .mixer-card.playing .mixer-btn { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); font-style: italic; }
+        .mixer-slider { -webkit-appearance: none; width: 60px; height: 4px; background: rgba(255,255,255,0.15); outline: none; border-radius: 50px; }
+        .mixer-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; background: var(--primary); border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px var(--primary-glow); transition: 0.2s; }
+        .mixer-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
 
-        /* --- SLIDERS (Atmos) --- */
-        .ctrl-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-        .ctrl-row label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; width: 80px; }
-        .ctrl-slider { flex: 1; -webkit-appearance: none; height: 3px; background: rgba(255,255,255,0.1); outline: none; border-radius: 2px; accent-color: var(--primary); }
+        .ctrl-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; background: rgba(0,0,0,0.2); padding: 10px 15px; border-radius: 50px; border: 1px solid transparent; transition: 0.3s; }
+        .ctrl-row:hover { border-color: var(--glass-border); }
+        .ctrl-row label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-family: monospace; letter-spacing: 1px; width: 80px; }
+        .ctrl-slider { flex: 1; -webkit-appearance: none; height: 4px; background: rgba(255,255,255,0.15); outline: none; border-radius: 50px; accent-color: var(--primary); }
+        .ctrl-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; background: var(--primary); border-radius: 50%; cursor: pointer; }
 
-        
-        /* --- MODALS (SCRIBE, Cast & QR) --- */
-        #scratchpad-modal, #cast-modal, #qr-modal {
+        /* --- MODALS --- */
+        .modal-overlay {
             position: fixed; inset: 0; z-index: 200; display: none;
-            background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(15px);
             align-items: center; justify-content: center; padding: 20px;
+            animation: fadeIn 0.3s ease;
         }
-        #scratchpad-modal.active, #cast-modal.active, #qr-modal.active { display: flex; }
-        .scratch-bubble {
-            width: 100%; max-width: 500px; height: 300px;
-            background: var(--glass); border: 1px solid var(--glass-border);
-            border-radius: 20px; padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        .scratchpad {
-            width: 100%; height: 100%; background: transparent; border: none;
-            color: #fff; font-family: inherit; font-size: 1.1rem; resize: none; outline: none; line-height: 1.6;
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .modal-overlay.active { display: flex; }
+        
         .cast-box {
-            width: 100%; max-width: 400px; background: var(--glass);
-            border: 1px solid var(--glass-border); border-radius: 20px;
-            padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); text-align: center;
+            width: 100%; max-width: 450px; background: var(--glass);
+            border: 1px solid var(--glass-border); border-radius: 30px;
+            padding: 40px; box-shadow: 0 40px 80px rgba(0,0,0,0.7); text-align: center;
             display: flex; flex-direction: column; align-items: center;
         }
-        
-        /* QR Container Style */
-        #qrcode { background: #fff; padding: 10px; border-radius: 5px; margin-bottom: 10px; }
 
-        /* SomniaScribes vault inside SCRIBE modal */
+        /* CUSTOM NATIVE ALERT UI - MOVED TO THE VERY TOP VISUALLY */
+        #somnia-dialog { z-index: 10000; }
+        #somnia-dialog .cast-box { padding: 35px; max-width: 400px; }
+        .core-input {
+            width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
+            color: var(--primary); padding: 15px; border-radius: 50px; outline: none; font-family: monospace;
+            margin-bottom: 20px; transition: 0.3s; text-align: center;
+        }
+        .core-input:focus { border-color: var(--accent); box-shadow: 0 0 15px var(--primary-glow); background: rgba(0,0,0,0.5); }
+
+        /* --- SOMNIASCRIBES --- */
         .scribes-bubble {
-            width: 100%; max-width: 900px; max-height: 80vh;
-            background: rgba(6, 6, 8, 0.98); border: 1px solid var(--glass-border);
-            border-radius: 20px; padding: 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            display: flex; flex-direction: column; gap: 15px; overflow: hidden;
+            width: 100%; max-width: 950px; height: 85dvh;
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 40px; padding: 35px; box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+            display: flex; flex-direction: column; gap: 20px; overflow: hidden;
+            backdrop-filter: blur(40px);
         }
-
         .archive-vault {
-            width: 100%; height: 55vh; background: rgba(0,0,0,0.8);
-            border: 2px solid var(--primary); padding: 20px; box-sizing: border-box;
+            width: 100%; flex: 1; background: rgba(0,0,0,0.3); overflow: hidden;
+            border: 1px solid var(--glass-border); border-radius: 25px; padding: 20px; box-sizing: border-box;
             display: flex; flex-direction: column; gap: 15px;
-            box-shadow: 0 0 60px #000, inset 0 0 40px var(--primary-glow);
-            backdrop-filter: blur(15px);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
         }
+        .vault-header { border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 15px; }
+        .vault-header h2 { margin: 0; font-size: 1.4rem; letter-spacing: 6px; text-transform: uppercase; color: var(--primary); font-family: 'Times New Roman', serif; }
+        #search-annals { background: rgba(0,0,0,0.2); border: 1px solid transparent; border-bottom: 1px solid var(--glass-border); color: var(--primary); font-family: monospace; font-size: 0.85rem; padding: 8px 12px; outline: none; width: 220px; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; border-radius: 10px 10px 0 0; }
+        #search-annals:focus { border-color: var(--accent); background: rgba(0,0,0,0.4); }
+        
+        .annals-body { flex: 1; overflow-y: auto; padding-right: 10px; scrollbar-width: thin; scrollbar-color: var(--primary) transparent; }
+        .annals-body::-webkit-scrollbar { width: 6px; }
+        .annals-body::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 50px; }
+        
+        .lore-entry { position: relative; margin-bottom: 20px; border-bottom: 1px dashed var(--glass-border); padding-bottom: 15px; }
+        .entry-meta { font-size: 0.65rem; color: var(--primary); opacity: 0.6; letter-spacing: 2px; margin-bottom: 8px; font-family: monospace; }
+        .shred-btn { position: absolute; top: 0; right: 0; background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; opacity: 0.5; transition: 0.3s; }
+        .shred-btn:hover { opacity: 1; color: #fb7185; transform: scale(1.1); }
+        
+        .sticker-bar { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+        .sticker-bar::-webkit-scrollbar { display: none; }
+        .sticker-btn { background: rgba(255,255,255,0.05); border: 1px solid transparent; border-radius: 50px; cursor: pointer; font-size: 1.3rem; padding: 8px 14px; transition: all 0.2s ease; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .sticker-btn:hover { background: rgba(255,255,255,0.15); border-color: var(--glass-border); transform: translateY(-3px); }
 
-        .vault-header {
-            border-bottom: 2px solid var(--primary); padding-bottom: 10px;
-            display: flex; justify-content: space-between; align-items: flex-end;
-        }
+        .editor-container { display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 25px; border: 1px solid var(--glass-border); }
+        .lore-input { background: transparent; border: none; border-left: 2px solid var(--primary); color: var(--text-main); padding: 10px 15px; outline: none; resize: none; font-family: 'Georgia', serif; font-size: 1.05rem; width: 100%; line-height: 1.6; }
+        
+        /* CLICKABLE IMAGE PREVIEW */
+        .media-preview-img { max-width: 200px; max-height: 200px; object-fit: cover; border-radius: 15px; border: 1px solid var(--glass-border); margin-top: 10px; display: block; cursor: zoom-in; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .media-preview-img:hover { border-color: var(--primary); transform: scale(1.02); }
+        
+        .lore-actions { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
 
-        .vault-header h2 {
-            margin: 0; font-size: 1.2rem; letter-spacing: 10px;
-            text-transform: uppercase; color: var(--primary);
-            text-shadow: 0 0 20px var(--primary-glow);
-        }
+        .command-array { display: flex; gap: 12px; flex-wrap: wrap; width: 100%; justify-content: center; }
+        .kore-footer { font-size: 0.6rem; opacity: 0.4; letter-spacing: 5px; text-transform: uppercase; text-align: center; width: 100%; font-family: monospace; margin-top: 5px; }
 
-        #search-annals {
-            background: rgba(0,0,0,0.5); border: none; border-bottom: 1px solid var(--primary);
-            color: var(--primary); font-family: monospace; font-size: 0.8rem;
-            padding: 5px; outline: none; width: 180px;
-            text-transform: uppercase; letter-spacing: 2px;
-        }
-
-        .annals-body {
-            flex: 1; overflow-y: auto; padding-right: 10px; scrollbar-width: none;
-        }
-
-        .annals-body::-webkit-scrollbar { display: none; }
-
-        .lore-entry {
-            position: relative; margin-bottom: 15px; border-bottom: 1px solid rgba(212,175,55,0.15); padding-bottom: 10px;
-        }
-
-        .entry-meta {
-            font-size: 0.6rem; color: var(--primary); opacity: 0.6; letter-spacing: 2px; margin-bottom: 4px;
-        }
-
-        .shred-btn {
-            position: absolute; top: 0; right: 0; background: transparent;
-            border: none; color: var(--primary); font-size: 1rem; cursor: pointer;
-            opacity: 0.4; transition: 0.3s;
-        }
-
-        .shred-btn:hover { opacity: 1; color: #ff4444; }
-
-        .lore-input {
-            background: rgba(0,0,0,0.6); border: none; border-left: 4px solid var(--primary);
-            color: var(--primary); padding: 12px; outline: none; resize: none;
-            font-family: monospace; font-size: 0.95rem;
-        }
-
-        .command-array { display: flex; gap: 10px; flex-wrap: wrap; width: 100%; }
-
-        .lux-btn {
-            background: rgba(0,0,0,0.7); border: 1px solid var(--primary);
-            color: var(--primary); padding: 10px; cursor: pointer;
-            font-size: 0.6rem; text-transform: uppercase; letter-spacing: 3px;
-            flex: 1; text-align: center; transition: 0.3s;
-        }
-
-        .lux-btn:hover { background: var(--primary-glow); box-shadow: 0 0 20px var(--primary-glow); }
-
-        .kore-footer {
-            font-size: 0.55rem; opacity: 0.4; letter-spacing: 6px;
-            text-transform: uppercase; text-align: center; width: 100%;
-        }
+        /* LIGHTBOX FOR IMAGES */
+        #lightbox-img { max-width: 90vw; max-height: 90dvh; border-radius: 20px; box-shadow: 0 30px 80px rgba(0,0,0,0.9); object-fit: contain; }
 
         @media (max-width: 600px) {
-            .scribes-bubble { padding: 15px; max-height: 85vh; }
-            .archive-vault { height: 50vh; padding: 15px; }
-            .vault-header { flex-direction: column; align-items: flex-start; gap: 8px; }
-            #search-annals { width: 100%; box-sizing: border-box; }
+            .scribes-bubble { padding: 20px; height: 95dvh; border-radius: 25px; }
+            .archive-vault { padding: 15px; border-radius: 15px; }
+            .vault-header { flex-direction: column; align-items: flex-start; }
+            #search-annals { width: 100%; }
         }
     </style>
 </head>
-<body id="os-body" class="lunar-mode" onclick="restoreUI()">
+<body id="os-body" onclick="restoreUI()">
+
+    <!-- BOOT SCREEN -->
+    <div id="boot-screen">
+        <div class="kore-orb"></div>
+        <div class="boot-content">
+            <h1 class="boot-title">SOMNIASCAPES</h1>
+            <p class="boot-disclaimer">
+                Oh, hello there! Welcome to your cozy little corner of the internet.<br><br>
+                Grab a blanket, maybe some tea, and prepare to perceive time as a mere suggestion. <br><br>This is just a little treat for your brain, not a medical device. Everything you make stays right here securely on your device. Let's make some magic! ✨
+            </p>
+            <button class="artifact-btn" style="padding: 16px 45px; font-size: 1rem; border-color: var(--accent); border-radius: 50px;" onclick="startEngine()">ENTER THE VIBE</button>
+        </div>
+    </div>
+
+    <!-- CUSTOM NATIVE DIALOG (NOW FRONT ROW CENTER) -->
+    <div id="somnia-dialog" class="modal-overlay">
+        <div class="cast-box">
+            <h3 id="dialog-title" style="color: var(--primary); letter-spacing: 4px; margin-top: 0; text-transform: uppercase; font-family: 'Times New Roman', serif;">Notice</h3>
+            <p id="dialog-msg" style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; font-family: 'Georgia', serif; font-style: italic;"></p>
+            <input type="text" id="dialog-input" class="core-input" style="display:none;">
+            <div style="display:flex; gap:15px; width:100%;">
+                <button id="dialog-cancel" class="toy-btn" style="flex:1;">Nevermind</button>
+                <button id="dialog-confirm" class="toy-btn" style="flex:1; border-color:var(--accent); background: rgba(255,255,255,0.05); color: var(--text-main);">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- IMAGE LIGHTBOX MODAL -->
+    <div id="lightbox-modal" class="modal-overlay" onclick="toggleModal('lightbox-modal')">
+        <img id="lightbox-img" src="" alt="Journal entry full size">
+    </div>
 
     <div id="bg-anchor"></div>
     <div id="glow-layer" class="glow-pulse"></div>
     <canvas id="particleCanvas"></canvas>
 
     <div id="ui-wrapper">
-        <div id="top-nav" onclick="event.stopPropagation()">
-            <button class="artifact-btn" onclick="toggleCloak()">Cloak</button>
-            <button class="artifact-btn" onclick="toggleScratch()">SCRIBE</button>
-            <button class="artifact-btn" onclick="toggleCast()">Full Screen</button>
-            <button id="shareButton" class="artifact-btn">Share</button>
-        </div>
-
         <div class="nav-logo">SOMNIASCAPES</div>
+        
+        <div id="top-nav" onclick="event.stopPropagation()">
+            <button class="artifact-btn" onclick="toggleCloak()">Cloak UI</button>
+            <button class="artifact-btn" onclick="toggleModal('scratchpad-modal')">Journal</button>
+            <button class="artifact-btn" onclick="toggleModal('cast-modal')">Project</button>
+            <button class="artifact-btn" onclick="shareSomnia()">Share Vibe</button>
+        </div>
 
         <main id="maker-panel" onclick="event.stopPropagation()">
             <div class="tab-bar">
@@ -315,120 +364,254 @@
             </div>
 
             <div id="tab-audio" class="tab-content active">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <label class="toy-btn" style="flex:1; text-align:center; margin-right:10px;">
-                        + Upload Custom Audio
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                    <label class="toy-btn" style="flex:1; text-align:center; border-color: var(--accent);">
+                        ✨ Add Custom Sound
                         <input type="file" style="display:none;" accept="audio/*" onchange="handleAudioUpload(this)">
                     </label>
-                    <button class="toy-btn" onclick="stopAllAudio()" style="border-color:#ec4899; color:#ec4899;">Silence All</button>
+                    <button class="toy-btn" onclick="stopAllAudio()" style="border-color:#fb7185; color:#fb7185; background: rgba(251,113,133,0.05);">Shh!</button>
                 </div>
-                <div id="mixer-container" style="display:flex; flex-direction:column; gap:8px;"></div>
+                <div id="mixer-container" style="display:flex; flex-direction:column; gap:10px; margin-top: 10px;"></div>
             </div>
 
             <div id="tab-canvas" class="tab-content">
-                <h4 class="section-title">Backgrounds</h4>
-                <div class="btn-grid" id="bg-presets"></div>
-
-                <h4 class="section-title" style="margin-top:10px;">Custom</h4>
-                <label class="upload-zone">
-                    <span>+ Upload Local Background Image</span>
+                <h4 class="section-title">Your Masterpieces</h4>
+                <label class="upload-zone" style="margin-bottom: 15px;">
+                    <span style="display:block; margin-bottom: 5px;">🖼️ Upload Local Background</span>
+                    <span style="font-size: 0.6rem; opacity: 0.6; font-style: italic;">(It's safe, we promise!)</span>
                     <input type="file" accept="image/*" onchange="executeImageUpload(this)">
                 </label>
+                <div id="custom-bgs" style="display:flex; flex-direction:column; gap: 10px;">
+                    <!-- Populated by DB -->
+                </div>
             </div>
 
             <div id="tab-atmos" class="tab-content">
-                <h4 class="section-title">10 Color Arrays</h4>
+                <h4 class="section-title">Color Palettes</h4>
                 <div class="btn-grid" id="color-grid"></div>
 
-                <h4 class="section-title" style="margin-top:10px;">10 Particles</h4>
+                <h4 class="section-title" style="margin-top:20px;">Sprinkles (Particles)</h4>
                 <div class="btn-grid" id="particle-grid"></div>
 
-                <h4 class="section-title" style="margin-top:10px;">10 Screen Glows</h4>
+                <h4 class="section-title" style="margin-top:20px;">Glow Styles</h4>
                 <div class="btn-grid" id="glow-grid"></div>
 
-                <h4 class="section-title" style="margin-top:10px;">Particle Colors</h4>
+                <h4 class="section-title" style="margin-top:20px;">Sprinkle Colors</h4>
                 <div class="btn-grid" id="particle-color-grid"></div>
 
-                <h4 class="section-title" style="margin-top:10px;">Glow Colors</h4>
+                <h4 class="section-title" style="margin-top:20px;">Glow Colors</h4>
                 <div class="btn-grid" id="glow-color-grid"></div>
 
-                <h4 class="section-title" style="margin-top:10px;">Master Sliders</h4>
-                <div class="ctrl-row"><label>Speed</label><input type="range" class="ctrl-slider" min="1" max="20" value="10" oninput="updateVar('--anim-speed', (21-this.value)+'s')"></div>
-                <div class="ctrl-row"><label>Opacity</label><input type="range" class="ctrl-slider" min="0" max="1" step="0.1" value="0.3" oninput="updateVar('--glow-opac', this.value)"></div>
-                <div class="ctrl-row"><label>Brightness</label><input type="range" class="ctrl-slider" min="0.2" max="2" step="0.1" value="0.85" oninput="updateVar('--bg-bright', this.value)"></div>
-                <div class="ctrl-row"><label>Zoom</label><input type="range" class="ctrl-slider" min="1" max="2" step="0.1" value="1" oninput="updateVar('--bg-zoom', this.value)"></div>
-                <div class="ctrl-row"><label>Density</label><input type="range" class="ctrl-slider" min="10" max="200" value="50" step="10" oninput="updateParticleDensity(this.value)"></div>
-                <div class="ctrl-row"><label>Low GPU</label><input type="checkbox" id="lowGpuToggle" onclick="toggleLowGpu()"></div>
+                <h4 class="section-title" style="margin-top:25px;">Engine Tweaks</h4>
+                <div class="ctrl-row"><label>Speed</label><input type="range" class="ctrl-slider" id="speed-slider" min="1" max="20" value="10" oninput="updateVar('--anim-speed', (21-this.value)+'s'); saveCurrentState();"></div>
+                <div class="ctrl-row"><label>Opacity</label><input type="range" class="ctrl-slider" id="opac-slider" min="0" max="1" step="0.1" value="0.3" oninput="updateVar('--glow-opac', this.value); saveCurrentState();"></div>
+                <div class="ctrl-row"><label>Brightness</label><input type="range" class="ctrl-slider" id="bright-slider" min="0.2" max="2" step="0.1" value="0.85" oninput="updateVar('--bg-bright', this.value); saveCurrentState();"></div>
+                <div class="ctrl-row"><label>Zoom</label><input type="range" class="ctrl-slider" id="zoom-slider" min="1" max="2" step="0.1" value="1" oninput="updateVar('--bg-zoom', this.value); saveCurrentState();"></div>
+                <div class="ctrl-row"><label>Density</label><input type="range" class="ctrl-slider" id="density-slider" min="10" max="200" value="50" step="10" oninput="updateParticleDensity(this.value); saveCurrentState();"></div>
+                <div class="ctrl-row" style="margin-top: 5px;"><label>Low GPU</label><input type="checkbox" id="lowGpuToggle" style="accent-color: var(--primary); transform: scale(1.2);" onclick="toggleLowGpu()"></div>
             </div>
 
             <div id="tab-vault" class="tab-content">
-                <button class="toy-btn" id="save-btn" style="border-color: var(--primary); padding: 15px;" onclick="savePreset()">💾 Save Current Vibe Preset</button>
+                <button class="toy-btn" id="save-btn" style="border-color: var(--primary); padding: 18px; font-size: 0.75rem; border-radius: 50px;" onclick="savePreset()">💖 Save This Vibe to Vault</button>
+                <div id="vault-list" style="display:flex; flex-direction:column; gap:12px; margin-top:15px;"></div>
             </div>
         </main>
     </div>
 
-    <div id="scratchpad-modal" onclick="toggleScratch()">
+    <!-- SCRIBES MODAL -->
+    <div id="scratchpad-modal" class="modal-overlay" onclick="toggleModal('scratchpad-modal')">
         <div class="scribes-bubble" onclick="event.stopPropagation()">
             <div class="archive-vault">
                 <div class="vault-header">
                     <div>
                         <h2>SomniaScribes</h2>
-                        <div style="font-size: 0.55rem; opacity: 0.5; letter-spacing: 5px;">SOVEREIGN SOMATIC MEMORY</div>
+                        <div style="font-size: 0.65rem; opacity: 0.6; letter-spacing: 4px; font-family: monospace;">YOUR COZY THOUGHT LOG</div>
                     </div>
-                    <input type="text" id="search-annals" placeholder="SEARCH..." oninput="renderAnnals()">
+                    <input type="text" id="search-annals" placeholder="Find a memory..." oninput="renderAnnals()">
                 </div>
 
                 <div id="annals" class="annals-body"></div>
-                <textarea id="lore-editor" class="lore-input" rows="3" placeholder="BEGIN A NEW ENTRY... [ENTER TO COMMIT]"></textarea>
+                
+                <div class="editor-container">
+                    <div class="sticker-bar" id="sticker-bar"></div>
+                    <textarea id="lore-editor" class="lore-input" rows="3" placeholder="Pour out a cozy thought here... [ENTER to save]"></textarea>
+                    
+                    <div class="lore-actions">
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <label class="toy-btn" style="padding: 8px 16px; font-size:0.65rem; border-color:var(--glass-border);">
+                                📸 Attach Memory
+                                <input type="file" style="display:none;" accept="image/*" onchange="handleJournalMedia(this)">
+                            </label>
+                            <span id="journal-media-name" style="font-size:0.65rem; color:var(--accent); font-family:monospace;"></span>
+                        </div>
+                        <button class="toy-btn" style="padding: 8px 25px; border-color:var(--accent); background:rgba(255,255,255,0.05); color:var(--text-main);" onclick="commitLore()">Jot it Down ✨</button>
+                    </div>
+                </div>
             </div>
 
             <div class="command-array">
-                <button class="lux-btn" onclick="jolt('noir')">Noir</button>
-                <button class="lux-btn" onclick="jolt('lunar')">Lunar</button>
-                <button class="lux-btn" onclick="jolt('vellum')">Vellum</button>
-                <button class="lux-btn" onclick="jolt('amethyst')">Amethyst</button>
-                <button class="lux-btn" onclick="exportVault()">Export JSON</button>
-                <button class="lux-btn" onclick="document.getElementById('import-trigger').click()">Import JSON</button>
+                <button class="toy-btn" onclick="jolt('noir')">Noir</button>
+                <button class="toy-btn" onclick="jolt('lunar')">Lunar</button>
+                <button class="toy-btn" onclick="jolt('amethyst')">Amethyst</button>
+                <button class="toy-btn" style="border-color: rgba(255,255,255,0.1);" onclick="exportScribes()">Export Journal</button>
+                <button class="toy-btn" style="border-color: rgba(255,255,255,0.1);" onclick="document.getElementById('import-trigger').click()">Import Journal</button>
             </div>
 
-            <div class="kore-footer">© 2026 PROJECT KORE LLC // SOMNIASCRIBES</div>
-            <input type="file" id="import-trigger" style="display:none" accept=".json" onchange="importVault(event)">
+            <div class="kore-footer">© 2026 SOMNIASCRIBES</div>
+            <input type="file" id="import-trigger" style="display:none" accept=".json" onchange="importScribes(event)">
         </div>
     </div>
 
-    <div id="cast-modal" onclick="toggleCast()">
+    <!-- CAST MODAL -->
+    <div id="cast-modal" class="modal-overlay" onclick="toggleModal('cast-modal')">
         <div class="cast-box" onclick="event.stopPropagation()">
-            <h3 style="color: var(--primary); letter-spacing: 3px; margin-top: 0; margin-bottom: 5px;">PROJECTOR MODE</h3>
-            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px;">
-                SomniaScapes runs a live, multi-track rendering engine. To project the full visual and audio experience to a TV, use your browser's native Tab Mirroring.
+            <h3 style="color: var(--primary); letter-spacing: 4px; margin-top: 0; margin-bottom: 15px; font-family: 'Times New Roman', serif;">PROJECT TO THE BIG SCREEN</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; font-family: 'Georgia', serif; font-style: italic;">
+                Want to make your room entirely magical? Use your browser's Tab Mirroring to cast this cozy chaos to your TV!
             </p>
-            <button class="toy-btn" style="width: 100%; margin-bottom: 15px; padding: 15px; border-color: var(--accent); color: var(--accent);" onclick="toggleFullscreen()">⛶ Enter Fullscreen (Local Monitor)</button>
-            
-            <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);">
-                <p style="font-size: 0.75rem; color: var(--primary); margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px;">How to Cast to TV:</p>
-                <p style="font-size: 0.7rem; color: var(--text-muted); line-height: 1.6; margin: 0; text-align: left;">
-                    1. Right-click anywhere on the background (or open your browser menu).<br>
-                    2. Select <b>"Cast..."</b><br>
-                    3. Choose your TV/Display from the list.<br>
-                    <i>* Ensure "Cast Tab" is selected in the cast sources menu.</i>
-                </p>
-            </div>
+            <button class="toy-btn" style="width: 100%; margin-bottom: 10px; padding: 18px; border-color: var(--accent); color: var(--text-main); font-size: 0.8rem; border-radius: 50px;" onclick="toggleFullscreen()">⛶ Fill The Screen</button>
         </div>
     </div>
 
-    <div id="qr-modal" onclick="toggleQR()">
+    <!-- SHARE MODAL (Fallback for non-mobile) -->
+    <div id="share-modal" class="modal-overlay" onclick="toggleModal('share-modal')">
         <div class="cast-box" onclick="event.stopPropagation()">
-            <h3 style="color: var(--primary); letter-spacing: 3px; margin-top: 0; margin-bottom: 5px;">LOCAL UPLOAD</h3>
-            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
-                Scan this code with your phone to open the local companion portal and beam custom audio/images directly to this display.
+            <h3 style="color: var(--primary); letter-spacing: 4px; margin-top: 0; margin-bottom: 10px; font-family: 'Times New Roman', serif;">SHARE THE VIBE</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; font-family: 'Georgia', serif; font-style: italic;">
+                Your perfect little ecosystem is ready to be shared. Send this magical link to a friend!
             </p>
-            <div id="qrcode"></div>
-            <p style="font-size: 0.65rem; color: var(--text-muted); margin-top: 15px;">Network Portal: <span style="color: var(--accent);">http://somniascapes.local</span></p>
+            <input type="text" id="share-link-input" readonly style="width:100%; margin-top: 10px; background: rgba(0,0,0,0.3); border: 1px solid var(--primary); color: var(--primary); font-family: monospace; font-size: 0.8rem; padding: 15px; outline: none; border-radius: 50px; text-align: center; cursor: pointer;" onclick="this.select(); document.execCommand('copy'); somniaAlert('Yay!', 'Link happily copied to your clipboard! ✨');">
+            <p style="font-size: 0.6rem; opacity: 0.6; margin-top: 15px; font-family: monospace;">(Click the box to copy!)</p>
         </div>
     </div>
 
     <script>
-        // === 1. GLOBAL UI ===
+        // Set Default Aesthetic Mode on Root immediately
+        document.documentElement.className = 'lunar-mode';
+
+        // === 0. SOMNIADB (IndexedDB) - Fixes 5MB LocalStorage Limit ===
+        const dbPromise = new Promise((resolve, reject) => {
+            const req = indexedDB.open('SomniaDB', 1);
+            req.onupgradeneeded = e => {
+                const db = e.target.result;
+                if (!db.objectStoreNames.contains('media')) db.createObjectStore('media');
+            };
+            req.onsuccess = e => resolve(e.target.result);
+            req.onerror = e => reject(e);
+        });
+
+        async function saveMedia(key, blob) {
+            const db = await dbPromise;
+            const tx = db.transaction('media', 'readwrite');
+            tx.objectStore('media').put(blob, key);
+        }
+
+        async function getMedia(key) {
+            const db = await dbPromise;
+            return new Promise(resolve => {
+                const req = db.transaction('media').objectStore('media').get(key);
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => resolve(null);
+            });
+        }
+        
+        async function getAllMediaKeys() {
+            const db = await dbPromise;
+            return new Promise(resolve => {
+                const req = db.transaction('media').objectStore('media').getAllKeys();
+                req.onsuccess = () => resolve(req.result);
+            });
+        }
+
+        async function deleteMedia(key) {
+            const db = await dbPromise;
+            const tx = db.transaction('media', 'readwrite');
+            tx.objectStore('media').delete(key);
+            localStorage.removeItem('somnia_name_' + key);
+        }
+
+        // === 0.5. CUSTOM NATIVE ALERTS & PROMPTS ===
+        function somniaAlert(title, msg) {
+            return new Promise(resolve => {
+                const modal = document.getElementById('somnia-dialog');
+                document.getElementById('dialog-title').innerText = title;
+                document.getElementById('dialog-msg').innerText = msg;
+                document.getElementById('dialog-input').style.display = 'none';
+                document.getElementById('dialog-cancel').style.display = 'none';
+                
+                const confirmBtn = document.getElementById('dialog-confirm');
+                confirmBtn.innerText = "OKAY!";
+                confirmBtn.onclick = () => { modal.classList.remove('active'); resolve(true); };
+                
+                modal.classList.add('active');
+            });
+        }
+
+        function somniaPrompt(title, msg, defaultVal = "") {
+            return new Promise(resolve => {
+                const modal = document.getElementById('somnia-dialog');
+                document.getElementById('dialog-title').innerText = title;
+                document.getElementById('dialog-msg').innerText = msg;
+                
+                const input = document.getElementById('dialog-input');
+                input.style.display = 'block';
+                input.value = defaultVal;
+                
+                document.getElementById('dialog-cancel').style.display = 'block';
+                document.getElementById('dialog-cancel').onclick = () => { modal.classList.remove('active'); resolve(null); };
+                
+                const confirmBtn = document.getElementById('dialog-confirm');
+                confirmBtn.innerText = "SAVE IT";
+                confirmBtn.onclick = () => { modal.classList.remove('active'); resolve(input.value); };
+                
+                modal.classList.add('active');
+                input.focus();
+            });
+        }
+
+        function somniaConfirm(title, msg) {
+            return new Promise(resolve => {
+                const modal = document.getElementById('somnia-dialog');
+                document.getElementById('dialog-title').innerText = title;
+                document.getElementById('dialog-msg').innerText = msg;
+                document.getElementById('dialog-input').style.display = 'none';
+                
+                document.getElementById('dialog-cancel').style.display = 'block';
+                document.getElementById('dialog-cancel').onclick = () => { modal.classList.remove('active'); resolve(false); };
+                
+                const confirmBtn = document.getElementById('dialog-confirm');
+                confirmBtn.innerText = "YES, TRASH IT";
+                confirmBtn.style.color = "#fb7185";
+                confirmBtn.style.borderColor = "#fb7185";
+                confirmBtn.onclick = () => { 
+                    modal.classList.remove('active'); 
+                    confirmBtn.style.color = "var(--text-main)";
+                    confirmBtn.style.borderColor = "var(--accent)";
+                    resolve(true); 
+                };
+                
+                modal.classList.add('active');
+            });
+        }
+
+        // === 1. BOOT SEQUENCE ===
+        async function startEngine() {
+            const bootScreen = document.getElementById('boot-screen');
+            bootScreen.style.opacity = '0';
+            
+            if(!window.location.search) await restoreActiveState();
+
+            // 🔥 Start the cozy fire if it isn't playing!
+            if (!activeAudio['fire']) {
+                toggleStem('fire', 'fire.mp3');
+                const fireSlider = document.getElementById('vol-fire');
+                if(fireSlider) fireSlider.value = 0.5; // Cozy default volume
+            }
+            
+            setTimeout(() => { bootScreen.remove(); }, 1500);
+        }
+
+        // === 2. GLOBAL UI ===
         function switchTab(tabId, btn) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -438,69 +621,213 @@
 
         function toggleCloak() { document.body.classList.toggle('cloaked'); }
         function restoreUI() { document.body.classList.remove('cloaked'); }
-        
-        function toggleScratch() { document.getElementById('scratchpad-modal').classList.toggle('active'); }
-        function toggleCast() { document.getElementById('cast-modal').classList.toggle('active'); }
-        function toggleQR() { document.getElementById('qr-modal').classList.toggle('active'); }
+        function toggleModal(modalId) { document.getElementById(modalId).classList.toggle('active'); }
         
         function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(e => console.log(e));
-            } else {
-                document.exitFullscreen();
-            }
-            toggleCast();
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(e => console.log(e));
+            else document.exitFullscreen();
+            toggleModal('cast-modal');
         }
 
         function updateVar(name, val) { document.documentElement.style.setProperty(name, val); }
 
+        function viewImage(src) {
+            document.getElementById('lightbox-img').src = src;
+            toggleModal('lightbox-modal');
+        }
+
+        // === 3. BACKGROUNDS & PERSISTENCE ===
+        async function loadCustomBackgrounds(reload = false) {
+            const grid = document.getElementById('custom-bgs');
+            if(reload) grid.innerHTML = '';
+            const keys = await getAllMediaKeys();
+            const bgKeys = keys.filter(k => k.startsWith('bg_'));
+            
+            for(let key of bgKeys) {
+                const blob = await getMedia(key);
+                if(blob) {
+                    const savedName = localStorage.getItem('somnia_name_' + key) || "🖼️ Cozy Pic " + key.replace('bg_', '').substring(0, 3);
+                    addBgButton(URL.createObjectURL(blob), key, savedName);
+                }
+            }
+        }
+
+        function addBgButton(imgUrl, key, name) {
+            const grid = document.getElementById('custom-bgs');
+            const wrap = document.createElement('div');
+            wrap.style.display = 'flex'; wrap.style.gap = '8px';
+            wrap.style.width = '100%';
+            
+            const btn = document.createElement('button');
+            btn.className = 'toy-btn';
+            btn.style.flex = "1";
+            btn.textContent = name;
+            
+            btn.onclick = () => {
+                grid.querySelectorAll('.toy-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('bg-anchor').style.backgroundImage = `url('${imgUrl}')`;
+                localStorage.setItem('somnia_active_bg_key', key);
+                saveCurrentState();
+            };
+
+            const editBtn = document.createElement('button');
+            editBtn.className = 'toy-btn';
+            editBtn.innerHTML = '✏️';
+            editBtn.style.padding = '0 15px';
+            editBtn.onclick = () => renameCustomItem(key, 'bg');
+
+            const delBtn = document.createElement('button');
+            delBtn.className = 'toy-btn';
+            delBtn.innerHTML = '✕';
+            delBtn.style.padding = '0 15px';
+            delBtn.style.color = '#fb7185';
+            delBtn.style.borderColor = 'rgba(251,113,133,0.3)';
+            delBtn.onclick = async () => {
+                const confirmed = await somniaConfirm("TRASH THIS CANVAS?", "Are you sure you want to delete this custom background? It will be gone forever.");
+                if(confirmed) {
+                    await deleteMedia(key);
+                    if(localStorage.getItem('somnia_active_bg_key') === key) {
+                        document.getElementById('bg-anchor').style.backgroundImage = "url('somniascribes.png')";
+                        localStorage.removeItem('somnia_active_bg_key');
+                    }
+                    await loadCustomBackgrounds(true);
+                }
+            };
+
+            wrap.appendChild(btn);
+            wrap.appendChild(editBtn);
+            wrap.appendChild(delBtn);
+            grid.prepend(wrap);
+        }
+
+        async function renameCustomItem(key, type) {
+            const currentName = localStorage.getItem('somnia_name_' + key) || "";
+            const newName = await somniaPrompt("RENAME THIS GEM", "What should we call this?", currentName);
+            if (newName) {
+                localStorage.setItem('somnia_name_' + key, newName);
+                if (type === 'audio') {
+                    customAudioLibrary = []; 
+                    await loadCustomAudio(true);
+                } else if (type === 'bg') {
+                    await loadCustomBackgrounds(true);
+                }
+            }
+        }
+
         function executeImageUpload(input) {
             if (!input.files || !input.files[0]) return;
-            
             const file = input.files[0];
+            const key = 'bg_' + Date.now();
+            
             const reader = new FileReader();
-            
-            reader.onload = e => {
-                const imgData = e.target.result;
-                const bgAnchor = document.getElementById('bg-anchor');
-                bgAnchor.style.backgroundImage = `url('${imgData}')`;
-                
-                const grid = document.getElementById('bg-presets');
-                grid.querySelectorAll('.toy-btn').forEach(b => b.classList.remove('active'));
-                
-                const btn = document.createElement('button');
-                btn.className = 'toy-btn active';
-                btn.textContent = "📁 " + file.name.substring(0, 6);
-                btn.onclick = () => {
-                    grid.querySelectorAll('.toy-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    bgAnchor.style.backgroundImage = `url('${imgData}')`;
+            reader.onload = async (e) => {
+                const img = new Image();
+                img.onload = async () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const MAX_WIDTH = 1920;
+                    let width = img.width; let height = img.height;
+                    
+                    if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
+                    canvas.width = width; canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    canvas.toBlob(async (blob) => {
+                        await saveMedia(key, blob);
+                        const customName = await somniaPrompt("NAME THIS VIBE", "What should we call this masterpiece?", "My Cozy Vibe");
+                        const finalName = customName || "🖼️ Custom Canvas";
+                        localStorage.setItem('somnia_name_' + key, finalName);
+
+                        const imgUrl = URL.createObjectURL(blob);
+                        addBgButton(imgUrl, key, finalName);
+                        
+                        document.getElementById('bg-anchor').style.backgroundImage = `url('${imgUrl}')`;
+                        localStorage.setItem('somnia_active_bg_key', key);
+                        saveCurrentState();
+                    }, 'image/jpeg', 0.85);
                 };
-                
-                grid.prepend(btn); 
+                img.src = e.target.result;
             };
-            
             reader.readAsDataURL(file);
             input.value = ""; 
         }
 
-        // === 2. VAULT MEMORY ENGINE (Wired to LocalStorage) ===
-        let savedVault = JSON.parse(localStorage.getItem('somniaVault')) || [];
-
-        function savePreset() {
-            const btn = document.getElementById('save-btn');
-            btn.innerText = "✓ SAVED TO VAULT";
-            btn.style.background = "rgba(45, 212, 191, 0.2)";
-            setTimeout(() => { btn.innerText = "💾 Save Current Vibe Preset"; btn.style.background = "rgba(0,0,0,0.4)"; }, 2000);
-
+        function saveCurrentState() {
             const state = {
-                name: "Vibe Protocol " + (savedVault.length + 1),
-                bodyClass: document.body.className,
+                bodyClass: document.documentElement.className.replace('cloaked', '').trim(),
                 glowClass: document.getElementById('glow-layer').className,
                 particleType: window.particleType,
                 particleCount: window.particleCount,
-                bgImage: document.getElementById('bg-anchor').style.backgroundImage,
-                bgColor: document.getElementById('bg-anchor').style.background,
+                vars: {
+                    speed: getComputedStyle(document.documentElement).getPropertyValue('--anim-speed').trim(),
+                    opac: getComputedStyle(document.documentElement).getPropertyValue('--glow-opac').trim(),
+                    bright: getComputedStyle(document.documentElement).getPropertyValue('--bg-bright').trim(),
+                    zoom: getComputedStyle(document.documentElement).getPropertyValue('--bg-zoom').trim(),
+                    pColor: getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim(),
+                    gColor: getComputedStyle(document.documentElement).getPropertyValue('--glow-color').trim()
+                }
+            };
+            localStorage.setItem('somnia_active_state', JSON.stringify(state));
+        }
+
+        async function restoreActiveState() {
+            try {
+                const stateStr = localStorage.getItem('somnia_active_state');
+                const activeBgKey = localStorage.getItem('somnia_active_bg_key');
+                
+                if (activeBgKey) {
+                    const blob = await getMedia(activeBgKey);
+                    if(blob) {
+                        document.getElementById('bg-anchor').style.backgroundImage = `url('${URL.createObjectURL(blob)}')`;
+                    } else {
+                        document.getElementById('bg-anchor').style.backgroundImage = "url('somniascribes.png')";
+                    }
+                }
+
+                if (stateStr) {
+                    const state = JSON.parse(stateStr);
+                    document.documentElement.className = state.bodyClass || 'lunar-mode';
+                    document.getElementById('glow-layer').className = state.glowClass || 'glow-pulse';
+                    window.particleType = state.particleType || 'dust';
+                    window.particleCount = state.particleCount || 50;
+
+                    if (state.vars) {
+                        updateVar('--anim-speed', state.vars.speed);
+                        updateVar('--glow-opac', state.vars.opac);
+                        updateVar('--bg-bright', state.vars.bright);
+                        updateVar('--bg-zoom', state.vars.zoom);
+                        updateVar('--particle-color', state.vars.pColor);
+                        updateVar('--glow-color', state.vars.gColor);
+                        
+                        if(document.getElementById('speed-slider')) document.getElementById('speed-slider').value = 21 - parseInt(state.vars.speed);
+                        if(document.getElementById('opac-slider')) document.getElementById('opac-slider').value = state.vars.opac;
+                        if(document.getElementById('bright-slider')) document.getElementById('bright-slider').value = state.vars.bright;
+                        if(document.getElementById('zoom-slider')) document.getElementById('zoom-slider').value = state.vars.zoom;
+                        if(document.getElementById('density-slider')) document.getElementById('density-slider').value = state.particleCount;
+                    }
+                }
+            } catch (e) { console.log("State restore error", e); }
+        }
+
+        // === 4. VAULT PRESETS ===
+        let savedVault = JSON.parse(localStorage.getItem('somniaVault')) || [];
+
+        async function savePreset() {
+            let presetName = await somniaPrompt("VAULT THIS VIBE", "Name your gorgeous aesthetic setup:", "Cozy Setting " + (savedVault.length + 1));
+            if (!presetName) return; 
+
+            const btn = document.getElementById('save-btn');
+            btn.innerText = "✓ SAVED!";
+            setTimeout(() => { btn.innerText = "💖 Save This Vibe to Vault"; }, 2000);
+
+            const state = {
+                name: presetName,
+                bodyClass: document.documentElement.className.replace('cloaked', '').trim(),
+                glowClass: document.getElementById('glow-layer').className,
+                particleType: window.particleType,
+                particleCount: window.particleCount,
+                bgKey: localStorage.getItem('somnia_active_bg_key'), 
                 vars: {
                     speed: getComputedStyle(document.documentElement).getPropertyValue('--anim-speed').trim(),
                     opac: getComputedStyle(document.documentElement).getPropertyValue('--glow-opac').trim(),
@@ -509,86 +836,78 @@
                     pColor: getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim(),
                     gColor: getComputedStyle(document.documentElement).getPropertyValue('--glow-color').trim()
                 },
-                audio: Object.keys(activeAudio).map(id => ({
-                    id: id,
-                    vol: document.getElementById(`vol-${id}`).value
-                }))
+                audio: Object.keys(activeAudio).map(id => ({ id: id, vol: document.getElementById(`vol-${id}`).value }))
             };
 
             savedVault.push(state);
-            
-            try {
-                localStorage.setItem('somniaVault', JSON.stringify(savedVault));
-            } catch(e) {
-                console.error("Storage limit exceeded.", e);
-                alert("Vault Warning: Preset is too large to save (usually caused by a massive custom background image).");
-                savedVault.pop();
-            }
-            
-            renderVault();
-        }
-
-        function renderVault() {
-            let container = document.getElementById('vault-list');
-            if (!container) {
-                container = document.createElement('div');
-                container.id = 'vault-list';
-                container.style.display = 'flex';
-                container.style.flexDirection = 'column';
-                container.style.gap = '10px';
-                container.style.marginTop = '20px';
-                document.getElementById('tab-vault').appendChild(container);
-            }
-
-            container.innerHTML = savedVault.map((preset, index) => `
-                <div class="mixer-card">
-                    <button class="mixer-btn" style="color: var(--primary);" onclick="loadPreset(${index})">▶ ${preset.name}</button>
-                    <button class="toy-btn" style="padding: 5px 10px; font-size: 0.6rem; border-color: #ec4899; color: #ec4899;" onclick="deletePreset(${index})">DEL</button>
-                </div>
-            `).join('');
-        }
-
-        function deletePreset(index) {
-            savedVault.splice(index, 1);
             localStorage.setItem('somniaVault', JSON.stringify(savedVault));
             renderVault();
         }
 
-        function loadPreset(index) {
+        function renderVault() {
+            const container = document.getElementById('vault-list');
+            container.innerHTML = savedVault.map((preset, index) => `
+                <div class="mixer-card" style="padding: 8px 15px;">
+                    <button class="mixer-btn" style="color: var(--primary);" onclick="loadPreset(${index})">▶ ${preset.name}</button>
+                    <button class="toy-btn" style="padding: 6px 12px; font-size: 0.6rem; border-color: #fb7185; color: #fb7185; background: rgba(251,113,133,0.05);" onclick="promptDeletePreset(${index})">✕</button>
+                </div>
+            `).join('');
+        }
+
+        async function promptDeletePreset(index) {
+            const confirmed = await somniaConfirm("TRASH THIS VIBE?", "Are you sure you want to delete this saved preset?");
+            if(confirmed) {
+                savedVault.splice(index, 1);
+                localStorage.setItem('somniaVault', JSON.stringify(savedVault));
+                renderVault();
+            }
+        }
+
+        async function loadPreset(index) {
             const state = savedVault[index];
             if (!state) return;
 
-            document.body.className = state.bodyClass;
+            document.documentElement.className = state.bodyClass;
             document.getElementById('glow-layer').className = state.glowClass;
             window.particleType = state.particleType;
             window.particleCount = state.particleCount;
             
-            if (state.bgImage && state.bgImage !== 'none') {
-                document.getElementById('bg-anchor').style.backgroundImage = state.bgImage;
-            } else if (state.bgColor) {
-                document.getElementById('bg-anchor').style.background = state.bgColor;
-                document.getElementById('bg-anchor').style.backgroundImage = 'none';
+            if (state.bgKey) {
+                const blob = await getMedia(state.bgKey);
+                if(blob) {
+                    document.getElementById('bg-anchor').style.backgroundImage = `url('${URL.createObjectURL(blob)}')`;
+                    localStorage.setItem('somnia_active_bg_key', state.bgKey);
+                }
+            } else {
+                document.getElementById('bg-anchor').style.backgroundImage = "url('somniascribes.png')";
+                localStorage.removeItem('somnia_active_bg_key');
             }
 
-            updateVar('--anim-speed', state.vars.speed);
-            updateVar('--glow-opac', state.vars.opac);
-            updateVar('--bg-bright', state.vars.bright);
-            updateVar('--bg-zoom', state.vars.zoom);
-            updateVar('--particle-color', state.vars.pColor);
-            updateVar('--glow-color', state.vars.gColor);
+            updateVar('--anim-speed', state.vars.speed); updateVar('--glow-opac', state.vars.opac);
+            updateVar('--bg-bright', state.vars.bright); updateVar('--bg-zoom', state.vars.zoom);
+            updateVar('--particle-color', state.vars.pColor); updateVar('--glow-color', state.vars.gColor);
+
+            if(document.getElementById('speed-slider')) document.getElementById('speed-slider').value = 21 - parseInt(state.vars.speed);
+            if(document.getElementById('opac-slider')) document.getElementById('opac-slider').value = state.vars.opac;
+            if(document.getElementById('bright-slider')) document.getElementById('bright-slider').value = state.vars.bright;
+            if(document.getElementById('zoom-slider')) document.getElementById('zoom-slider').value = state.vars.zoom;
+            if(document.getElementById('density-slider')) document.getElementById('density-slider').value = state.particleCount;
 
             stopAllAudio(); 
-            state.audio.forEach(track => {
-                const sound = soundLibrary.find(s => s.id === track.id);
-                if (sound) {
-                    const slider = document.getElementById(`vol-${track.id}`);
-                    if (slider) slider.value = track.vol; 
-                    toggleStem(track.id, sound.url); 
-                }
-            });
+            if(state.audio) {
+                state.audio.forEach(track => {
+                    const sound = soundLibrary.find(s => s.id === track.id) || customAudioLibrary.find(s => s.id === track.id);
+                    if (sound) {
+                        const slider = document.getElementById(`vol-${track.id}`);
+                        if (slider) slider.value = track.vol; 
+                        toggleStem(track.id, sound.url); 
+                    }
+                });
+            }
+            saveCurrentState();
         }
 
-        // === 3. AUDIO ENGINE (21 Presets + Upload) ===
+        // === 5. AUDIO ENGINE ===
         const activeAudio = {};
         const soundLibrary = [
             { id: "rain", name: "🌧️ Gentle Rain", url: "rain.mp3" }, { id: "thunder", name: "🌩️ Thunderstorm", url: "thunder.mp3" },
@@ -597,29 +916,68 @@
             { id: "crickets", name: "🦗 Night Crickets", url: "crickets.mp3" }, { id: "fire", name: "🔥 Hearth Fire", url: "fire.mp3" },
             { id: "simmering", name: "🍲 Simmering Pot", url: "simmeringpot.mp3" }, { id: "teacup", name: "☕ Teacup Clinks", url: "teacup.mp3" },
             { id: "clock", name: "🕰️ Ticking Clock", url: "clock.mp3" }, { id: "cat", name: "🐾 Purring Cat", url: "cat.mp3" },
-            { id: "windchimes", name: "🎐 Wind Chimes", url: "windchimes.mp3" }, { id: "musicbox1", name: "🎶 Music Box I", url: "musicbox1.mp3" },
-            { id: "musicbox2", name: "🎶 Music Box II", url: "musicbox2.mp3" }, { id: "musicbox3", name: "🎶 Music Box III", url: "musicbox3.mp3" },
-            { id: "xmas1", name: "🎄 Yule Box I", url: "xmasmusicbox1.mp3" }, { id: "xmas2", name: "🎄 Yule Box II", url: "xmasmusicbox2.mp3" },
-            { id: "xmas3", name: "🎄 Yule Box III", url: "xmasmusicbox3.mp3" }, { id: "darkmusic", name: "🖤 Dark Atmos", url: "darkmusic1.mp3" },
-            { id: "binary", name: "🎵 Binary Box", url: "binarymusicbox.mp3" }
+            { id: "windchimes", name: "🎐 Wind Chimes", url: "windchimes.mp3" }, { id: "musicbox1", name: "🎶 Music Box I", url: "musicbox1.mp3" }
         ];
+        let customAudioLibrary = [];
+
+        async function loadCustomAudio(reload = false) {
+            if(reload) customAudioLibrary = [];
+            const keys = await getAllMediaKeys();
+            const audioKeys = keys.filter(k => k.startsWith('aud_'));
+            for(let key of audioKeys) {
+                const blob = await getMedia(key);
+                if(blob) {
+                    const savedName = localStorage.getItem('somnia_name_' + key) || "📁 " + key.replace('aud_','').substring(0,8);
+                    customAudioLibrary.push({ id: key, name: savedName, url: URL.createObjectURL(blob), isCustom: true });
+                }
+            }
+            initMixer();
+        }
 
         function initMixer() {
             const container = document.getElementById('mixer-container');
-            container.innerHTML = soundLibrary.map(track => `
+            const allSounds = [...customAudioLibrary, ...soundLibrary];
+            container.innerHTML = allSounds.map(track => {
+                let editBtn = track.isCustom ? `<button class="toy-btn" style="padding: 5px 10px; background:transparent; border:none; margin-right: 5px;" onclick="renameCustomItem('${track.id}', 'audio')">✏️</button>` : '';
+                let delBtn = track.isCustom ? `<button class="toy-btn" style="padding: 5px 10px; background:transparent; border:none; margin-right: 5px; color:#fb7185;" onclick="promptDeleteAudio('${track.id}')">✕</button>` : '';
+                
+                return `
                 <div class="mixer-card" id="card-${track.id}">
                     <button class="mixer-btn" onclick="toggleStem('${track.id}', '${track.url}')">${track.name}</button>
+                    ${editBtn}
+                    ${delBtn}
                     <input type="range" id="vol-${track.id}" class="mixer-slider" min="0" max="1" step="0.05" value="0.5" oninput="adjustVol('${track.id}', this.value)">
                 </div>
-            `).join('');
+            `}).join('');
             Object.keys(activeAudio).forEach(id => { const c = document.getElementById(`card-${id}`); if(c) c.classList.add('playing'); });
+        }
+
+        async function promptDeleteAudio(id) {
+            const confirmed = await somniaConfirm("TRASH THIS SOUND?", "Are you sure you want to delete this custom audio?");
+            if(confirmed) {
+                if(activeAudio[id]) {
+                    activeAudio[id].pause();
+                    delete activeAudio[id];
+                }
+                await deleteMedia(id);
+                customAudioLibrary = [];
+                await loadCustomAudio(true);
+            }
         }
 
         function handleAudioUpload(input) {
             if (!input.files || input.files.length === 0) return;
             const file = input.files[0];
-            soundLibrary.unshift({ id: 'custom-'+Date.now(), name: "📁 " + file.name.substring(0,15), url: URL.createObjectURL(file) });
-            initMixer();
+            const key = 'aud_' + Date.now();
+            
+            saveMedia(key, file).then(async () => {
+                const customName = await somniaPrompt("NAME THIS SOUNDSCAPE", "What should we call this magic noise?", "✨ Funky Sounds");
+                const finalName = customName || "📁 " + file.name.substring(0,10);
+                localStorage.setItem('somnia_name_' + key, finalName);
+
+                customAudioLibrary.unshift({ id: key, name: finalName, url: URL.createObjectURL(file), isCustom: true });
+                initMixer();
+            });
             input.value = ""; 
         }
 
@@ -633,43 +991,14 @@
             }
         }
         function adjustVol(id, val) { if (activeAudio[id]) activeAudio[id].volume = val; }
-        
-        function stopAllAudio() { 
-            Object.keys(activeAudio).forEach(id => { 
-                activeAudio[id].pause(); 
-                document.getElementById(`card-${id}`).classList.remove('playing'); 
-                delete activeAudio[id]; 
-            }); 
-        }
+        function stopAllAudio() { Object.keys(activeAudio).forEach(id => { activeAudio[id].pause(); document.getElementById(`card-${id}`).classList.remove('playing'); delete activeAudio[id]; }); }
 
-        // === 4. ATMOS GENERATORS (10 Colors, 10 Glows) ===
-        // Added defaults for missing bg-presets array
-        const bgPresets = [
-            { name: 'Void', value: '#000000' },
-            { name: 'Abyss', value: '#020204' },
-            { name: 'Slate', value: '#0f172a' },
-            { name: 'Sepia', value: '#1c1917' }
-        ];
-
+        // === 6. ATMOS & PARTICLES ===
         const colors = ['lunar','noir','vellum','amethyst','crimson','emerald','solar','void','obsidian','ghost'];
         const glows = ['pulse','breathe','strobe','phantom','wave','flicker','aurora','radar','static','none'];
         const particlesList = ['dust','embers','snow','void','rain','ash','stars','bubbles','matrix','spores'];
-
-        const particleColors = [
-            { name: 'Lunar', value: '#e0e7ff' }, { name: 'Noir', value: '#D4AF37' },
-            { name: 'Vellum', value: '#C2B280' }, { name: 'Amethyst', value: '#d8b4e2' },
-            { name: 'Crimson', value: '#fb7185' }, { name: 'Emerald', value: '#34d399' },
-            { name: 'Solar', value: '#fbbf24' }, { name: 'Void', value: '#ec4899' },
-            { name: 'Obsidian', value: '#9ca3af' }, { name: 'Ghost', value: '#f8fafc' }
-        ];
-
-        const glowColors = [
-            { name: 'Lunar', value: 'rgba(224,231,255,0.4)' }, { name: 'Noir', value: 'rgba(212,175,55,0.4)' },
-            { name: 'Vellum', value: 'rgba(194,178,128,0.4)' }, { name: 'Amethyst', value: 'rgba(216,180,226,0.4)' },
-            { name: 'Crimson', value: 'rgba(251,113,133,0.4)' }, { name: 'Emerald', value: 'rgba(52,211,153,0.4)' },
-            { name: 'Solar', value: 'rgba(251,191,36,0.4)' }, { name: 'Void', value: 'rgba(236,72,153,0.4)' },
-            { name: 'Obsidian', value: 'rgba(156,163,175,0.4)' }, { name: 'Ghost', value: 'rgba(248,250,252,0.4)' }
-        ];
+        const particleColors = [ { name: 'Lunar', value: '#e0e7ff' }, { name: 'Noir', value: '#D4AF37' }, { name: 'Vellum', value: '#C2B280' }, { name: 'Amethyst', value: '#d8b4e2' }, { name: 'Crimson', value: '#fb7185' }, { name: 'Emerald', value: '#34d399' }, { name: 'Solar', value: '#fbbf24' }, { name: 'Void', value: '#ec4899' }, { name: 'Obsidian', value: '#9ca3af' }, { name: 'Ghost', value: '#f8fafc' } ];
+        const glowColors = [ { name: 'Lunar', value: 'rgba(224,231,255,0.4)' }, { name: 'Noir', value: 'rgba(212,175,55,0.4)' }, { name: 'Vellum', value: 'rgba(194,178,128,0.4)' }, { name: 'Amethyst', value: 'rgba(216,180,226,0.4)' }, { name: 'Crimson', value: 'rgba(251,113,133,0.4)' }, { name: 'Emerald', value: 'rgba(52,211,153,0.4)' }, { name: 'Solar', value: 'rgba(251,191,36,0.4)' }, { name: 'Void', value: 'rgba(236,72,153,0.4)' }, { name: 'Obsidian', value: 'rgba(156,163,175,0.4)' }, { name: 'Ghost', value: 'rgba(248,250,252,0.4)' } ];
 
         function populateGrid(id, arr, type) {
             const grid = document.getElementById(id);
@@ -677,109 +1006,54 @@
                 const isObj = typeof item === 'object';
                 const label = isObj ? item.name : item;
                 const val = isObj ? item.value : item;
-
                 const b = document.createElement('button');
-                b.className = 'toy-btn'; 
-                b.textContent = label; 
-                if(index === 0) b.classList.add('active'); 
-
+                b.className = 'toy-btn'; b.textContent = label; 
                 b.onclick = () => {
                     document.querySelectorAll(`#${id} .toy-btn`).forEach(btn => btn.classList.remove('active'));
                     b.classList.add('active');
-
-                    if(type === 'bg') {
-                        document.getElementById('bg-anchor').style.background = val;
-                        document.getElementById('bg-anchor').style.backgroundImage = 'none';
-                    }
-                    if(type === 'color') document.body.className = `${val}-mode`;
+                    if(type === 'color') document.documentElement.className = `${val}-mode`;
                     if(type === 'glow') document.getElementById('glow-layer').className = `glow-${val}`;
                     if(type === 'particle') window.particleType = val;
-
                     if(type === 'particleColor') updateVar('--particle-color', val);
                     if(type === 'glowColor') updateVar('--glow-color', val);
+                    saveCurrentState(); 
                 };
-
                 grid.appendChild(b);
             });
         }
 
-        // === 5. PARTICLE ENGINE ===
-        window.particleType = 'dust';
-        window.particleCount = 50; 
-
-        function buildParticles(w, h) {
-            return Array.from({ length: window.particleCount }, () => ({
-                x: Math.random() * w,
-                y: Math.random() * h,
-                r: Math.random() * 2 + 0.5,
-                vx: (Math.random() - 0.5),
-                vy: (Math.random() - 0.5)
-            }));
-        }
-
-        function updateParticleDensity(val) {
-            window.particleCount = parseInt(val);
-        }
+        window.particleType = 'dust'; window.particleCount = 50; 
+        function buildParticles(w, h) { return Array.from({ length: window.particleCount }, () => ({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 2 + 0.5, vx: (Math.random() - 0.5), vy: (Math.random() - 0.5) })); }
+        function updateParticleDensity(val) { window.particleCount = parseInt(val); }
 
         let lowGpu = false;
         function toggleLowGpu() {
-            lowGpu = !lowGpu;
-            const canvas = document.getElementById('particleCanvas');
-
-            if (lowGpu) {
-                canvas.width = window.innerWidth / 2;
-                canvas.height = window.innerHeight / 2;
-                canvas.style.transform = "scale(2)";
-                updateVar('--glow-opac', '0.15');
-                updateVar('--anim-speed', '15s');
-            } else {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                canvas.style.transform = "scale(1)";
-                updateVar('--glow-opac', '0.3');
-                updateVar('--anim-speed', '10s');
-            }
+            lowGpu = !lowGpu; const canvas = document.getElementById('particleCanvas');
+            if (lowGpu) { canvas.width = window.innerWidth / 2; canvas.height = window.innerHeight / 2; canvas.style.transform = "scale(2)"; } 
+            else { canvas.width = window.innerWidth; canvas.height = window.innerHeight; canvas.style.transform = "scale(1)"; }
         }
 
         function initParticles() {
-            const canvas = document.getElementById('particleCanvas');
-            const ctx = canvas.getContext('2d');
-
-            let w = canvas.width = window.innerWidth;
-            let h = canvas.height = window.innerHeight;
-
-            window.addEventListener('resize', () => {
-                w = canvas.width = window.innerWidth;
-                h = canvas.height = window.innerHeight;
-                particles = buildParticles(w, h);
-            });
-
+            const canvas = document.getElementById('particleCanvas'); const ctx = canvas.getContext('2d');
+            let w = canvas.width = window.innerWidth; let h = canvas.height = window.innerHeight;
+            window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; particles = buildParticles(w, h); });
             let particles = buildParticles(w, h);
             const isDinosaur = navigator.hardwareConcurrency < 4 || window.innerWidth < 1024;
             let lastTime = 0;
 
             function loop(timestamp) {
                 requestAnimationFrame(loop);
-
                 if (!timestamp) timestamp = performance.now();
                 if (timestamp - lastTime < (isDinosaur ? 33 : 16)) return;
                 lastTime = timestamp;
 
                 ctx.clearRect(0, 0, w, h);
+                if (particles.length !== window.particleCount) particles = buildParticles(w, h);
 
-                if (particles.length !== window.particleCount) {
-                    particles = buildParticles(w, h);
-                }
-
+                // 🔥 Fetch the correct colors natively from the root element
                 let color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim();
-                if (color.includes('var(')) {
-                    const varName = color.match(/var\(([^)]+)\)/)[1].trim();
-                    color = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
-                }
-
-                ctx.fillStyle = color;
-                ctx.shadowBlur = lowGpu ? 2 : (isDinosaur ? 0 : 8); 
-                ctx.shadowColor = color;
+                if (color.includes('var(')) { const varName = color.match(/var\(([^)]+)\)/)[1].trim(); color = getComputedStyle(document.documentElement).getPropertyValue(varName).trim(); }
+                ctx.fillStyle = color; ctx.shadowBlur = lowGpu ? 2 : (isDinosaur ? 0 : 8); ctx.shadowColor = color;
 
                 particles.forEach((p, i) => {
                     let spd = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--anim-speed')) || 10;
@@ -796,55 +1070,94 @@
                     else if (window.particleType === 'matrix') { p.y += 4*mult; if(i%2===0) ctx.fillText(String.fromCharCode(0x30A0+Math.random()*96), p.x, p.y); return; }
                     else if (window.particleType === 'spores') { p.x += (Math.random()-0.5)*mult; p.y += (Math.random()-0.5)*mult; p.r = Math.abs(Math.sin(Date.now()/1000+i))*3; }
 
-                    if (p.x < 0) p.x = w;
-                    if (p.x > w) p.x = 0;
-                    if (p.y < 0) p.y = h;
-                    if (p.y > h) p.y = 0;
-
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                    ctx.fill();
+                    if (p.x < 0) p.x = w; if (p.x > w) p.x = 0; if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
                 });
             }
-
             requestAnimationFrame(loop);
         }
 
-        // Boot
-        document.addEventListener('DOMContentLoaded', () => {
-            initMixer();
-            populateGrid('bg-presets', bgPresets, 'bg'); // Fixed missing initialization
-            populateGrid('color-grid', colors, 'color');
-            populateGrid('particle-grid', particlesList, 'particle');
-            populateGrid('glow-grid', glows, 'glow');
-            populateGrid('particle-color-grid', particleColors, 'particleColor');
-            populateGrid('glow-color-grid', glowColors, 'glowColor');
+        // === 7. NATIVE SOCIAL SHARE ===
+        function parseUrlState() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.has('vibe')) document.documentElement.className = urlParams.get('vibe') + '-mode';
+            if(urlParams.has('p')) window.particleType = urlParams.get('p');
+            if(urlParams.has('g')) document.getElementById('glow-layer').className = 'glow-' + urlParams.get('g');
+        }
 
-            initParticles();
-            renderVault(); 
-        });
-
-        // === 6. QR SHARE PORTAL ===
-        document.getElementById("shareButton").addEventListener("click", shareSomnia);
-        
-        function shareSomnia() {
-            const qrModal = document.getElementById('qr-modal');
-            qrModal.classList.add('active');
-            const qrContainer = document.getElementById('qrcode');
-            qrContainer.innerHTML = ""; 
+        async function shareSomnia() {
+            const currentVibe = document.documentElement.className.replace('-mode', '').replace('cloaked', '').trim() || 'lunar';
+            const currentP = window.particleType || 'dust';
+            const currentG = document.getElementById('glow-layer').className.replace('glow-', '') || 'pulse';
             
-            new QRCode(qrContainer, {
-                text: "http://somniascapes.local",
-                width: 150,
-                height: 150,
-                colorDark : "#000000",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.H
+            let base = window.location.origin + window.location.pathname;
+            if(base.includes("file://")) base = "https://somniascapes.com/"; 
+            const shareUrl = `${base}?vibe=${currentVibe}&p=${currentP}&g=${currentG}`;
+            
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'My SomniaScape',
+                        text: 'Come check out this delightfully chaotic and cozy vibe I built! ✨',
+                        url: shareUrl
+                    });
+                } catch (err) {
+                    console.log("Share canceled or failed", err);
+                }
+            } else {
+                toggleModal('share-modal');
+                document.getElementById('share-link-input').value = shareUrl;
+            }
+        }
+
+        // === 8. SOMNIASCRIBES JOURNAL & STICKERS ===
+        let archive = JSON.parse(localStorage.getItem('kore_archive')) || [];
+        let pendingMedia = null;
+
+        const stickers = ['✨','🌙','🔮','🦋','🌿','☕','💻','🔥','🪐','💀','👁️','🗝️','⚡','🤍'];
+        
+        function initStickers() {
+            const bar = document.getElementById('sticker-bar');
+            stickers.forEach(s => {
+                const btn = document.createElement('button');
+                btn.className = 'sticker-btn';
+                btn.innerText = s;
+                btn.onclick = () => {
+                    const editor = document.getElementById('lore-editor');
+                    editor.value += s;
+                    editor.focus();
+                };
+                bar.appendChild(btn);
             });
         }
 
-        // === 7. SOMNIASCRIBES JOURNAL ENGINE ===
-        let archive = JSON.parse(localStorage.getItem('kore_archive')) || [];
+        function handleJournalMedia(input) {
+            if(!input.files || !input.files[0]) return;
+            const file = input.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = async (e) => {
+                if(file.type.startsWith('image/')) {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const MAX_WIDTH = 800;
+                        let width = img.width; let height = img.height;
+                        if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
+                        canvas.width = width; canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+                        pendingMedia = { type: 'image', data: canvas.toDataURL('image/jpeg', 0.8) };
+                        document.getElementById('journal-media-name').innerText = "📎 Memory Attached!";
+                    };
+                    img.src = e.target.result;
+                } else {
+                    somniaAlert("Oops!", "We only support cozy image files in the journal right now.");
+                    input.value = "";
+                }
+            };
+            reader.readAsDataURL(file);
+        }
 
         function renderAnnals() {
             const query = (document.getElementById('search-annals')?.value || "").toLowerCase();
@@ -856,77 +1169,101 @@
                 if (entry.text.toLowerCase().includes(query)) {
                     const node = document.createElement('div');
                     node.className = 'lore-entry';
+                    let mediaHtml = '';
+                    if(entry.media && entry.media.type === 'image') {
+                        mediaHtml = `<img src="${entry.media.data}" class="media-preview-img" onclick="viewImage('${entry.media.data}')">`;
+                    }
                     node.innerHTML = `
                         <div class="entry-meta">${entry.timestamp}</div>
                         <button class="shred-btn" onclick="shredEntry(${index})">✕</button>
-                        <div><span style="color:var(--primary); opacity:0.6; margin-right:10px;">></span> ${entry.text}</div>
+                        <div><span style="color:var(--primary); opacity:0.6; margin-right:10px; font-weight:bold;">></span> ${entry.text}</div>
+                        ${mediaHtml}
                     `;
                     container.appendChild(node);
                 }
             });
-
             container.scrollTop = container.scrollHeight;
         }
 
         function commitLore() {
             const input = document.getElementById('lore-editor');
-            if (!input || input.value.trim() === "") return;
+            if (!input || (input.value.trim() === "" && !pendingMedia)) return;
 
             const now = new Date();
-            const timestamp = now.toLocaleDateString() + " // " +
-                now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const timestamp = now.toLocaleDateString() + " // " + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-            archive.push({ text: input.value, timestamp });
-            localStorage.setItem('kore_archive', JSON.stringify(archive));
+            const newEntry = { text: input.value, timestamp: timestamp };
+            if(pendingMedia) newEntry.media = pendingMedia;
+
+            archive.push(newEntry);
+            
+            try {
+                localStorage.setItem('kore_archive', JSON.stringify(archive));
+            } catch(e) {
+                somniaAlert("Memory Full!", "Your journal is packed! Export it and clear some space to keep writing.");
+                archive.pop();
+            }
+
             input.value = "";
+            pendingMedia = null;
+            document.getElementById('journal-media-name').innerText = "";
             renderAnnals();
+
+            // 🔥 A sweet little export reminder!
+            if (!window.hasRemindedExport) {
+                somniaAlert("Memory Saved! ✨", "Just a tiny reminder, sweet brain: don't forget to 'Export Journal' every so often to keep these cozy thoughts safe forever!");
+                window.hasRemindedExport = true;
+            }
         }
 
-        function shredEntry(index) {
-            archive.splice(index, 1);
-            localStorage.setItem('kore_archive', JSON.stringify(archive));
-            renderAnnals();
+        async function shredEntry(index) {
+            const confirmed = await somniaConfirm("TRASH THIS THOUGHT?", "Are you sure you want to delete this memory?");
+            if(confirmed) {
+                archive.splice(index, 1);
+                localStorage.setItem('kore_archive', JSON.stringify(archive));
+                renderAnnals();
+            }
         }
 
-        function jolt(palette) {
-            document.body.className = palette + '-mode';
-        }
-
-        function exportVault() {
+        function jolt(palette) { document.documentElement.className = palette + '-mode'; saveCurrentState(); }
+        
+        function exportScribes() {
             const blob = new Blob([JSON.stringify(archive, null, 2)], { type: "application/json" });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = "SOMNIASCRIBES.json";
-            a.click();
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+            a.download = "SOMNIASCRIBES.json"; a.click();
         }
 
-        function importVault(e) {
+        function importScribes(e) {
             const reader = new FileReader();
             reader.onload = (x) => {
                 try {
                     archive = JSON.parse(x.target.result);
                     localStorage.setItem('kore_archive', JSON.stringify(archive));
                     renderAnnals();
-                } catch (err) {
-                    alert("Import failed.");
-                }
+                } catch (err) { somniaAlert("Yikes!", "Import failed. The file might be a little broken."); }
             };
-            if (e.target.files[0]) {
-                reader.readAsText(e.target.files[0]);
-                e.target.value = ''; // Reset input to allow re-importing the same file
-            }
+            if (e.target.files[0]) { reader.readAsText(e.target.files[0]); e.target.value = ''; }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        // === BOOT ===
+        document.addEventListener('DOMContentLoaded', async () => {
+            parseUrlState();
+            
+            initStickers();
+            populateGrid('color-grid', colors, 'color');
+            populateGrid('particle-grid', particlesList, 'particle');
+            populateGrid('glow-grid', glows, 'glow');
+            populateGrid('particle-color-grid', particleColors, 'particleColor');
+            populateGrid('glow-color-grid', glowColors, 'glowColor');
+
+            await loadCustomBackgrounds();
+            await loadCustomAudio();
+
+            initParticles();
+            renderVault(); 
+            
             const editor = document.getElementById('lore-editor');
-            if (editor) {
-                editor.addEventListener('keydown', function (e) {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        commitLore();
-                    }
-                });
-            }
+            if (editor) { editor.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); commitLore(); } }); }
             renderAnnals();
         });
     </script>
