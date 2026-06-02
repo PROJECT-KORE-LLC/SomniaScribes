@@ -1,4 +1,5 @@
-# 🌙 SOMNIASCAPES
+# 🌙 SOMNIASCRIBES
+**Cabinetum of the Somniaverse**
 
 **Welcome to your cozy digital sanctuary.** 
 
