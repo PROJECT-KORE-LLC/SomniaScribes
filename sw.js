@@ -1,24 +1,55 @@
-const CACHE_NAME = 'somniascribes-v1';
-const assets = [
-  'index.html',
-  'somniascribes.png',
-  'fire.mp3',
-  'thumbnail1.jpg',
-  'manifest.json'
+const CACHE_NAME = 'somnia-scribes-v1';
+
+const APP_ASSETS = [
+    './',
+    './index.html',
+    './manifest.json',
+    './somniascribes.png',
+    './icon-192x192.png',
+    './icon-512x512.png'
 ];
 
-// Cache on install
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(assets))
-  );
+self.addEventListener('install', (event) => {
+    self.skipWaiting(); 
+    event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => {
+            return cache.addAll(APP_ASSETS);
+        })
+    );
 });
 
-// Serve from cache when offline
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
-  );
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (cacheName !== CACHE_NAME) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
+    );
+    self.clients.claim(); 
+});
+
+self.addEventListener('fetch', (event) => {
+    if (event.request.method !== 'GET') return;
+    event.respondWith(
+        caches.match(event.request).then((cachedResponse) => {
+            if (cachedResponse) return cachedResponse;
+            return fetch(event.request).then((networkResponse) => {
+                if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+                    return networkResponse;
+                }
+                const responseToCache = networkResponse.clone();
+                caches.open(CACHE_NAME).then((cache) => {
+                    cache.put(event.request, responseToCache);
+                });
+                return networkResponse;
+            }).catch(() => {
+                console.log('Fetch failed; returning offline fallback.');
+            });
+        })
+    );
 });
