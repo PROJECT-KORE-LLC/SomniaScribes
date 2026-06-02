@@ -26,14 +26,28 @@ There are no servers. There is no cloud. There are no tracking scripts.
 
 SomniaScapes uses your browser's local `IndexedDB` and `localStorage` to save your custom images, audio, and journal entries directly to your hard drive. Your thoughts and vibes are completely your own. What happens in the vault, stays in the vault. 
 
-## 🚀 How to Run It
-Because we like keeping things beautifully simple, there is no terrifying tech setup required. 
+## 🚀 GETTING STARTED  
+SomniaSyllabus is a fully self‑contained **Progressive Web App**, meaning it installs instantly and runs anywhere — desktop, laptop, tablet, or phone — without downloads or setup.
 
-1. Download the `somniascapes.html` file (and the `somniascribes.png` default background if you have it!).
-2. Double-click the HTML file to open it in any modern web browser.
-3. That's literally it. You're in. 
+### 1. Open SOMNIASCRIBES
+Visit the app in your browser. The Hall loads instantly with no installation required.
 
-*Pro Tip: Use your browser's "Cast" or "Tab Mirroring" feature to throw SomniaScapes onto your living room TV!*
+### 2. Install the PWA (optional, but magical)  
+For a seamless, app‑like experience:
+
+- **Desktop (Chrome/Edge):** Click **Install** in the address bar.  
+- **iOS Safari:** Tap **Share → Add to Home Screen**.  
+- **Android Chrome:** Tap **⋮ → Install App**.  
+
+This places Academia Hall directly on your device like a native app.
+
+### 3. Immersive Mode  
+Once inside:
+
+- **Projector Mode:** Expands the Cabinetum to fill your screen for a cinematic, distraction‑free view.  
+- **Focus Mode:** Silences the entire interface so only your work and the atmosphere remain.  
+
+Both modes are designed to feel like stepping deeper into the Somniaverse.
 
 ## 💾 Backing Up Your Memories
 Because everything lives happily on your local device, clearing your browser data *will* clear your SomniaScribes journal and saved Vault vibes. 
