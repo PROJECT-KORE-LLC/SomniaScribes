@@ -105,7 +105,7 @@
         #bg-anchor {
             position: fixed; inset: 0; 
             background: linear-gradient(135deg, #0f172a 0%, #000000 100%);
-            background-image: url('somniascribes.png'); /* The beautiful default */
+            background-image: url('scribes1.0.png'); /* Permanent upgraded default background */
             background-size: cover; 
             background-position: center center;
             background-repeat: no-repeat;
@@ -355,12 +355,106 @@
         .oracle-msg.user { background: rgba(255,255,255,0.05); align-self: flex-end; color: var(--text-main); border: 1px solid var(--glass-border); border-bottom-right-radius: 2px;}
         .oracle-msg.ai { background: rgba(0,0,0,0.6); align-self: flex-start; color: var(--primary); border: 1px solid var(--primary); border-bottom-left-radius: 2px; box-shadow: 0 0 15px rgba(0,0,0,0.5);}
 
+        /* --- THE INK ORACLE FLOATING WIDGET --- */
+        .ink-oracle-outer {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 120px;  /* Upgraded default size */
+            height: 120px; /* Upgraded default size */
+            z-index: 250;  /* High z-index to fly nicely above modal overlay masks */
+            cursor: pointer;
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+                        opacity 0.7s ease, 
+                        bottom 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+                        right 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+                        width 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+                        height 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Ensure the oracle hides gracefully when cloaking is active */
+        body.cloaked .ink-oracle-outer {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .ink-oracle-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            animation: oracle-float 5s infinite alternate ease-in-out;
+        }
+
+        .oracle-avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 15px var(--primary-glow));
+            transition: filter 0.3s ease;
+        }
+
+        /* Ambient Pulsing Glow behind Oracle */
+        .ink-oracle-inner::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            z-index: -1;
+            border-radius: 50%;
+            animation: oracle-glow 2.5s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+
+        .ink-oracle-outer:hover .oracle-avatar {
+            filter: drop-shadow(0 0 25px var(--primary));
+        }
+
+        /* --- INTERACTIVE SIDE-BY-SIDE MODAL BEHAVIOR --- */
+        @media (min-width: 1200px) {
+            /* Oracle glides exactly side-by-side to the left of the AI chat modal */
+            body.oracle-open .ink-oracle-outer {
+                bottom: calc(50% - 90px); /* Centered vertically against the 180px height scale */
+                right: calc(50% + 500px); /* 475px (half of chat width) + 25px gap */
+                width: 180px;             /* Clean expanded visual range */
+                height: 180px;            /* Clean expanded visual range */
+            }
+        }
+
+        @media (max-width: 1199px) and (min-width: 601px) {
+            /* Compact stacked layout - glides neatly to top center of screen overlay */
+            body.oracle-open .ink-oracle-outer {
+                bottom: auto;
+                top: 25px;
+                right: calc(50% - 75px);
+                width: 150px;
+                height: 150px;
+            }
+        }
+
         @media (max-width: 600px) {
+            /* Mobile overlay layout centering */
+            body.oracle-open .ink-oracle-outer {
+                bottom: auto;
+                top: 15px;
+                right: calc(50% - 75px);
+                width: 150px;
+                height: 150px;
+            }
             .scribes-bubble { padding: 20px; height: 95dvh; border-radius: 25px; }
             .archive-vault { padding: 15px; border-radius: 15px; }
             .vault-header { flex-direction: column; align-items: flex-start; }
             #search-annals { width: 100%; }
             .pomo-display { font-size: 3.5rem; }
+        }
+
+        @keyframes oracle-float {
+            0% { transform: translateY(0px) rotate(-3deg); }
+            100% { transform: translateY(-12px) rotate(3deg); }
+        }
+
+        @keyframes oracle-glow {
+            0% { opacity: 0.3; transform: scale(0.95); }
+            100% { opacity: 0.8; transform: scale(1.15); }
         }
     </style>
 </head>
@@ -369,10 +463,10 @@
     <div id="boot-screen">
         <div class="kore-orb"></div>
         <div class="boot-content">
-            <h1 class="boot-title">THE SCRIPTORIUM</h1>
+            <h1 class="boot-title">SOMNIASCRIBES</h1>
             <p class="boot-disclaimer">
-                A quiet writing chamber for thoughts, memories, dreams, fragments, and unfinished things.<br><br>
-                No pressure to organize. Just place the words somewhere safe.
+                Oh, hello there! Welcome to your cozy little corner of the internet.<br><br>
+                Grab a blanket, maybe some tea, and prepare to perceive time as a mere suggestion. <br><br>This is just a little treat for your brain, not a medical device. Everything you make stays right here securely on your device. Let's make some magic! ✨
             </p>
             <button class="artifact-btn" style="padding: 16px 45px; font-size: 1rem; border-color: var(--accent); border-radius: 50px;" onclick="startEngine()">ENTER THE VIBE</button>
         </div>
@@ -530,6 +624,13 @@
                 </p>
             </div>
         </main>
+    </div>
+
+    <!-- Floating AI Widget: The Ink Oracle (Positioned root-level to overlap overlay accurately) -->
+    <div id="ink-oracle-widget" class="ink-oracle-outer" onclick="activateOracle(event)">
+        <div class="ink-oracle-inner">
+            <img src="scribe1.png" alt="The Ink Oracle" class="oracle-avatar">
+        </div>
     </div>
 
     <div id="scratchpad-modal" class="modal-overlay" onclick="toggleModal('scratchpad-modal')">
@@ -759,7 +860,17 @@
 
         function toggleCloak() { document.body.classList.toggle('cloaked'); }
         function restoreUI() { document.body.classList.remove('cloaked'); }
-        function toggleModal(modalId) { document.getElementById(modalId).classList.toggle('active'); }
+        
+        function toggleModal(modalId) { 
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.toggle('active');
+                if (modalId === 'oracle-modal') {
+                    // Update state variables to slide floating oracle side-by-side beautifully
+                    document.body.classList.toggle('oracle-open', modal.classList.contains('active'));
+                }
+            }
+        }
         
         function toggleFullscreen() {
             if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(e => console.log(e));
@@ -826,7 +937,7 @@
                 if(confirmed) {
                     await deleteMedia(key);
                     if(localStorage.getItem('somnia_active_bg_key') === key) {
-                        document.getElementById('bg-anchor').style.backgroundImage = "url('somniascribes.png')";
+                        document.getElementById('bg-anchor').style.backgroundImage = "url('scribes1.0.png')";
                         localStorage.removeItem('somnia_active_bg_key');
                     }
                     await loadCustomBackgrounds(true);
@@ -919,7 +1030,7 @@
                     if(blob) {
                         document.getElementById('bg-anchor').style.backgroundImage = `url('${URL.createObjectURL(blob)}')`;
                     } else {
-                        document.getElementById('bg-anchor').style.backgroundImage = "url('somniascribes.png')";
+                        document.getElementById('bg-anchor').style.backgroundImage = "url('scribes1.0.png')";
                     }
                 }
 
@@ -950,6 +1061,33 @@
 
         // === 4. VAULT PRESETS ===
         let savedVault = JSON.parse(localStorage.getItem('somniaVault')) || [];
+
+        // Prepopulate Scribes 1.0 into vault if it's missing
+        const hasDefaultPreset = savedVault.some(preset => preset.isPermanent || preset.name === "Scribes 1.0");
+        if (!hasDefaultPreset) {
+            const defaultPreset = {
+                name: "Scribes 1.0",
+                isPermanent: true, // Custom attribute to block vault deletions
+                bodyClass: 'lunar-mode',
+                glowClass: 'glow-layer glow-pulse',
+                particleType: 'dust',
+                particleCount: 50,
+                bgKey: 'default_scribes_1_0',
+                vars: {
+                    speed: '10s',
+                    opac: '0.3',
+                    bright: '0.85',
+                    zoom: '1',
+                    pColor: '#e0e7ff',
+                    gColor: 'rgba(224,231,255,0.4)'
+                },
+                audio: [
+                    { id: 'fire', vol: '0.5' }
+                ]
+            };
+            savedVault.unshift(defaultPreset);
+            localStorage.setItem('somniaVault', JSON.stringify(savedVault));
+        }
 
         async function savePreset() {
             let presetName = await somniaPrompt("VAULT THIS VIBE", "Name your gorgeous aesthetic setup:", "Cozy Setting " + (savedVault.length + 1));
@@ -984,15 +1122,21 @@
 
         function renderVault() {
             const container = document.getElementById('vault-list');
-            container.innerHTML = savedVault.map((preset, index) => `
-                <div class="mixer-card" style="padding: 8px 15px;">
-                    <button class="mixer-btn" style="color: var(--primary);" onclick="loadPreset(${index})">▶ ${preset.name}</button>
-                    <button class="toy-btn" style="padding: 6px 12px; font-size: 0.6rem; border-color: #fb7185; color: #fb7185; background: rgba(251,113,133,0.05);" onclick="promptDeletePreset(${index})">✕</button>
-                </div>
-            `).join('');
+            container.innerHTML = savedVault.map((preset, index) => {
+                const deleteHtml = preset.isPermanent ? '' : `<button class="toy-btn" style="padding: 6px 12px; font-size: 0.6rem; border-color: #fb7185; color: #fb7185; background: rgba(251,113,133,0.05);" onclick="promptDeletePreset(${index})">✕</button>`;
+                return `
+                    <div class="mixer-card" style="padding: 8px 15px;">
+                        <button class="mixer-btn" style="color: var(--primary);" onclick="loadPreset(${index})">▶ ${preset.name}</button>
+                        ${deleteHtml}
+                    </div>
+                `;
+            }).join('');
         }
 
         async function promptDeletePreset(index) {
+            const preset = savedVault[index];
+            if (preset && preset.isPermanent) return; // Secure block
+            
             const confirmed = await somniaConfirm("TRASH THIS VIBE?", "Are you sure you want to delete this saved preset?");
             if(confirmed) {
                 savedVault.splice(index, 1);
@@ -1010,14 +1154,17 @@
             window.particleType = state.particleType;
             window.particleCount = state.particleCount;
             
-            if (state.bgKey) {
+            if (state.bgKey === 'default_scribes_1_0') {
+                document.getElementById('bg-anchor').style.backgroundImage = "url('scribes1.0.png')";
+                localStorage.removeItem('somnia_active_bg_key');
+            } else if (state.bgKey) {
                 const blob = await getMedia(state.bgKey);
                 if(blob) {
                     document.getElementById('bg-anchor').style.backgroundImage = `url('${URL.createObjectURL(blob)}')`;
                     localStorage.setItem('somnia_active_bg_key', state.bgKey);
                 }
             } else {
-                document.getElementById('bg-anchor').style.backgroundImage = "url('somniascribes.png')";
+                document.getElementById('bg-anchor').style.backgroundImage = "url('scribes1.0.png')";
                 localStorage.removeItem('somnia_active_bg_key');
             }
 
@@ -1049,13 +1196,13 @@
         const activeAudio = {};
         let audioCtx; let masterGainNode;
         const soundLibrary = [
-            { id: "rain", name: "🌧️ Gentle Rain", url: "rain.mp3" }, { id: "thunder", name: "🌩️ Thunderstorm", url: "thunder.mp3" },
-            { id: "winterwind", name: "🌬️ Winter Wind", url: "winterwind.mp3" }, { id: "owls", name: "🦉 Midnight Owls", url: "owls.mp3" },
-            { id: "raven", name: "🐦‍⬛ Raven Calls", url: "raven.mp3" }, { id: "frogs", name: "🐸 Swamp Frogs", url: "frogs.mp3" },
-            { id: "crickets", name: "🦗 Night Crickets", url: "crickets.mp3" }, { id: "fire", name: "🔥 Hearth Fire", url: "fire.mp3" },
-            { id: "simmering", name: "🍲 Simmering Pot", url: "simmeringpot.mp3" }, { id: "teacup", name: "☕ Teacup Clinks", url: "teacup.mp3" },
-            { id: "clock", name: "🕰️ Ticking Clock", url: "clock.mp3" }, { id: "cat", name: "🐾 Purring Cat", url: "cat.mp3" },
-            { id: "windchimes", name: "🎐 Wind Chimes", url: "windchimes.mp3" }, { id: "musicbox1", name: "🎶 Music Box I", url: "musicbox1.mp3" }
+            { id: "rain", name: " Gentle Rain", url: "rain.mp3" }, { id: "thunder", name: " Thunderstorm", url: "thunder.mp3" },
+            { id: "winterwind", name: " Winter Wind", url: "winterwind.mp3" }, { id: "owls", name: " Midnight Owls", url: "owls.mp3" },
+            { id: "raven", name: " Raven Calls", url: "raven.mp3" }, { id: "frogs", name: " Swamp Frogs", url: "frogs.mp3" },
+            { id: "crickets", name: " Night Crickets", url: "crickets.mp3" }, { id: "fire", name: " Hearth Fire", url: "fire.mp3" },
+            { id: "simmering", name: " Simmering Pot", url: "simmeringpot.mp3" }, { id: "teacup", name: " Teacup Clinks", url: "teacup.mp3" },
+            { id: "clock", name: " Ticking Clock", url: "clock.mp3" }, { id: "cat", name: " Purring Cat", url: "cat.mp3" },
+            { id: "windchimes", name: " Wind Chimes", url: "windchimes.mp3" }, { id: "musicbox1", name: " Music Box I", url: "musicbox1.mp3" }
         ];
         let customAudioLibrary = [];
 
@@ -1077,7 +1224,7 @@
             for(let key of audioKeys) {
                 const blob = await getMedia(key);
                 if(blob) {
-                    const savedName = localStorage.getItem('somnia_name_' + key) || "📁 " + key.replace('aud_','').substring(0,8);
+                    const savedName = localStorage.getItem('somnia_name_' + key) || " " + key.replace('aud_','').substring(0,8);
                     customAudioLibrary.push({ id: key, name: savedName, url: URL.createObjectURL(blob), isCustom: true });
                 }
             }
@@ -1122,7 +1269,7 @@
             
             saveMedia(key, file).then(async () => {
                 const customName = await somniaPrompt("NAME THIS SOUNDSCAPE", "What should we call this magic noise?", "✨ Funky Sounds");
-                const finalName = customName || "📁 " + file.name.substring(0,10);
+                const finalName = customName || " " + file.name.substring(0,10);
                 localStorage.setItem('somnia_name_' + key, finalName);
 
                 customAudioLibrary.unshift({ id: key, name: finalName, url: URL.createObjectURL(file), isCustom: true });
@@ -1220,7 +1367,7 @@
                 ctx.clearRect(0, 0, w, h);
                 if (particles.length !== window.particleCount) particles = buildParticles(w, h);
 
-                // 🔥 Fetch the correct colors natively from the root element
+                //  Fetch the correct colors natively from the root element
                 let color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim();
                 if (color.includes('var(')) { const varName = color.match(/var\(([^)]+)\)/)[1].trim(); color = getComputedStyle(document.documentElement).getPropertyValue(varName).trim(); }
                 ctx.fillStyle = color; ctx.shadowBlur = lowGpu ? 2 : (isDinosaur ? 0 : 8); ctx.shadowColor = color;
@@ -1523,6 +1670,7 @@
             }
         }
 
+        // Quick inject system prompts
         function injectPrompt(text) {
             const input = document.getElementById('oracle-editor');
             input.value = text;
@@ -1548,6 +1696,13 @@
                 else { const reply = data.candidates[0].content.parts[0].text; const formattedReply = reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>'); chat.innerHTML += `<div class="oracle-msg ai">${formattedReply}</div>`; }
             } catch(e) { document.getElementById(loadingId).remove(); chat.innerHTML += `<div class="oracle-msg ai">Network Error. Check console.</div>`; }
             chat.scrollTop = chat.scrollHeight;
+        }
+
+        // === 10. FLOATING AI WIDGET INTERACTION ===
+        function activateOracle(event) {
+            if (event) event.stopPropagation();
+            // Toggle the Oracle Assistant Modal. The toggleModal script dynamically updates coordinates of the widget!
+            toggleModal('oracle-modal');
         }
 
         // === BOOT ===
