@@ -105,7 +105,7 @@
         #bg-anchor {
             position: fixed; inset: 0; 
             background: linear-gradient(135deg, #0f172a 0%, #000000 100%);
-            background-image: url('scribes1.0.png'); /* Permanent upgraded default background */
+            background-image: url('scribes1.0.png'); /* Swapped default background */
             background-size: cover; 
             background-position: center center;
             background-repeat: no-repeat;
@@ -360,16 +360,16 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            width: 120px;  /* Upgraded default size */
-            height: 120px; /* Upgraded default size */
-            z-index: 250;  /* High z-index to fly nicely above modal overlay masks */
+            width: 160px;  /* Default floating size - made larger */
+            height: 160px; /* Default floating size - made larger */
+            z-index: 250;  /* Floats above baseline modal overlay */
             cursor: pointer;
-            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
-                        opacity 0.7s ease, 
-                        bottom 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
-                        right 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
-                        width 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
-                        height 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
+                        opacity 0.5s ease, 
+                        bottom 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
+                        right 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
+                        width 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
+                        height 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* Ensure the oracle hides gracefully when cloaking is active */
@@ -409,52 +409,59 @@
             filter: drop-shadow(0 0 25px var(--primary));
         }
 
-        /* --- INTERACTIVE SIDE-BY-SIDE MODAL BEHAVIOR --- */
-        @media (min-width: 1200px) {
-            /* Oracle glides exactly side-by-side to the left of the AI chat modal */
+        /* --- TRUE SIDE-BY-SIDE POP-OUT BEHAVIOR --- */
+        #oracle-modal .scribes-bubble {
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @media (min-width: 768px) {
+            /* When chat is open, Oracle expands in-place to 240px */
             body.oracle-open .ink-oracle-outer {
-                bottom: calc(50% - 90px); /* Centered vertically against the 180px height scale */
-                right: calc(50% + 500px); /* 475px (half of chat width) + 25px gap */
-                width: 180px;             /* Clean expanded visual range */
-                height: 180px;            /* Clean expanded visual range */
+                bottom: 30px;
+                right: 30px;
+                width: 240px; /* Zoomed larger */
+                height: 240px;
+            }
+
+            /* The Assistant panel slides side-by-side onto her left side */
+            #oracle-modal .scribes-bubble {
+                position: absolute;
+                bottom: 30px;
+                right: 300px; /* 30px screen margin + 240px widget + 30px gap */
+                width: 450px; /* Elegant cozy chat panel size */
+                max-width: calc(100vw - 340px);
+                height: 75dvh;
+                margin: 0;
             }
         }
 
-        @media (max-width: 1199px) and (min-width: 601px) {
-            /* Compact stacked layout - glides neatly to top center of screen overlay */
-            body.oracle-open .ink-oracle-outer {
-                bottom: auto;
-                top: 25px;
-                right: calc(50% - 75px);
-                width: 150px;
-                height: 150px;
+        @media (max-width: 767px) {
+            /* Mobile adjustments */
+            .ink-oracle-outer {
+                bottom: 20px;
+                right: 20px;
+                width: 110px;
+                height: 110px;
             }
-        }
 
-        @media (max-width: 600px) {
-            /* Mobile overlay layout centering */
+            /* Responsive layout centering her dynamically at the bottom below stacked chat */
             body.oracle-open .ink-oracle-outer {
-                bottom: auto;
-                top: 15px;
-                right: calc(50% - 75px);
-                width: 150px;
-                height: 150px;
+                bottom: 20px;
+                right: calc(50% - 100px); /* Center coordinates for 200px width */
+                width: 200px;
+                height: 200px;
             }
-            .scribes-bubble { padding: 20px; height: 95dvh; border-radius: 25px; }
-            .archive-vault { padding: 15px; border-radius: 15px; }
-            .vault-header { flex-direction: column; align-items: flex-start; }
-            #search-annals { width: 100%; }
-            .pomo-display { font-size: 3.5rem; }
-        }
 
-        @keyframes oracle-float {
-            0% { transform: translateY(0px) rotate(-3deg); }
-            100% { transform: translateY(-12px) rotate(3deg); }
-        }
-
-        @keyframes oracle-glow {
-            0% { opacity: 0.3; transform: scale(0.95); }
-            100% { opacity: 0.8; transform: scale(1.15); }
+            #oracle-modal .scribes-bubble {
+                position: absolute;
+                bottom: 240px; /* Aligns neatly above the bottom widget */
+                right: 20px;
+                left: 20px;
+                width: calc(100% - 40px);
+                height: 55dvh;
+                margin: 0;
+                max-width: none;
+            }
         }
     </style>
 </head>
@@ -866,7 +873,7 @@
             if (modal) {
                 modal.classList.toggle('active');
                 if (modalId === 'oracle-modal') {
-                    // Update state variables to slide floating oracle side-by-side beautifully
+                    // Update state variables to expand widget cleanly & slide chat out next to her
                     document.body.classList.toggle('oracle-open', modal.classList.contains('active'));
                 }
             }
