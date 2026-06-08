@@ -34,6 +34,22 @@
     <link rel="prefetch" href="xmasmusicbox2.mp3" as="audio">
     <link rel="prefetch" href="xmasmusicbox3.mp3" as="audio">
 
+    <!-- SOMNIASCRIBES PRESET IMAGE PREFETCH -->
+    <link rel="prefetch" href="rainywindow.png" as="image">
+    <link rel="prefetch" href="candledesk.png" as="image">
+    <link rel="prefetch" href="midnightpages.png" as="image">
+    <link rel="prefetch" href="forestmargins.png" as="image">
+    <link rel="prefetch" href="blanketfort.png" as="image">
+    <link rel="prefetch" href="inkandthunder.png" as="image">
+    <link rel="prefetch" href="gentlestatic.png" as="image">
+    <link rel="prefetch" href="moonlitarchive.png" as="image">
+
+    <!-- NIB REACTION SPRITE PREFETCH -->
+    <link rel="prefetch" href="nib_candle_mouse.png" as="image">
+    <link rel="prefetch" href="nib_reaction_cozy.png" as="image">
+    <link rel="prefetch" href="nib_reaction_startled.png" as="image">
+    <link rel="prefetch" href="nib_reaction_curious.png" as="image">
+
     <style>
         /* ============================================================
            SOMNIASCRIBES — COZY CHAOS ENVIRONMENT
@@ -1481,12 +1497,20 @@
                 const activeBgKey = localStorage.getItem('somnia_active_bg_key');
                 
                 if (activeBgKey) {
-                    const blob = await getMedia(activeBgKey);
-                    if(blob) {
-                        document.getElementById('bg-anchor').style.backgroundImage = `url('${URL.createObjectURL(blob)}')`;
+                    if (activeBgKey.startsWith('builtin:')) {
+                        const builtInImage = activeBgKey.replace('builtin:', '');
+                        document.getElementById('bg-anchor').style.backgroundImage = `url('${builtInImage}')`;
                     } else {
-                        document.getElementById('bg-anchor').style.backgroundImage = "url('scribes1.0.png')";
+                        const blob = await getMedia(activeBgKey);
+                        if(blob) {
+                            document.getElementById('bg-anchor').style.backgroundImage = `url('${URL.createObjectURL(blob)}')`;
+                        } else {
+                            document.getElementById('bg-anchor').style.backgroundImage = "url('scribes1.0.png')";
+                        }
                     }
+                    setNibReactionForBackgroundKey(activeBgKey);
+                } else {
+                    setNibReactionSprite('default');
                 }
 
                 if (stateStr) {
@@ -1612,15 +1636,23 @@
             if (state.bgKey === 'default_library' || state.bgKey === 'default_scribes_1_0') {
                 document.getElementById('bg-anchor').style.backgroundImage = "url('scribes1.0.png')";
                 localStorage.removeItem('somnia_active_bg_key');
+                setNibReactionSprite('default');
+            } else if (state.bgKey && String(state.bgKey).startsWith('builtin:')) {
+                const builtInImage = String(state.bgKey).replace('builtin:', '');
+                document.getElementById('bg-anchor').style.backgroundImage = `url('${builtInImage}')`;
+                localStorage.setItem('somnia_active_bg_key', state.bgKey);
+                setNibReactionForBackgroundKey(state.bgKey);
             } else if (state.bgKey) {
                 const blob = await getMedia(state.bgKey);
                 if(blob) {
                     document.getElementById('bg-anchor').style.backgroundImage = `url('${URL.createObjectURL(blob)}')`;
                     localStorage.setItem('somnia_active_bg_key', state.bgKey);
                 }
+                setNibReactionSprite('default');
             } else {
                 document.getElementById('bg-anchor').style.backgroundImage = "url('scribes1.0.png')";
                 localStorage.removeItem('somnia_active_bg_key');
+                setNibReactionSprite('default');
             }
 
             updateVar('--anim-speed', state.vars.speed); updateVar('--glow-opac', state.vars.opac);
@@ -2253,52 +2285,127 @@
             if (el) el.value = value;
         }
 
+
+        const BUILTIN_SCRIPTORIUM_BACKGROUNDS = {
+            rainyWindow: 'rainywindow.png',
+            candleDesk: 'candledesk.png',
+            midnightPages: 'midnightpages.png',
+            forestMargins: 'forestmargins.png',
+            blanketFort: 'blanketfort.png',
+            inkAndThunder: 'inkandthunder.png',
+            gentleStatic: 'gentlestatic.png',
+            moonlitArchive: 'moonlitarchive.png'
+        };
+
+        const NIB_REACTION_SPRITES = {
+            default: 'nib_candle_mouse.png',
+            cozy: 'nib_reaction_cozy.png',
+            startled: 'nib_reaction_startled.png',
+            curious: 'nib_reaction_curious.png'
+        };
+
+        const NIB_PRESET_REACTION_MAP = {
+            'Rainy Window': 'cozy',
+            'Candle Desk': 'cozy',
+            'Midnight Pages': 'curious',
+            'Forest Margins': 'curious',
+            'Blanket Fort': 'cozy',
+            'Ink and Thunder': 'startled',
+            'Gentle Static': 'default',
+            'Moonlit Archive': 'curious'
+        };
+
+        const PRESET_LABEL_BY_BACKGROUND = {
+            'rainywindow.png': 'Rainy Window',
+            'candledesk.png': 'Candle Desk',
+            'midnightpages.png': 'Midnight Pages',
+            'forestmargins.png': 'Forest Margins',
+            'blanketfort.png': 'Blanket Fort',
+            'inkandthunder.png': 'Ink and Thunder',
+            'gentlestatic.png': 'Gentle Static',
+            'moonlitarchive.png': 'Moonlit Archive'
+        };
+
+        function setBuiltInBackground(imageFile) {
+            const bgAnchor = document.getElementById('bg-anchor');
+            if (!bgAnchor || !imageFile) return;
+            bgAnchor.style.backgroundImage = `url('${imageFile}')`;
+            localStorage.setItem('somnia_active_bg_key', `builtin:${imageFile}`);
+        }
+
+        function setNibReactionSprite(mood = 'default') {
+            const nibImg = document.querySelector('#pet-nib img');
+            if (!nibImg) return;
+            nibImg.src = NIB_REACTION_SPRITES[mood] || NIB_REACTION_SPRITES.default;
+        }
+
+        function setNibReactionForPreset(presetLabel) {
+            const mood = NIB_PRESET_REACTION_MAP[presetLabel] || 'default';
+            setNibReactionSprite(mood);
+        }
+
+        function setNibReactionForBackgroundKey(bgKey) {
+            if (!bgKey || typeof bgKey !== 'string') {
+                setNibReactionSprite('default');
+                return;
+            }
+            if (bgKey.startsWith('builtin:')) {
+                const bgFile = bgKey.replace('builtin:', '');
+                const presetLabel = PRESET_LABEL_BY_BACKGROUND[bgFile];
+                if (presetLabel) {
+                    setNibReactionForPreset(presetLabel);
+                    return;
+                }
+            }
+            setNibReactionSprite('default');
+        }
+
         function applyScriptoriumPreset(key) {
             const presets = {
                 rainyWindow: {
-                    label: 'Rainy Window',
+                    label: 'Rainy Window', bgImage: BUILTIN_SCRIPTORIUM_BACKGROUNDS.rainyWindow,
                     mode: 'frost-mode', glow: 'glow-wave', particle: 'rain', count: 90,
                     vars: { speed: '12s', opac: '0.42', bright: '0.72', zoom: '1.05', pColor: '#bae6fd', gColor: 'rgba(186,230,253,0.36)' },
                     audio: [{ id: 'rain', vol: '0.55' }, { id: 'teacup', vol: '0.2' }]
                 },
                 candleDesk: {
-                    label: 'Candle Desk',
+                    label: 'Candle Desk', bgImage: BUILTIN_SCRIPTORIUM_BACKGROUNDS.candleDesk,
                     mode: 'sepia-mode', glow: 'glow-flicker', particle: 'embers', count: 45,
                     vars: { speed: '9s', opac: '0.34', bright: '0.86', zoom: '1', pColor: '#fbbf24', gColor: 'rgba(251,191,36,0.32)' },
                     audio: [{ id: 'fire', vol: '0.48' }, { id: 'clock', vol: '0.18' }]
                 },
                 midnightPages: {
-                    label: 'Midnight Pages',
+                    label: 'Midnight Pages', bgImage: BUILTIN_SCRIPTORIUM_BACKGROUNDS.midnightPages,
                     mode: 'twilight-mode', glow: 'glow-breathe', particle: 'stars', count: 65,
                     vars: { speed: '14s', opac: '0.32', bright: '0.68', zoom: '1.04', pColor: '#e0e7ff', gColor: 'rgba(99,102,241,0.34)' },
                     audio: [{ id: 'clock', vol: '0.22' }, { id: 'musicbox1', vol: '0.18' }]
                 },
                 forestMargins: {
-                    label: 'Forest Margins',
+                    label: 'Forest Margins', bgImage: BUILTIN_SCRIPTORIUM_BACKGROUNDS.forestMargins,
                     mode: 'emerald-mode', glow: 'glow-nebula', particle: 'motes', count: 80,
                     vars: { speed: '11s', opac: '0.36', bright: '0.75', zoom: '1.03', pColor: '#34d399', gColor: 'rgba(52,211,153,0.28)' },
                     audio: [{ id: 'crickets', vol: '0.32' }, { id: 'frogs', vol: '0.22' }, { id: 'owls', vol: '0.16' }]
                 },
                 blanketFort: {
-                    label: 'Blanket Fort',
+                    label: 'Blanket Fort', bgImage: BUILTIN_SCRIPTORIUM_BACKGROUNDS.blanketFort,
                     mode: 'vellum-mode', glow: 'glow-heartbeat', particle: 'snow', count: 40,
                     vars: { speed: '13s', opac: '0.3', bright: '0.9', zoom: '1', pColor: '#fef3c7', gColor: 'rgba(254,243,199,0.25)' },
                     audio: [{ id: 'cat', vol: '0.38' }, { id: 'fire', vol: '0.28' }, { id: 'teacup', vol: '0.16' }]
                 },
                 inkAndThunder: {
-                    label: 'Ink and Thunder',
+                    label: 'Ink and Thunder', bgImage: BUILTIN_SCRIPTORIUM_BACKGROUNDS.inkAndThunder,
                     mode: 'noir-mode', glow: 'glow-strobe', particle: 'rain', count: 120,
                     vars: { speed: '8s', opac: '0.5', bright: '0.62', zoom: '1.07', pColor: '#a5b4fc', gColor: 'rgba(212,175,55,0.32)' },
                     audio: [{ id: 'rain', vol: '0.5' }, { id: 'thunder', vol: '0.36' }]
                 },
                 gentleStatic: {
-                    label: 'Gentle Static',
+                    label: 'Gentle Static', bgImage: BUILTIN_SCRIPTORIUM_BACKGROUNDS.gentleStatic,
                     mode: 'obsidian-mode', glow: 'glow-static', particle: 'dust', count: 55,
                     vars: { speed: '16s', opac: '0.26', bright: '0.78', zoom: '1', pColor: '#cbd5e1', gColor: 'rgba(203,213,225,0.22)' },
                     audio: [{ id: 'binarymusicbox', vol: '0.2' }, { id: 'windchimes', vol: '0.16' }]
                 },
                 moonlitArchive: {
-                    label: 'Moonlit Archive',
+                    label: 'Moonlit Archive', bgImage: BUILTIN_SCRIPTORIUM_BACKGROUNDS.moonlitArchive,
                     mode: 'lunar-mode', glow: 'glow-halo', particle: 'stars', count: 75,
                     vars: { speed: '15s', opac: '0.38', bright: '0.7', zoom: '1.02', pColor: '#e0e7ff', gColor: 'rgba(224,231,255,0.34)' },
                     audio: [{ id: 'windchimes', vol: '0.22' }, { id: 'raven', vol: '0.12' }, { id: 'musicbox2', vol: '0.16' }]
@@ -2307,6 +2414,12 @@
 
             const preset = presets[key];
             if (!preset) return;
+
+            if (preset.bgImage) {
+                setBuiltInBackground(preset.bgImage);
+                localStorage.setItem('somnia_active_preset_label', preset.label);
+            }
+            setNibReactionForPreset(preset.label);
 
             document.documentElement.className = preset.mode;
             const glowLayer = document.getElementById('glow-layer');
@@ -2341,7 +2454,7 @@
             saveCurrentState();
             if (typeof addXP === 'function') addXP(1, 'preset');
             if (typeof showPetLoreForPreset === 'function') showPetLoreForPreset(preset.label);
-            somniaAlert('Preset Placeholder Loaded', `${preset.label} is active. The image slot can be wired later when the artwork is ready.`);
+            somniaAlert('Preset Loaded', `${preset.label} is active with its background art, atmosphere, and Nib reaction.`);
         }
 
         const INK_ORACLE_PERSONALITY = `You are the Ink Oracle inside SomniaScribes, also called The Scriptorium. Your personality is sweet, calm, quiet, soft-spoken, emotionally gentle, and never pushy. You help with journaling, memory fragments, dreams, unfinished thoughts, and creative reframing. Keep responses grounded, non-clinical, and concise unless asked for more. Do not diagnose. Do not pressure the user to organize. Treat tiny fragments as enough. Speak like a kind librarian spirit sitting beside a candlelit desk.`;
@@ -2604,7 +2717,7 @@
 
     <!-- Nib the Candle Mouse -->
     <div id="pet-nib" title="Nib, the Candle Mouse" style="position:absolute; display:none; width:48px; height:48px; pointer-events:none; z-index:15000;">
-        <img src="images/nib_candle_mouse.png" alt="Nib, the Candle Mouse" style="width:100%; height:100%;">
+        <img src="nib_candle_mouse.png" alt="Nib, the Candle Mouse" style="width:100%; height:100%;">
         <div id="pet-nib-lore" style="position:absolute; bottom:60px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.7); color:white; padding:4px 8px; border-radius:4px; font-size:12px; display:none;"></div>
     </div>
 
@@ -2704,6 +2817,7 @@ function showNib(customLore = null) {
 }
 
 function showPetLoreForPreset(presetLabel) {
+    setNibReactionForPreset(presetLabel);
     if (!nibUnlocked) return;
     const phrases = nibPresetLore[presetLabel] || nibLore;
     showNib(phrases[Math.floor(Math.random() * phrases.length)]);
