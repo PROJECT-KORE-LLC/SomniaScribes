@@ -180,6 +180,92 @@
         }
         .artifact-btn:hover { border-color: var(--accent); color: #fff; box-shadow: 0 0 20px var(--primary-glow); transform: translateY(-2px); background: rgba(255,255,255,0.05); }
 
+
+
+        /* --- CHRONICLE + WEATHER WIDGETS --- */
+        .scribe-signal-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .chronicle-container, .weather-container {
+            min-height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 9px 16px;
+            border-radius: 999px;
+            border: 1px solid var(--glass-border);
+            background: linear-gradient(145deg, rgba(15,20,30,0.62), rgba(5,8,12,0.78));
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 10px 28px rgba(0,0,0,0.35), inset 0 1px 8px rgba(255,255,255,0.04);
+            color: var(--text-main);
+            pointer-events: auto;
+            white-space: nowrap;
+        }
+
+        .chronicle-container::before, .weather-container::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 14px var(--primary-glow);
+            opacity: 0.9;
+            flex-shrink: 0;
+        }
+
+        .chronicle-time {
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            color: var(--text-main);
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .chronicle-date, .weather-label {
+            font-family: 'Georgia', serif;
+            font-size: 0.66rem;
+            font-style: italic;
+            letter-spacing: 1.4px;
+            color: var(--accent);
+            opacity: 0.95;
+            text-transform: uppercase;
+        }
+
+        .weather-icon { font-size: 1.1rem; filter: drop-shadow(0 0 8px var(--primary-glow)); }
+        .weather-temp { font-family: 'Courier New', monospace; font-size: 0.9rem; font-weight: bold; color: var(--text-main); }
+
+        @media (max-width: 949px) {
+            .scribe-signal-row { justify-content: center; width: 100%; }
+            .chronicle-container, .weather-container { padding: 8px 12px; min-height: 38px; }
+            .chronicle-time, .weather-temp { font-size: 0.82rem; }
+            .chronicle-date, .weather-label { font-size: 0.58rem; }
+        }
+
+        @keyframes oracle-float {
+            0% { transform: translateY(0px) rotate(-0.5deg); }
+            50% { transform: translateY(-10px) rotate(0.5deg); }
+            100% { transform: translateY(0px) rotate(-0.5deg); }
+        }
+
+        @keyframes oracle-glow {
+            0% { opacity: 0.28; transform: scale(0.94); }
+            100% { opacity: 0.72; transform: scale(1.06); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .ink-oracle-inner,
+            .ink-oracle-inner::after {
+                animation: none !important;
+            }
+        }
+
         /* --- THE MAKER PANEL --- */
         #maker-panel {
             background: var(--glass); backdrop-filter: blur(35px);
@@ -355,6 +441,23 @@
         .oracle-msg.user { background: rgba(255,255,255,0.05); align-self: flex-end; color: var(--text-main); border: 1px solid var(--glass-border); border-bottom-right-radius: 2px;}
         .oracle-msg.ai { background: rgba(0,0,0,0.6); align-self: flex-start; color: var(--primary); border: 1px solid var(--primary); border-bottom-left-radius: 2px; box-shadow: 0 0 15px rgba(0,0,0,0.5);}
 
+
+
+        #oracle-modal {
+            z-index: 10020;
+            background: transparent;
+            backdrop-filter: none;
+            pointer-events: none;
+        }
+
+        body.oracle-open #oracle-modal {
+            display: flex;
+        }
+
+        #oracle-modal .scribes-bubble {
+            pointer-events: auto;
+        }
+
         /* --- THE INK ORACLE FLOATING WIDGET --- */
         .ink-oracle-outer {
             position: fixed;
@@ -362,7 +465,7 @@
             right: 30px;
             width: 160px;  /* Default floating size - made larger */
             height: 160px; /* Default floating size - made larger */
-            z-index: 250;  /* Floats above baseline modal overlay */
+            z-index: 10050;  /* Floats above every screen except Cloak UI */
             cursor: pointer;
             transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
                         opacity 0.5s ease, 
@@ -512,6 +615,17 @@
         <div class="nav-logo">SOMNIASCRIBES</div>
         
         <div id="top-nav" onclick="event.stopPropagation()">
+            <div class="scribe-signal-row" aria-label="Time and weather">
+                <div class="chronicle-container" title="Local time">
+                    <span class="chronicle-time" id="time-display">00:00</span>
+                    <span class="chronicle-date" id="date-display">Loading...</span>
+                </div>
+                <div class="weather-container" title="Local weather">
+                    <span class="weather-icon" id="weather-icon">🌙</span>
+                    <span class="weather-temp" id="weather-temp">--°F</span>
+                    <span class="weather-label" id="weather-label">Sanctuary Sky</span>
+                </div>
+            </div>
             <button class="artifact-btn" onclick="toggleCloak()">Cloak UI</button>
             <button class="artifact-btn" onclick="toggleModal('scratchpad-modal')">Journal</button>
             <button class="artifact-btn" onclick="toggleModal('oracle-modal')">Oracle Assistant</button>
@@ -636,7 +750,7 @@
     <!-- Floating AI Widget: The Ink Oracle (Positioned root-level to overlap overlay accurately) -->
     <div id="ink-oracle-widget" class="ink-oracle-outer" onclick="activateOracle(event)">
         <div class="ink-oracle-inner">
-            <img src="scribe1.png" alt="The Ink Oracle" class="oracle-avatar">
+            <img src="scribe1.png" alt="Elven cat librarian Oracle" class="oracle-avatar">
         </div>
     </div>
 
@@ -708,6 +822,7 @@
                 </div>
                 <div class="editor-container">
                     <textarea id="oracle-editor" class="lore-input" rows="2" placeholder="Ask your Oracle... [Press ENTER to send]"></textarea>
+                    <button class="toy-btn" style="align-self:flex-end; padding: 8px 22px; border-color: var(--accent);" onclick="summonOracle()">Send</button>
                 </div>
             </div>
         </div>
@@ -1070,16 +1185,16 @@
         let savedVault = JSON.parse(localStorage.getItem('somniaVault')) || [];
 
         // Prepopulate Scribes 1.0 into vault if it's missing
-        const hasDefaultPreset = savedVault.some(preset => preset.isPermanent || preset.name === "Scribes 1.0");
+        const hasDefaultPreset = savedVault.some(preset => preset.isPermanent || preset.name === "Scribes 1.0" || preset.name === "Library Scriptorium");
         if (!hasDefaultPreset) {
             const defaultPreset = {
-                name: "Scribes 1.0",
+                name: "Library Scriptorium",
                 isPermanent: true, // Custom attribute to block vault deletions
                 bodyClass: 'lunar-mode',
                 glowClass: 'glow-layer glow-pulse',
                 particleType: 'dust',
                 particleCount: 50,
-                bgKey: 'default_scribes_1_0',
+                bgKey: 'default_library',
                 vars: {
                     speed: '10s',
                     opac: '0.3',
@@ -1161,7 +1276,7 @@
             window.particleType = state.particleType;
             window.particleCount = state.particleCount;
             
-            if (state.bgKey === 'default_scribes_1_0') {
+            if (state.bgKey === 'default_library' || state.bgKey === 'default_scribes_1_0') {
                 document.getElementById('bg-anchor').style.backgroundImage = "url('scribes1.0.png')";
                 localStorage.removeItem('somnia_active_bg_key');
             } else if (state.bgKey) {
@@ -1667,6 +1782,95 @@
             if (e.target.files[0]) { reader.readAsText(e.target.files[0]); e.target.value = ''; }
         }
 
+
+
+        // === 8.5. CHRONICLE + WEATHER WIDGETS ===
+        function updateChronicleWidget() {
+            const now = new Date();
+            const timeEl = document.getElementById('time-display');
+            const dateEl = document.getElementById('date-display');
+            if (timeEl) {
+                timeEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+            if (dateEl) {
+                dateEl.textContent = now.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+            }
+        }
+
+        function weatherCodeToVibe(code, isDay) {
+            const night = isDay === 0 || isDay === false;
+            const table = {
+                0: [night ? '🌙' : '☀️', night ? 'Clear Moon' : 'Clear Sky'],
+                1: [night ? '🌙' : '🌤️', 'Mostly Clear'],
+                2: ['⛅', 'Partly Clouded'],
+                3: ['☁️', 'Clouded'],
+                45: ['🌫️', 'Fog'],
+                48: ['🌫️', 'Rime Fog'],
+                51: ['🌦️', 'Light Drizzle'],
+                53: ['🌦️', 'Drizzle'],
+                55: ['🌧️', 'Heavy Drizzle'],
+                61: ['🌧️', 'Light Rain'],
+                63: ['🌧️', 'Rain'],
+                65: ['🌧️', 'Heavy Rain'],
+                71: ['🌨️', 'Light Snow'],
+                73: ['🌨️', 'Snow'],
+                75: ['❄️', 'Heavy Snow'],
+                80: ['🌦️', 'Rain Showers'],
+                81: ['🌧️', 'Showers'],
+                82: ['⛈️', 'Heavy Showers'],
+                95: ['⛈️', 'Thunder'],
+                96: ['⛈️', 'Thunder Hail'],
+                99: ['⛈️', 'Storm Hail']
+            };
+            return table[code] || [night ? '🌙' : '✨', 'Sanctuary Sky'];
+        }
+
+        function setWeatherFallback() {
+            const hour = new Date().getHours();
+            const icon = hour >= 6 && hour < 18 ? '✨' : '🌙';
+            const label = hour >= 6 && hour < 12 ? 'Morning Glow' : hour < 18 ? 'Daylight Haze' : hour < 22 ? 'Evening Veil' : 'Moonlit Quiet';
+            const iconEl = document.getElementById('weather-icon');
+            const tempEl = document.getElementById('weather-temp');
+            const labelEl = document.getElementById('weather-label');
+            if (iconEl) iconEl.textContent = icon;
+            if (tempEl) tempEl.textContent = '--°F';
+            if (labelEl) labelEl.textContent = label;
+        }
+
+        async function initWeatherWidget() {
+            setWeatherFallback();
+            if (!navigator.geolocation || !window.fetch) return;
+
+            navigator.geolocation.getCurrentPosition(async position => {
+                try {
+                    const lat = position.coords.latitude.toFixed(4);
+                    const lon = position.coords.longitude.toFixed(4);
+                    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,is_day&temperature_unit=fahrenheit&timezone=auto`;
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error('Weather unavailable');
+                    const data = await response.json();
+                    const current = data.current || {};
+                    const temp = Math.round(current.temperature_2m);
+                    const [icon, label] = weatherCodeToVibe(current.weather_code, current.is_day);
+                    const iconEl = document.getElementById('weather-icon');
+                    const tempEl = document.getElementById('weather-temp');
+                    const labelEl = document.getElementById('weather-label');
+                    if (iconEl) iconEl.textContent = icon;
+                    if (tempEl && Number.isFinite(temp)) tempEl.textContent = `${temp}°F`;
+                    if (labelEl) labelEl.textContent = label;
+                } catch (error) {
+                    console.warn('SomniaScribes weather fallback:', error);
+                    setWeatherFallback();
+                }
+            }, () => setWeatherFallback(), { enableHighAccuracy: false, timeout: 7000, maximumAge: 30 * 60 * 1000 });
+        }
+
+        function initChronicleWidgets() {
+            updateChronicleWidget();
+            window.somniaChronicleTimer = window.somniaChronicleTimer || setInterval(updateChronicleWidget, 1000);
+            initWeatherWidget();
+        }
+
         // === 9. AI ASSISTANT (Gemini API) ===
         function saveApiKey() {
             const input = document.getElementById('gemini-key-input'); const btn = document.getElementById('save-key-btn');
@@ -1715,6 +1919,7 @@
         // === BOOT ===
         document.addEventListener('DOMContentLoaded', async () => {
             parseUrlState();
+            initChronicleWidgets();
             
             initStickers();
             populateGrid('color-grid', colors, 'color');
