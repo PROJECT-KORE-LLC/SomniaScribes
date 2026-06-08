@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
+    <meta name="somniascribes-build" content="preset-image-cards-v2">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SOMNIASCRIBES // COZY VIBE ENGINE</title>
+    <title>SOMNIASCRIBES // THE SCRIPTORIUM // PRESET IMAGE BUILD</title>
     
     <link rel="manifest" href="manifest.json">
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
@@ -882,6 +883,90 @@
             }
         }
 
+
+        /* --- SCRIPTORIUM PRESET GALLERY CARDS --- */
+        .scriptorium-preset-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .scriptorium-preset-card {
+            position: relative;
+            min-height: 118px;
+            border-radius: 24px;
+            overflow: hidden;
+            padding: 0;
+            border: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.35);
+            box-shadow: 0 14px 34px rgba(0,0,0,0.34), inset 0 1px 0 rgba(255,255,255,0.08);
+            white-space: normal;
+            text-align: left;
+        }
+
+        .scriptorium-preset-card img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.78) saturate(1.08);
+            transition: transform 0.45s ease, filter 0.45s ease;
+        }
+
+        .scriptorium-preset-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 50% 18%, rgba(255,255,255,0.14), transparent 45%),
+                linear-gradient(to top, rgba(0,0,0,0.86), rgba(0,0,0,0.08) 68%);
+            pointer-events: none;
+        }
+
+        .scriptorium-preset-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 0 24px var(--primary-glow), 0 18px 38px rgba(0,0,0,0.42);
+        }
+
+        .scriptorium-preset-card:hover img {
+            transform: scale(1.055);
+            filter: brightness(0.92) saturate(1.18);
+        }
+
+        .scriptorium-preset-card.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 28px var(--primary-glow), inset 0 0 22px rgba(255,255,255,0.08);
+        }
+
+        .preset-card-label {
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            bottom: 11px;
+            z-index: 2;
+            color: #fff;
+            font-family: 'Times New Roman', serif;
+            font-size: 0.86rem;
+            letter-spacing: 2px;
+            line-height: 1.25;
+            text-transform: uppercase;
+            text-shadow: 0 2px 14px rgba(0,0,0,0.95);
+        }
+
+        .preset-card-kicker {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--primary);
+            font-family: monospace;
+            font-size: 0.56rem;
+            letter-spacing: 2px;
+            opacity: 0.92;
+        }
+
     </style>
 </head>
 <body id="os-body" class="booting" onclick="restoreUI()">
@@ -1046,17 +1131,40 @@
             <div id="tab-vault" class="tab-content">
                 <button class="toy-btn" id="save-btn" style="border-color: var(--primary); padding: 18px; font-size: 0.75rem; border-radius: 50px;" onclick="savePreset()">💖 Save This Vibe to Vault</button>
 
-                <h4 class="section-title" style="margin-top: 12px;">Scriptorium Preset Placeholders</h4>
-                <p class="soft-helper-text">These are integration-ready vibe doors. Images can be added later; for now they set tone, color, glow, particles, and matching audio where available.</p>
-                <div class="scriptorium-preset-grid" id="scriptorium-preset-placeholders">
-                    <button class="toy-btn scriptorium-preset-btn" onclick="applyScriptoriumPreset('rainyWindow')"><span>🌧️</span>Rainy Window</button>
-                    <button class="toy-btn scriptorium-preset-btn" onclick="applyScriptoriumPreset('candleDesk')"><span>🕯️</span>Candle Desk</button>
-                    <button class="toy-btn scriptorium-preset-btn" onclick="applyScriptoriumPreset('midnightPages')"><span>📖</span>Midnight Pages</button>
-                    <button class="toy-btn scriptorium-preset-btn" onclick="applyScriptoriumPreset('forestMargins')"><span>🌲</span>Forest Margins</button>
-                    <button class="toy-btn scriptorium-preset-btn" onclick="applyScriptoriumPreset('blanketFort')"><span>🧺</span>Blanket Fort</button>
-                    <button class="toy-btn scriptorium-preset-btn" onclick="applyScriptoriumPreset('inkAndThunder')"><span>⛈️</span>Ink and Thunder</button>
-                    <button class="toy-btn scriptorium-preset-btn" onclick="applyScriptoriumPreset('gentleStatic')"><span>📻</span>Gentle Static</button>
-                    <button class="toy-btn scriptorium-preset-btn" onclick="applyScriptoriumPreset('moonlitArchive')"><span>🌙</span>Moonlit Archive</button>
+                <h4 class="section-title" style="margin-top: 12px;">Scriptorium Presets</h4>
+                <div class="scriptorium-preset-gallery" id="scriptorium-preset-gallery">
+                    <button class="toy-btn scriptorium-preset-card" data-preset-key="rainyWindow" onclick="applyScriptoriumPreset('rainyWindow')">
+                        <img src="rainywindow.png" alt="Rainy Window preset">
+                        <span class="preset-card-label"><span class="preset-card-kicker">Rain + Tea</span>Rainy Window</span>
+                    </button>
+                    <button class="toy-btn scriptorium-preset-card" data-preset-key="candleDesk" onclick="applyScriptoriumPreset('candleDesk')">
+                        <img src="candledesk.png" alt="Candle Desk preset">
+                        <span class="preset-card-label"><span class="preset-card-kicker">Warm Study</span>Candle Desk</span>
+                    </button>
+                    <button class="toy-btn scriptorium-preset-card" data-preset-key="midnightPages" onclick="applyScriptoriumPreset('midnightPages')">
+                        <img src="midnightpages.png" alt="Midnight Pages preset">
+                        <span class="preset-card-label"><span class="preset-card-kicker">Quiet Night</span>Midnight Pages</span>
+                    </button>
+                    <button class="toy-btn scriptorium-preset-card" data-preset-key="forestMargins" onclick="applyScriptoriumPreset('forestMargins')">
+                        <img src="forestmargins.png" alt="Forest Margins preset">
+                        <span class="preset-card-label"><span class="preset-card-kicker">Green Hush</span>Forest Margins</span>
+                    </button>
+                    <button class="toy-btn scriptorium-preset-card" data-preset-key="blanketFort" onclick="applyScriptoriumPreset('blanketFort')">
+                        <img src="blanketfort.png" alt="Blanket Fort preset">
+                        <span class="preset-card-label"><span class="preset-card-kicker">Safe Nest</span>Blanket Fort</span>
+                    </button>
+                    <button class="toy-btn scriptorium-preset-card" data-preset-key="inkAndThunder" onclick="applyScriptoriumPreset('inkAndThunder')">
+                        <img src="inkandthunder.png" alt="Ink and Thunder preset">
+                        <span class="preset-card-label"><span class="preset-card-kicker">Storm Work</span>Ink and Thunder</span>
+                    </button>
+                    <button class="toy-btn scriptorium-preset-card" data-preset-key="gentleStatic" onclick="applyScriptoriumPreset('gentleStatic')">
+                        <img src="gentlestatic.png" alt="Gentle Static preset">
+                        <span class="preset-card-label"><span class="preset-card-kicker">Soft Signal</span>Gentle Static</span>
+                    </button>
+                    <button class="toy-btn scriptorium-preset-card" data-preset-key="moonlitArchive" onclick="applyScriptoriumPreset('moonlitArchive')">
+                        <img src="moonlitarchive.png" alt="Moonlit Archive preset">
+                        <span class="preset-card-label"><span class="preset-card-kicker">Silver Stacks</span>Moonlit Archive</span>
+                    </button>
                 </div>
 
                 <h4 class="section-title" style="margin-top: 18px;">Saved Vibes</h4>
@@ -1186,6 +1294,8 @@
     </div>
 
     <script>
+        console.log('SOMNIASCRIBES // PRESET IMAGE CARD BUILD V2');
+
         // Set Default Aesthetic Mode on Root immediately
         document.documentElement.className = 'lunar-mode';
 
@@ -2415,6 +2525,10 @@
             const preset = presets[key];
             if (!preset) return;
 
+            document.querySelectorAll('.scriptorium-preset-card').forEach(card => {
+                card.classList.toggle('active', card.dataset.presetKey === key);
+            });
+
             if (preset.bgImage) {
                 setBuiltInBackground(preset.bgImage);
                 localStorage.setItem('somnia_active_preset_label', preset.label);
@@ -2454,7 +2568,7 @@
             saveCurrentState();
             if (typeof addXP === 'function') addXP(1, 'preset');
             if (typeof showPetLoreForPreset === 'function') showPetLoreForPreset(preset.label);
-            somniaAlert('Preset Loaded', `${preset.label} is active with its background art, atmosphere, and Nib reaction.`);
+            somniaAlert('Preset Loaded', `${preset.label} is active.`);
         }
 
         const INK_ORACLE_PERSONALITY = `You are the Ink Oracle inside SomniaScribes, also called The Scriptorium. Your personality is sweet, calm, quiet, soft-spoken, emotionally gentle, and never pushy. You help with journaling, memory fragments, dreams, unfinished thoughts, and creative reframing. Keep responses grounded, non-clinical, and concise unless asked for more. Do not diagnose. Do not pressure the user to organize. Treat tiny fragments as enough. Speak like a kind librarian spirit sitting beside a candlelit desk.`;
