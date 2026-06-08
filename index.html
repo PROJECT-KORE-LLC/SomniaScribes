@@ -566,6 +566,135 @@
                 max-width: none;
             }
         }
+    
+        /* --- SOMNIA SIGNAL WIDGETS: TIME + WEATHER --- */
+        .widget-dock {
+            position: absolute;
+            top: 120px;
+            right: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 90;
+            pointer-events: auto;
+        }
+
+        .gorgeous-widget {
+            background: rgba(10, 15, 25, 0.5);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 26px 30px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            min-width: 280px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gorgeous-widget::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0.5;
+        }
+
+        .time-display {
+            font-size: 4rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: var(--primary);
+            text-shadow: 0 0 25px var(--primary-glow);
+            line-height: 1;
+            margin-bottom: 5px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .date-display {
+            font-size: 1rem;
+            font-family: monospace;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .weather-display {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 5px;
+            text-shadow: 0 0 20px var(--primary-glow);
+            line-height: 1;
+        }
+
+        .weather-desc {
+            font-size: 1rem;
+            font-family: monospace;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.35;
+        }
+
+        .weather-subnote {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            font-family: monospace;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        body.cloaked .widget-dock {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 949px) {
+            .widget-dock {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                width: 95%;
+                max-width: 500px;
+                margin: 0 auto 14px auto;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .gorgeous-widget {
+                min-width: 0;
+                flex: 1 1 190px;
+                padding: 18px 16px;
+                border-radius: 24px;
+            }
+
+            .time-display {
+                font-size: 2.4rem;
+                letter-spacing: 3px;
+            }
+
+            .date-display,
+            .weather-desc {
+                font-size: 0.72rem;
+                letter-spacing: 2px;
+            }
+
+            .weather-display {
+                font-size: 2rem;
+            }
+        }
+
+    
+        /* Hide older pill-style Scribes signal row when using Scheds-style dock widgets */
+        .scribe-signal-row {
+            display: none !important;
+        }
+
     </style>
 </head>
 <body id="os-body" onclick="restoreUI()">
@@ -631,6 +760,18 @@
             <button class="artifact-btn" onclick="toggleModal('oracle-modal')">Oracle Assistant</button>
             <button class="artifact-btn" onclick="toggleModal('cast-modal')">Project</button>
             <button class="artifact-btn" onclick="dropSomnia()">Drop Vibe</button>
+        </div>
+
+        <div class="widget-dock" onclick="event.stopPropagation()" aria-label="SomniaScribes time and weather widgets">
+            <div class="gorgeous-widget">
+                <div class="time-display" id="clock-widget">00:00</div>
+                <div class="date-display" id="date-widget">Loading...</div>
+            </div>
+            <div class="gorgeous-widget">
+                <div class="weather-display" id="weather-icon">🌙 --°F</div>
+                <div class="weather-desc" id="weather-text">Sanctuary Sky</div>
+                <div class="weather-subnote">LOCAL FIRST REGIONAL DATA</div>
+            </div>
         </div>
 
         <main id="maker-panel" onclick="event.stopPropagation()">
@@ -958,6 +1099,7 @@
 
         // === 1. BOOT SEQUENCE ===
         async function startEngine() {
+            if (typeof initSomniaSignals === 'function') initSomniaSignals();
             const bootScreen = document.getElementById('boot-screen');
             bootScreen.style.opacity = '0';
             
@@ -1948,6 +2090,129 @@
 
             renderAnnals();
         });
+    
+        // === SOMNIA SIGNAL ENGINE: LIVE TIME + LOCAL WEATHER ===
+        const SOMNIA_WEATHER_CODES = {
+            0: ['☀️', 'Clear Sky'],
+            1: ['🌤️', 'Mostly Clear'],
+            2: ['⛅', 'Partly Clouded'],
+            3: ['☁️', 'Overcast'],
+            45: ['🌫️', 'Fog'],
+            48: ['🌫️', 'Rime Fog'],
+            51: ['🌦️', 'Light Drizzle'],
+            53: ['🌦️', 'Drizzle'],
+            55: ['🌧️', 'Heavy Drizzle'],
+            56: ['🌧️', 'Freezing Drizzle'],
+            57: ['🌧️', 'Freezing Drizzle'],
+            61: ['🌧️', 'Light Rain'],
+            63: ['🌧️', 'Rain'],
+            65: ['🌧️', 'Heavy Rain'],
+            66: ['🌧️', 'Freezing Rain'],
+            67: ['🌧️', 'Freezing Rain'],
+            71: ['❄️', 'Light Snow'],
+            73: ['❄️', 'Snow'],
+            75: ['❄️', 'Heavy Snow'],
+            77: ['❄️', 'Snow Grains'],
+            80: ['🌦️', 'Rain Showers'],
+            81: ['🌧️', 'Rain Showers'],
+            82: ['⛈️', 'Violent Showers'],
+            85: ['🌨️', 'Snow Showers'],
+            86: ['🌨️', 'Heavy Snow Showers'],
+            95: ['⛈️', 'Thunderstorm'],
+            96: ['⛈️', 'Storm + Hail'],
+            99: ['⛈️', 'Storm + Hail']
+        };
+
+        function setTextIfPresent(id, value) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = value;
+        }
+
+        function updateSomniaClock() {
+            const now = new Date();
+            const time = now.toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            const date = now.toLocaleDateString([], {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric'
+            }).toUpperCase();
+
+            setTextIfPresent('clock-widget', time);
+            setTextIfPresent('date-widget', date);
+
+            // Backward compatibility with older Scribes pill widget IDs.
+            setTextIfPresent('time-display', time);
+            setTextIfPresent('date-display', date);
+        }
+
+        function setWeatherFallback(reason = 'Sanctuary Sky') {
+            setTextIfPresent('weather-icon', '🌙 --°F');
+            setTextIfPresent('weather-text', reason);
+            setTextIfPresent('weather-temp', '--°F');
+            setTextIfPresent('weather-label', reason);
+        }
+
+        async function fetchSomniaWeatherByCoords(latitude, longitude) {
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto`;
+            const response = await fetch(url, { cache: 'no-store' });
+            if (!response.ok) throw new Error('Weather request failed');
+            const data = await response.json();
+
+            const current = data.current || {};
+            const temp = Number.isFinite(current.temperature_2m)
+                ? `${Math.round(current.temperature_2m)}°F`
+                : '--°F';
+
+            const code = Number.isFinite(current.weather_code) ? current.weather_code : null;
+            const [icon, label] = SOMNIA_WEATHER_CODES[code] || ['🌙', 'Sanctuary Sky'];
+
+            setTextIfPresent('weather-icon', `${icon} ${temp}`);
+            setTextIfPresent('weather-text', label);
+
+            // Backward compatibility with older Scribes pill widget IDs.
+            setTextIfPresent('weather-temp', temp);
+            setTextIfPresent('weather-label', label);
+        }
+
+        function initSomniaWeather() {
+            if (!navigator.geolocation) {
+                setWeatherFallback('Weather Resting');
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    fetchSomniaWeatherByCoords(
+                        position.coords.latitude,
+                        position.coords.longitude
+                    ).catch(() => setWeatherFallback('Weather Veiled'));
+                },
+                () => setWeatherFallback('Location Veiled'),
+                {
+                    enableHighAccuracy: false,
+                    timeout: 7000,
+                    maximumAge: 1000 * 60 * 30
+                }
+            );
+        }
+
+        function initSomniaSignals() {
+            updateSomniaClock();
+            setInterval(updateSomniaClock, 1000 * 15);
+            initSomniaWeather();
+            setInterval(initSomniaWeather, 1000 * 60 * 30);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initSomniaSignals);
+        } else {
+            initSomniaSignals();
+        }
+
     </script>
 </body>
 </html>
