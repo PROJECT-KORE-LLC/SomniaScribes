@@ -768,6 +768,104 @@
         }
 
 
+        /* --- INTEGRATION HUD: XP + NIB --- */
+        .xp-display {
+            position: absolute;
+            left: 35px;
+            top: 62px;
+            z-index: 120;
+            padding: 8px 16px;
+            border-radius: 999px;
+            border: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.32);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            color: var(--primary);
+            font-family: monospace;
+            font-size: 0.66rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.3);
+            text-shadow: 0 0 12px var(--primary-glow);
+            pointer-events: none;
+        }
+
+        body.booting .xp-display {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #pet-nib {
+            position: fixed !important;
+            width: 74px !important;
+            height: 74px !important;
+            z-index: 14000 !important;
+            pointer-events: auto !important;
+            cursor: pointer;
+            opacity: 0;
+            display: block !important;
+            transform: translateY(10px) scale(0.92);
+            transition: opacity 0.8s ease, transform 0.8s ease, left 0.8s ease, top 0.8s ease;
+        }
+
+        #pet-nib.nib-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        body.booting #pet-nib,
+        body.cloaked #pet-nib {
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        #pet-nib img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 14px rgba(251,191,36,0.55)) drop-shadow(0 0 28px var(--primary-glow));
+        }
+
+        #pet-nib::after {
+            content: '';
+            position: absolute;
+            inset: 20%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(251,191,36,0.32), transparent 72%);
+            z-index: -1;
+            animation: oracle-glow 2.8s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+
+        #pet-nib-lore {
+            position: absolute !important;
+            bottom: 78px !important;
+            left: 50% !important;
+            min-width: 190px;
+            max-width: 250px;
+            transform: translateX(-50%) !important;
+            border-radius: 18px !important;
+            border: 1px solid var(--glass-border);
+            background: rgba(8,10,16,0.78) !important;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            color: var(--text-main) !important;
+            padding: 10px 13px !important;
+            font-family: 'Georgia', serif !important;
+            font-size: 0.78rem !important;
+            line-height: 1.45 !important;
+            text-align: center;
+            box-shadow: 0 16px 35px rgba(0,0,0,0.45);
+        }
+
+        @media (max-width: 949px) {
+            .xp-display {
+                position: static;
+                margin: -4px auto 10px auto;
+                width: fit-content;
+            }
+        }
+
     </style>
 </head>
 <body id="os-body" class="booting" onclick="restoreUI()">
@@ -816,6 +914,7 @@
 
     <div id="ui-wrapper">
         <div class="nav-logo">SOMNIASCRIBES</div>
+        <div id="xp-display" class="xp-display" aria-label="Ink XP">INK XP // 0</div>
         
         <div id="top-nav" onclick="event.stopPropagation()">
             <div class="scribe-signal-row" aria-label="Time and weather">
@@ -833,6 +932,7 @@
             <button class="artifact-btn" onclick="toggleModal('scratchpad-modal')">Journal</button>
             <button class="artifact-btn" onclick="toggleModal('oracle-modal')">Ink Oracle</button>
             <button class="artifact-btn" onclick="toggleModal('cast-modal')">Project</button>
+            <button class="artifact-btn" onclick="returnToCity(event)">Return to City</button>
             <button class="artifact-btn" onclick="dropSomnia()">Drop Vibe</button>
         </div>
 
@@ -1991,6 +2091,13 @@
             document.getElementById('journal-media-name').innerText = "";
             renderAnnals();
 
+            if (typeof awardJournalXP === 'function') {
+                awardJournalXP();
+            }
+            if (typeof unlockNib === 'function') {
+                unlockNib(true);
+            }
+
             if (!window.hasRemindedExport) {
                 somniaAlert("Memory Saved! ✨", "Just a tiny reminder, sweet brain: don't forget to 'Export Journal' every so often to keep these cozy thoughts safe forever!");
                 window.hasRemindedExport = true;
@@ -2138,6 +2245,7 @@
             editor.value = existing ? existing + "\n\n" + prompt + "\n" : prompt + "\n";
             editor.focus();
             editor.selectionStart = editor.selectionEnd = editor.value.length;
+            if (typeof addXP === 'function') addXP(2, 'journal prompt');
         }
 
         function safeSetSlider(id, value) {
@@ -2231,6 +2339,8 @@
             }
 
             saveCurrentState();
+            if (typeof addXP === 'function') addXP(1, 'preset');
+            if (typeof showPetLoreForPreset === 'function') showPetLoreForPreset(preset.label);
             somniaAlert('Preset Placeholder Loaded', `${preset.label} is active. The image slot can be wired later when the artwork is ready.`);
         }
 
@@ -2446,13 +2556,58 @@
             initSomniaSignals();
         }
 
+    
+        // === SCRIPTORIUM INTEGRATION: RETURN, XP, AND ROOM BOND ===
+        function returnToCity(event) {
+            if (event) event.stopPropagation();
+            window.location.href = 'https://project-kore-llc.github.io/SomniaScapes/';
+        }
+
+        function getInkXP() {
+            return parseInt(localStorage.getItem('somniaScribesInkXP') || '0', 10);
+        }
+
+        function setInkXP(value) {
+            localStorage.setItem('somniaScribesInkXP', String(Math.max(0, value)));
+            updateXPDisplay();
+        }
+
+        function updateXPDisplay() {
+            const xpEl = document.getElementById('xp-display');
+            if (!xpEl) return;
+            const xp = getInkXP();
+            const level = Math.floor(xp / 100) + 1;
+            xpEl.textContent = `INK XP // ${xp}  ·  ROOM BOND ${level}`;
+        }
+
+        function addXP(amount, reason = '') {
+            const current = getInkXP();
+            setInkXP(current + Number(amount || 0));
+            if (reason) console.log(`[SomniaScribes] +${amount} XP: ${reason}`);
+        }
+
+        function awardJournalXP() {
+            const saves = parseInt(localStorage.getItem('somniaScribesJournalSaves') || '0', 10);
+            const isFirstEntry = saves === 0;
+            localStorage.setItem('somniaScribesJournalSaves', String(saves + 1));
+            addXP(isFirstEntry ? 25 : 10, isFirstEntry ? 'first journal entry' : 'journal entry');
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', updateXPDisplay);
+        } else {
+            updateXPDisplay();
+        }
+
+
     </script>
 
     <!-- Nib the Candle Mouse -->
-    <div id="pet-nib" style="position:absolute; display:none; width:48px; height:48px; pointer-events:none; z-index:15000;">
-        <img src="images/nib_candle_mouse.png" style="width:100%; height:100%;">
+    <div id="pet-nib" title="Nib, the Candle Mouse" style="position:absolute; display:none; width:48px; height:48px; pointer-events:none; z-index:15000;">
+        <img src="images/nib_candle_mouse.png" alt="Nib, the Candle Mouse" style="width:100%; height:100%;">
         <div id="pet-nib-lore" style="position:absolute; bottom:60px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.7); color:white; padding:4px 8px; border-radius:4px; font-size:12px; display:none;"></div>
     </div>
+
 
 <script>
 const nibLore = [
@@ -2463,45 +2618,114 @@ const nibLore = [
     "The candle leaned closer."
 ];
 
+const nibPresetLore = {
+    "Rainy Window": [
+        "Nib tucks his candle close to the rainy glass.",
+        "The window whispers. Nib listens from the warm side."
+    ],
+    "Candle Desk": [
+        "Nib approves of this candle. Very professional.",
+        "The desk glow makes Nib brave enough to peek out."
+    ],
+    "Midnight Pages": [
+        "Nib pads softly between the midnight pages.",
+        "The moonlight makes his little candle look ancient."
+    ],
+    "Forest Margins": [
+        "Nib found leaf-dust in the margins.",
+        "Something green and quiet made Nib sneeze."
+    ],
+    "Blanket Fort": [
+        "Nib has declared this blanket fort structurally excellent.",
+        "The room folds itself softer around you."
+    ],
+    "Ink and Thunder": [
+        "Nib heard the thunder and hid behind a comma.",
+        "The ink shivers, but the candle stays lit."
+    ],
+    "Gentle Static": [
+        "Nib’s whiskers twitch at the soft static.",
+        "The room hums like an old secret."
+    ],
+    "Moonlit Archive": [
+        "Nib patrols the moonlit shelves with great seriousness.",
+        "Silver dust gathers where tiny feet have been."
+    ]
+};
+
 let nibUnlocked = localStorage.getItem('nibUnlocked') === 'true';
 const nibEl = document.getElementById('pet-nib');
 const nibLoreEl = document.getElementById('pet-nib-lore');
 
-function unlockNib() {
+function unlockNib(showNotice = false) {
+    if (nibUnlocked) return;
     nibUnlocked = true;
     localStorage.setItem('nibUnlocked', 'true');
+
+    if (showNotice && typeof somniaAlert === 'function') {
+        somniaAlert("Something Small Appeared", "A tiny candle mouse named Nib has found his way into the Scriptorium.");
+    }
+
+    setTimeout(() => showNib("A tiny candle mouse has found a warm place near your words."), 900);
 }
 
-function showNib() {
-    if(!nibUnlocked) return;
-    const room = document.getElementById('os-body');
-    const maxX = room.clientWidth - 48;
-    const maxY = room.clientHeight - 48;
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
-    nibEl.style.left = x + 'px';
-    nibEl.style.top = y + 'px';
-    nibEl.style.display = 'block';
-    const lore = nibLore[Math.floor(Math.random() * nibLore.length)];
+function getNibSafeSpot() {
+    const spots = [
+        { left: '8vw', top: '72vh' },
+        { left: '72vw', top: '70vh' },
+        { left: '84vw', top: '30vh' },
+        { left: '48vw', top: '82vh' },
+        { left: '62vw', top: '18vh' },
+        { left: '18vw', top: '24vh' }
+    ];
+
+    return spots[Math.floor(Math.random() * spots.length)];
+}
+
+function showNib(customLore = null) {
+    if (!nibUnlocked || !nibEl || !nibLoreEl || document.body.classList.contains('booting')) return;
+
+    const spot = getNibSafeSpot();
+    nibEl.style.left = spot.left;
+    nibEl.style.top = spot.top;
+
+    const lore = customLore || nibLore[Math.floor(Math.random() * nibLore.length)];
     nibLoreEl.innerText = lore;
     nibLoreEl.style.display = 'block';
-    setTimeout(() => {
-        nibEl.style.display = 'none';
-        nibLoreEl.style.display = 'none';
-    }, 5000 + Math.random() * 2000);
+    nibEl.classList.add('nib-visible');
+
+    clearTimeout(window.__nibHideTimer);
+    window.__nibHideTimer = setTimeout(() => {
+        nibEl.classList.remove('nib-visible');
+        setTimeout(() => {
+            if (nibLoreEl) nibLoreEl.style.display = 'none';
+        }, 800);
+    }, 5200 + Math.random() * 2200);
 }
 
-// Hook into journal entry save for first entry unlock
-const journalSaveBtn = document.querySelector('#journal-save-btn');
-if(journalSaveBtn) {
-    journalSaveBtn.addEventListener('click', () => {
-        const entries = localStorage.getItem('journalEntries') || '';
-        if(!nibUnlocked && entries.trim().length > 0) unlockNib();
+function showPetLoreForPreset(presetLabel) {
+    if (!nibUnlocked) return;
+    const phrases = nibPresetLore[presetLabel] || nibLore;
+    showNib(phrases[Math.floor(Math.random() * phrases.length)]);
+}
+
+if (nibEl) {
+    nibEl.addEventListener('click', (event) => {
+        event.stopPropagation();
+        showNib();
+        if (typeof addXP === 'function') addXP(1, 'greeted Nib');
     });
 }
 
-// Randomly show Nib every 20–40 seconds
-setInterval(() => { showNib(); }, 20000 + Math.random() * 20000);
+// Randomly show Nib every 24 seconds after unlock. The randomness is inside the check.
+setInterval(() => {
+    if (nibUnlocked && Math.random() > 0.45) showNib();
+}, 24000);
+
+// If already unlocked from a previous visit, let him appear after the boot clears.
+setTimeout(() => {
+    if (nibUnlocked && !document.body.classList.contains('booting')) showNib("Nib is still here, keeping the candle company.");
+}, 3500);
 </script>
 
 </body>
