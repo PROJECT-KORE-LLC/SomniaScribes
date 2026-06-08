@@ -10,6 +10,29 @@
     <title>SOMNIASCRIBES // COZY VIBE ENGINE</title>
     
     <link rel="manifest" href="manifest.json">
+    <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
+    <link rel="prefetch" href="binarymusicbox.mp3" as="audio">
+    <link rel="prefetch" href="cat.mp3" as="audio">
+    <link rel="prefetch" href="clock.mp3" as="audio">
+    <link rel="prefetch" href="crickets.mp3" as="audio">
+    <link rel="prefetch" href="darkmusic1.mp3" as="audio">
+    <link rel="prefetch" href="fire.mp3" as="audio">
+    <link rel="prefetch" href="frogs.mp3" as="audio">
+    <link rel="prefetch" href="musicbox1.mp3" as="audio">
+    <link rel="prefetch" href="musicbox2.mp3" as="audio">
+    <link rel="prefetch" href="musicbox3.mp3" as="audio">
+    <link rel="prefetch" href="owls.mp3" as="audio">
+    <link rel="prefetch" href="rain.mp3" as="audio">
+    <link rel="prefetch" href="raven.mp3" as="audio">
+    <link rel="prefetch" href="simmeringpot.mp3" as="audio">
+    <link rel="prefetch" href="teacup.mp3" as="audio">
+    <link rel="prefetch" href="thunder.mp3" as="audio">
+    <link rel="prefetch" href="waves.mp3" as="audio">
+    <link rel="prefetch" href="windchimes.mp3" as="audio">
+    <link rel="prefetch" href="winterwind.mp3" as="audio">
+    <link rel="prefetch" href="xmasmusicbox1.mp3" as="audio">
+    <link rel="prefetch" href="xmasmusicbox2.mp3" as="audio">
+    <link rel="prefetch" href="xmasmusicbox3.mp3" as="audio">
 
     <style>
         /* ============================================================
@@ -1460,13 +1483,28 @@
         const activeAudio = {};
         let audioCtx; let masterGainNode;
         const soundLibrary = [
-            { id: "rain", name: " Gentle Rain", url: "rain.mp3" }, { id: "thunder", name: " Thunderstorm", url: "thunder.mp3" },
-            { id: "winterwind", name: " Winter Wind", url: "winterwind.mp3" }, { id: "owls", name: " Midnight Owls", url: "owls.mp3" },
-            { id: "raven", name: " Raven Calls", url: "raven.mp3" }, { id: "frogs", name: " Swamp Frogs", url: "frogs.mp3" },
-            { id: "crickets", name: " Night Crickets", url: "crickets.mp3" }, { id: "fire", name: " Hearth Fire", url: "fire.mp3" },
-            { id: "simmering", name: " Simmering Pot", url: "simmeringpot.mp3" }, { id: "teacup", name: " Teacup Clinks", url: "teacup.mp3" },
-            { id: "clock", name: " Ticking Clock", url: "clock.mp3" }, { id: "cat", name: " Purring Cat", url: "cat.mp3" },
-            { id: "windchimes", name: " Wind Chimes", url: "windchimes.mp3" }, { id: "musicbox1", name: " Music Box I", url: "musicbox1.mp3" }
+            { id: "binarymusicbox", name: "Binary Music Box", url: "binarymusicbox.mp3" },
+            { id: "cat", name: "Purring Cat", url: "cat.mp3" },
+            { id: "clock", name: "Ticking Clock", url: "clock.mp3" },
+            { id: "crickets", name: "Night Crickets", url: "crickets.mp3" },
+            { id: "darkmusic1", name: "Dark Music I", url: "darkmusic1.mp3" },
+            { id: "fire", name: "Hearth Fire", url: "fire.mp3" },
+            { id: "frogs", name: "Swamp Frogs", url: "frogs.mp3" },
+            { id: "musicbox1", name: "Music Box I", url: "musicbox1.mp3" },
+            { id: "musicbox2", name: "Music Box II", url: "musicbox2.mp3" },
+            { id: "musicbox3", name: "Music Box III", url: "musicbox3.mp3" },
+            { id: "owls", name: "Midnight Owls", url: "owls.mp3" },
+            { id: "rain", name: "Gentle Rain", url: "rain.mp3" },
+            { id: "raven", name: "Raven Calls", url: "raven.mp3" },
+            { id: "simmeringpot", name: "Simmering Pot", url: "simmeringpot.mp3" },
+            { id: "teacup", name: "Teacup Clink", url: "teacup.mp3" },
+            { id: "thunder", name: "Thunderstorm", url: "thunder.mp3" },
+            { id: "waves", name: "Waves", url: "waves.mp3" },
+            { id: "windchimes", name: "Wind Chimes", url: "windchimes.mp3" },
+            { id: "winterwind", name: "Winter Wind", url: "winterwind.mp3" },
+            { id: "xmasmusicbox1", name: "Xmas Music Box I", url: "xmasmusicbox1.mp3" },
+            { id: "xmasmusicbox2", name: "Xmas Music Box II", url: "xmasmusicbox2.mp3" },
+            { id: "xmasmusicbox3", name: "Xmas Music Box III", url: "xmasmusicbox3.mp3" }
         ];
         let customAudioLibrary = [];
 
