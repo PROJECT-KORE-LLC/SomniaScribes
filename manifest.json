@@ -1,7 +1,7 @@
 {
   "name": "SomniaScribes",
   "short_name": "Scribes",
-  "description": "SOMNIASCRIBES // A private, offline-first digital workshop and journal.",
+  "description": "SOMNIASCRIBES // The Scriptorium.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
