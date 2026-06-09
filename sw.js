@@ -1,9 +1,9 @@
 /* SOMNIASCRIBES SERVICE WORKER
-   Nib mini-games build.
+   Nib mini-games patched build.
    Put beside index.html.
 */
 
-const CACHE_VERSION = 'somniascribes-v10-nib-mini-games';
+const CACHE_VERSION = 'somniascribes-v11-nib-mini-games-patched';
 
 const APP_SHELL = [
   './',
@@ -26,7 +26,9 @@ const CORE_IMAGES = [
   './nib_candle_mouse.png',
   './nib_reaction_cozy.png',
   './nib_reaction_startled.png',
-  './nib_reaction_curious.png'
+  './nib_reaction_curious.png',
+  './catchnib.png',
+  './feednib.png'
 ];
 
 const AUDIO_ASSETS = [
