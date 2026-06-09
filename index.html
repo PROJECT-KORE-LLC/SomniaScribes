@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="nib-mini-games-v1">
+    <meta name="somniascribes-build" content="nib-mini-games-v2-patched">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SOMNIASCRIBES // THE SCRIPTORIUM // NIB GAMES BUILD</title>
+    <title>SOMNIASCRIBES // THE SCRIPTORIUM // NIB GAMES PATCHED</title>
     
     <link rel="manifest" href="manifest.json">
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
@@ -34,6 +34,8 @@
     <link rel="prefetch" href="xmasmusicbox1.mp3" as="audio">
     <link rel="prefetch" href="xmasmusicbox2.mp3" as="audio">
     <link rel="prefetch" href="xmasmusicbox3.mp3" as="audio">
+    <link rel="prefetch" href="catchnib.png" as="image">
+    <link rel="prefetch" href="feednib.png" as="image">
 
     <!-- SOMNIASCRIBES PRESET IMAGE PREFETCH -->
     <link rel="prefetch" href="rainywindow.png" as="image">
@@ -1050,6 +1052,7 @@
             opacity: 0.92;
         }
 
+
         /* --- NIB MINI-GAMES --- */
         .nib-games-panel {
             display: grid;
@@ -1079,14 +1082,33 @@
             border-radius: 34px;
             overflow: hidden;
             border: 1px solid var(--glass-border);
-            background:
-                radial-gradient(circle at 50% 20%, var(--primary-glow), transparent 42%),
-                linear-gradient(145deg, rgba(10,14,24,0.92), rgba(0,0,0,0.82));
+            background-image:
+                linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.54)),
+                radial-gradient(circle at 50% 20%, rgba(251,191,36,0.18), transparent 42%);
+            background-size: cover;
+            background-position: center;
             box-shadow: 0 40px 90px rgba(0,0,0,0.76), inset 0 1px 0 rgba(255,255,255,0.08);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             user-select: none;
             touch-action: manipulation;
+            isolation: isolate;
+        }
+
+        .nib-game-stage::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 50% 100%, rgba(0,0,0,0.16), rgba(0,0,0,0.62)),
+                linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0.16));
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .nib-game-stage > * {
+            position: relative;
+            z-index: 2;
         }
 
         .nib-game-header {
@@ -1094,7 +1116,7 @@
             top: 14px;
             left: 16px;
             right: 16px;
-            z-index: 5;
+            z-index: 6;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -1117,68 +1139,138 @@
             letter-spacing: 2px;
             font-size: 0.7rem;
             text-transform: uppercase;
-            opacity: 0.92;
+            opacity: 0.98;
+            background: rgba(0,0,0,0.38);
+            padding: 7px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .nib-game-instructions {
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 16px;
+            z-index: 7;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(0,0,0,0.42);
+            color: var(--text-main);
+            font-size: 0.72rem;
+            line-height: 1.45;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            pointer-events: none;
+        }
+
+        .nib-game-instructions strong {
+            color: var(--primary);
+            font-weight: 600;
         }
 
         .nib-game-close {
             pointer-events: auto;
             position: absolute;
             right: 14px;
-            bottom: 14px;
+            bottom: 84px;
             z-index: 10;
         }
 
         .nib-catch-target {
             position: absolute;
-            width: 92px;
-            height: 92px;
+            width: 112px;
+            height: 112px;
             object-fit: contain;
             cursor: pointer;
-            z-index: 4;
-            filter: drop-shadow(0 0 16px rgba(251,191,36,0.62)) drop-shadow(0 0 26px var(--primary-glow));
+            z-index: 9;
+            border-radius: 50%;
+            padding: 8px;
+            background: radial-gradient(circle, rgba(255,255,255,0.28), rgba(255,255,255,0.06) 54%, rgba(0,0,0,0.12) 72%);
+            border: 1px solid rgba(255,255,255,0.2);
+            filter: drop-shadow(0 0 18px rgba(251,191,36,0.72)) drop-shadow(0 0 26px rgba(0,0,0,0.42));
             animation: nibGamePulse 0.9s infinite alternate ease-in-out;
-            transition: left 0.18s ease, top 0.18s ease, transform 0.18s ease;
+            transition: left 0.18s ease, top 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+            pointer-events: auto;
         }
 
         .nib-catch-target:hover {
             transform: scale(1.08) rotate(2deg);
+            box-shadow: 0 0 20px rgba(251,191,36,0.44);
+        }
+
+        .nib-feed-guide {
+            position: absolute;
+            left: 50%;
+            bottom: 82px;
+            transform: translateX(-50%);
+            width: 142px;
+            height: 142px;
+            object-fit: contain;
+            z-index: 6;
+            display: none;
+            filter: drop-shadow(0 0 22px rgba(251,191,36,0.32)) drop-shadow(0 0 30px rgba(0,0,0,0.42));
+            animation: nibGamePulse 1.2s infinite alternate ease-in-out;
+            pointer-events: none;
         }
 
         .nib-feed-item {
             position: absolute;
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
+            width: 78px;
+            height: 78px;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
             cursor: pointer;
-            z-index: 4;
-            font-size: 1.7rem;
-            background: radial-gradient(circle, rgba(255,255,255,0.18), rgba(0,0,0,0.18));
+            z-index: 9;
+            font-size: 2rem;
+            background: radial-gradient(circle, rgba(255,255,255,0.24), rgba(0,0,0,0.14));
             border: 1px solid var(--glass-border);
-            box-shadow: 0 0 18px rgba(255,255,255,0.08);
+            box-shadow: 0 0 20px rgba(255,255,255,0.08);
             animation: nibFoodFall linear forwards;
             touch-action: manipulation;
+            pointer-events: auto;
+        }
+
+        .nib-feed-item small {
+            font-size: 0.5rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.86);
+            line-height: 1;
         }
 
         .nib-feed-item.good {
-            filter: drop-shadow(0 0 12px rgba(251,191,36,0.45));
+            border-color: rgba(251,191,36,0.42);
+            background: radial-gradient(circle, rgba(251,191,36,0.28), rgba(0,0,0,0.14));
+            filter: drop-shadow(0 0 12px rgba(251,191,36,0.52));
         }
 
         .nib-feed-item.bad {
-            filter: drop-shadow(0 0 12px rgba(251,113,133,0.4));
+            border-color: rgba(251,113,133,0.42);
+            background: radial-gradient(circle, rgba(251,113,133,0.22), rgba(0,0,0,0.14));
+            filter: drop-shadow(0 0 12px rgba(251,113,133,0.46));
         }
 
         .nib-game-toast {
             position: absolute;
             left: 50%;
-            bottom: 76px;
-            z-index: 8;
+            bottom: 150px;
+            z-index: 10;
             transform: translateX(-50%);
             padding: 10px 16px;
             border-radius: 999px;
             border: 1px solid var(--glass-border);
-            background: rgba(0,0,0,0.54);
+            background: rgba(0,0,0,0.62);
             color: var(--primary);
             font-family: monospace;
             font-size: 0.72rem;
@@ -1200,9 +1292,9 @@
         }
 
         @keyframes nibFoodFall {
-            from { transform: translateY(-70px) rotate(0deg); opacity: 0; }
-            12% { opacity: 1; }
-            to { transform: translateY(calc(min(70dvh, 560px) + 90px)) rotate(260deg); opacity: 0.95; }
+            from { transform: translateY(-80px) rotate(0deg); opacity: 0; }
+            8% { opacity: 1; }
+            to { transform: translateY(calc(min(70dvh, 560px) + 115px)) rotate(240deg); opacity: 0.98; }
         }
 
         @media (max-width: 767px) {
@@ -1212,24 +1304,46 @@
                 border-radius: 26px;
             }
 
-            .nib-catch-target {
-                width: 76px;
-                height: 76px;
-            }
-
-            .nib-feed-item {
-                width: 48px;
-                height: 48px;
-                font-size: 1.45rem;
-            }
-
             .nib-game-header {
                 align-items: flex-start;
                 flex-direction: column;
             }
-        }
 
-    </style>
+            .nib-catch-target {
+                width: 92px;
+                height: 92px;
+            }
+
+            .nib-feed-guide {
+                width: 118px;
+                height: 118px;
+            }
+
+            .nib-feed-item {
+                width: 66px;
+                height: 66px;
+                font-size: 1.7rem;
+                border-radius: 20px;
+            }
+
+            .nib-game-instructions {
+                left: 12px;
+                right: 12px;
+                bottom: 12px;
+                font-size: 0.62rem;
+                padding: 10px 12px;
+            }
+
+            .nib-game-close {
+                bottom: 92px;
+            }
+
+            .nib-game-toast {
+                bottom: 160px;
+                font-size: 0.64rem;
+            }
+        }
+</style>
 </head>
 <body id="os-body" class="booting" onclick="restoreUI()">
 
@@ -3105,7 +3219,12 @@
                 <div class="nib-game-title" id="nib-game-title">Nib Game</div>
                 <div class="nib-game-stats" id="nib-game-stats">Score 0 · Time 0</div>
             </div>
+            <img id="nib-feed-guide" class="nib-feed-guide" src="nib_reaction_cozy.png" alt="Nib waiting for snacks">
             <div class="nib-game-toast" id="nib-game-toast">Nice!</div>
+            <div class="nib-game-instructions" id="nib-game-instructions">
+                <span><strong>Ready:</strong> Tiny games for a tiny mouse.</span>
+                <span id="nib-game-tip">Tap the glowing target or the falling snacks.</span>
+            </div>
             <button class="toy-btn nib-game-close" onclick="closeNibGame()">Close</button>
         </div>
     </div>
@@ -3251,6 +3370,25 @@ const NIB_GAME_STATE = {
     mover: null
 };
 
+const NIB_GAME_BACKGROUNDS = {
+    catch: 'catchnib.png',
+    feed: 'feednib.png'
+};
+
+function getNibSpritePath(preferred = 'nib_candle_mouse.png') {
+    const candidates = [
+        preferred,
+        'nib_candle_mouse.png',
+        'nib_reaction_curious.png',
+        'nib_reaction_cozy.png',
+        'nib_reaction_startled.png'
+    ];
+    for (const candidate of candidates) {
+        if (candidate) return candidate;
+    }
+    return 'nib_candle_mouse.png';
+}
+
 function isNibUnlockedForGames() {
     return localStorage.getItem('nibUnlocked') === 'true' || window.nibUnlocked === true;
 }
@@ -3261,6 +3399,40 @@ function ensureNibGamesUnlocked() {
         somniaAlert("Nib Is Still Hiding", "Write and save your first journal entry. After Nib appears, his little games unlock.");
     }
     return false;
+}
+
+function setNibGameBackground(mode) {
+    const stage = document.getElementById('nib-game-stage');
+    if (!stage) return;
+    const bg = NIB_GAME_BACKGROUNDS[mode] || NIB_GAME_BACKGROUNDS.catch;
+    stage.style.backgroundImage = `linear-gradient(180deg, rgba(0,0,0,0.24), rgba(0,0,0,0.54)), url('${bg}')`;
+    stage.style.backgroundSize = 'cover';
+    stage.style.backgroundPosition = 'center';
+}
+
+function setNibGameInstructions(mode) {
+    const instructions = document.getElementById('nib-game-instructions');
+    const tip = document.getElementById('nib-game-tip');
+    if (!instructions || !tip) return;
+
+    if (mode === 'catch') {
+        instructions.innerHTML = `<span><strong>Catch Nib:</strong> Tap the glowing mouse every time he hops.</span><span id="nib-game-tip">Catch him 5 times before the clock runs out.</span>`;
+    } else {
+        instructions.innerHTML = `<span><strong>Feed Nib:</strong> Tap the falling snacks before they hit the floor.</span><span id="nib-game-tip">Good treats help. Junk or puddles cost a point.</span>`;
+    }
+}
+
+function toggleFeedGuide(show = false) {
+    const guide = document.getElementById('nib-feed-guide');
+    if (!guide) return;
+    guide.style.display = show ? 'block' : 'none';
+    if (show) {
+        guide.src = 'nib_reaction_cozy.png';
+        guide.onerror = function () {
+            this.onerror = null;
+            this.src = 'nib_candle_mouse.png';
+        };
+    }
 }
 
 function openNibGame(mode) {
@@ -3279,6 +3451,10 @@ function openNibGame(mode) {
     NIB_GAME_STATE.score = 0;
 
     stage.querySelectorAll('.nib-catch-target, .nib-feed-item').forEach(el => el.remove());
+
+    setNibGameBackground(mode);
+    setNibGameInstructions(mode);
+    toggleFeedGuide(mode === 'feed');
 
     if (mode === 'catch') {
         NIB_GAME_STATE.target = 5;
@@ -3314,6 +3490,7 @@ function closeNibGame(removeActive = true) {
         stage.querySelectorAll('.nib-catch-target, .nib-feed-item').forEach(el => el.remove());
     }
 
+    toggleFeedGuide(false)
     if (removeActive && modal) modal.classList.remove('active');
 }
 
@@ -3338,7 +3515,7 @@ function showNibGameToast(message) {
     toast.textContent = message;
     toast.classList.add('show');
     clearTimeout(window.__nibGameToastTimer);
-    window.__nibGameToastTimer = setTimeout(() => toast.classList.remove('show'), 850);
+    window.__nibGameToastTimer = setTimeout(() => toast.classList.remove('show'), 900);
 }
 
 function awardNibGameXP(amount, reason) {
@@ -3397,14 +3574,14 @@ function getNibGameBounds(itemSize = 90) {
     const rect = stage.getBoundingClientRect();
     return {
         maxX: Math.max(10, rect.width - itemSize - 24),
-        maxY: Math.max(70, rect.height - itemSize - 88)
+        maxY: Math.max(110, rect.height - itemSize - 150)
     };
 }
 
 function moveCatchTarget(target) {
-    const bounds = getNibGameBounds(92);
+    const bounds = getNibGameBounds(112);
     const x = 12 + Math.random() * bounds.maxX;
-    const y = 70 + Math.random() * (bounds.maxY - 45);
+    const y = 78 + Math.random() * Math.max(24, bounds.maxY - 40);
     target.style.left = `${x}px`;
     target.style.top = `${y}px`;
 }
@@ -3416,9 +3593,16 @@ function startCatchNibGame() {
     const target = document.createElement('img');
     target.className = 'nib-catch-target';
     target.alt = 'Catch Nib';
-    target.src = (typeof NIB_REACTION_SPRITES !== 'undefined' && NIB_REACTION_SPRITES.curious)
-        ? NIB_REACTION_SPRITES.curious
-        : 'nib_candle_mouse.png';
+    target.src = getNibSpritePath('nib_reaction_curious.png');
+    target.onerror = function () {
+        if (this.src.includes('nib_reaction_curious.png')) {
+            this.src = 'nib_candle_mouse.png';
+        } else if (this.src.includes('nib_candle_mouse.png')) {
+            this.src = 'nib_reaction_cozy.png';
+        } else {
+            this.onerror = null;
+        }
+    };
 
     target.addEventListener('click', event => {
         event.stopPropagation();
@@ -3435,12 +3619,14 @@ function startCatchNibGame() {
     });
 
     stage.appendChild(target);
-    moveCatchTarget(target);
+    requestAnimationFrame(() => moveCatchTarget(target));
 
     NIB_GAME_STATE.timer = setInterval(tickNibGameTimer, 1000);
     NIB_GAME_STATE.mover = setInterval(() => {
         if (NIB_GAME_STATE.active && NIB_GAME_STATE.mode === 'catch') moveCatchTarget(target);
-    }, 1600);
+    }, 1450);
+
+    showNibGameToast("Tap Nib!");
 }
 
 function spawnFeedItem() {
@@ -3451,20 +3637,33 @@ function spawnFeedItem() {
 
     const item = document.createElement('button');
     const good = Math.random() > 0.22;
-    const goodFood = ['🍓', '🫐', '🍎', '🍪', '🧀', '🌰'];
-    const badFood = ['🕳️', '🪨', '💧'];
+    const goodFood = [
+        { emoji: '🍓', label: 'Berry' },
+        { emoji: '🫐', label: 'Blue' },
+        { emoji: '🍎', label: 'Apple' },
+        { emoji: '🍪', label: 'Cookie' },
+        { emoji: '🧀', label: 'Cheese' },
+        { emoji: '🌰', label: 'Nut' }
+    ];
+    const badFood = [
+        { emoji: '🕳️', label: 'Hole' },
+        { emoji: '🪨', label: 'Rock' },
+        { emoji: '💧', label: 'Spill' }
+    ];
+
+    const payload = good
+        ? goodFood[Math.floor(Math.random() * goodFood.length)]
+        : badFood[Math.floor(Math.random() * badFood.length)];
 
     item.className = `nib-feed-item ${good ? 'good' : 'bad'}`;
     item.type = 'button';
-    item.textContent = good
-        ? goodFood[Math.floor(Math.random() * goodFood.length)]
-        : badFood[Math.floor(Math.random() * badFood.length)];
+    item.innerHTML = `<span>${payload.emoji}</span><small>${payload.label}</small>`;
     item.setAttribute('aria-label', good ? 'Nib snack' : 'Not food');
 
-    const bounds = getNibGameBounds(54);
+    const bounds = getNibGameBounds(78);
     item.style.left = `${12 + Math.random() * bounds.maxX}px`;
-    item.style.top = `-62px`;
-    item.style.animationDuration = `${3.4 + Math.random() * 1.5}s`;
+    item.style.top = `-84px`;
+    item.style.animationDuration = `${3.8 + Math.random() * 1.4}s`;
 
     item.addEventListener('click', event => {
         event.stopPropagation();
@@ -3491,9 +3690,10 @@ function spawnFeedItem() {
 
 function startFeedNibGame() {
     NIB_GAME_STATE.timer = setInterval(tickNibGameTimer, 1000);
-    NIB_GAME_STATE.spawner = setInterval(spawnFeedItem, 620);
+    NIB_GAME_STATE.spawner = setInterval(spawnFeedItem, 720);
     spawnFeedItem();
     spawnFeedItem();
+    showNibGameToast("Tap the falling snacks!");
 }
 </script>
 
