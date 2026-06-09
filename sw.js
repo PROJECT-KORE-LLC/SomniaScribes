@@ -1,9 +1,9 @@
 /* SOMNIASCRIBES SERVICE WORKER
-   Tower City Lore / Local Oracle build.
+   Tower Lore Safe Hotfix build.
    Put beside index.html.
 */
 
-const CACHE_VERSION = 'somniascribes-v15-tower-city-lore';
+const CACHE_VERSION = 'somniascribes-v16-tower-lore-safe-hotfix';
 
 const APP_SHELL = [
   './',
