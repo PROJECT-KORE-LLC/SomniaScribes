@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="local-oracle-no-ai-v1">
+    <meta name="somniascribes-build" content="lore-oracle-games-tuned-v2">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SOMNIASCRIBES // THE SCRIPTORIUM // LOCAL ORACLE BUILD</title>
+    <title>SOMNIASCRIBES // THE SCRIPTORIUM // LORE ORACLE BUILD</title>
     
     <link rel="manifest" href="manifest.json">
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
@@ -477,7 +477,7 @@
         .pomo-flash { animation: pomoPulseAlert 1s infinite alternate; color: #fb7185 !important; text-shadow: 0 0 30px #fb7185 !important; }
         @keyframes pomoPulseAlert { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
 
-        /* INK ORACLE LOCAL COMPANION MODAL */
+        /* INK ORACLE LORE COMPANION MODAL */
         .oracle-chat-body { flex: 1; overflow-y: auto; padding-right: 10px; display: flex; flex-direction: column; gap: 15px; scrollbar-width: none; }
         .oracle-msg { padding: 15px 20px; border-radius: 12px; max-width: 85%; font-size: 0.95rem; line-height: 1.6; font-family: 'Georgia', serif; }
         .oracle-msg.user { background: rgba(255,255,255,0.05); align-self: flex-end; color: var(--text-main); border: 1px solid var(--glass-border); border-bottom-right-radius: 2px;}
@@ -569,7 +569,7 @@
                 height: 240px;
             }
 
-            /* The Assistant panel slides side-by-side onto her left side */
+            /* The Oracle panel slides side-by-side onto her left side */
             #oracle-modal .scribes-bubble {
                 position: absolute;
                 bottom: 30px;
@@ -1564,14 +1564,14 @@
                     <li><strong>Pomodoro Timer:</strong> Use the "Timer" tab to execute 25-minute focus sprints. The chime will alert you when it's time to take a break.</li>
                     <li><strong>Vibe Architecture:</strong> Mix and match up to 60 total aesthetic variables. Try "Gothic" + "Bats" + "Inferno" for a dark vibe, or "Library" + "Motes" + "Sepia" for deep focus!</li>
                     <li><strong>Cloak UI:</strong> Once your vibe is set, hit "Cloak UI" to hide all menus so you can focus entirely on the atmosphere. Click anywhere on the screen to bring the menus back.</li>
-                    <li><strong>Data Safety:</strong> This app runs entirely on your device (no cloud!). Make sure you regularly open your Journal and click <strong>"Export Journal"</strong> to save a backup file to your computer.</li>
+                    <li><strong>Data Safety:</strong> This app runs entirely on your device (no local!). Make sure you regularly open your Journal and click <strong>"Export Journal"</strong> to save a backup file to your computer.</li>
                 </ul>
 
                 <h4 class="section-title" style="margin-top: 15px; color: var(--primary);">🕯️ Pro Tip: The Local Ink Oracle</h4>
                 <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
-                    The Ink Oracle now works entirely on this device. It does not need an API key, internet AI service, subscription, or cloud connection.
-                    Use <strong>Reflect Gently</strong>, <strong>Untangle This</strong>, and <strong>Make It a Story</strong> for soft local prompts, story seeds, and gentle reframing.
-                    Your journal and Oracle text stay local unless you choose to export or share something yourself.
+                    The Ink Oracle now lives entirely inside the Scriptorium as local lore, room whispers, Nib chatter, and writing atmosphere. No key, account, subscription, or outside service is required.
+                    Use <strong>Oracle Whisper</strong>, <strong>Nib & Oracle</strong>, and <strong>Tower Lore</strong> when you want the room to feel alive beside you.
+                    Your journal stays local unless you choose to export or share something yourself.
                 </p>
                 
                 <h4 class="section-title" style="margin-top: 15px; color: var(--primary);">PWA Support</h4>
@@ -1641,23 +1641,23 @@
                         <h2>Ink Oracle</h2>
                         <div style="font-size: 0.65rem; opacity: 0.7; letter-spacing: 5px; font-family: monospace; color: var(--accent);">CALM QUIET COMPANION</div>
                     </div>
-                    <div class="oracle-local-badge" title="The Ink Oracle runs locally without cloud AI.">
-                        LOCAL // OFFLINE
+                    <div class="oracle-local-badge" title="The Ink Oracle runs locally as lore and room presence.">
+                        LOCAL LORE // OFFLINE
                     </div>
                 </div>
                 
                 <div class="oracle-intent-row">
-                    <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('reflect')">Reflect Gently</button>
-                    <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('untangle')">Untangle This</button>
-                    <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('story')">Make It a Story</button>
+                    <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('reflect')">Oracle Whisper</button>
+                    <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('untangle')">Nib & Oracle</button>
+                    <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('story')">Tower Lore</button>
                     <button class="artifact-btn oracle-clear-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="clearOracleChat()">Clear</button>
                 </div>
 
                 <div id="oracle-chat" class="oracle-chat-body">
-                    <div class="oracle-msg ai">Hello, little inkling. I work quietly here on your device. No cloud, no key, no pressure. Tell me only what you want to; we can reflect, untangle, or turn the feeling into a story.</div>
+                    <div class="oracle-msg ai">Hello, little inkling. The room is awake in small ways. I am not a faraway intelligence; I am the candle, the tower, the ink, and Nib keeping you company.</div>
                 </div>
                 <div class="editor-container">
-                    <textarea id="oracle-editor" class="lore-input" rows="2" placeholder="Tell the Ink Oracle a fragment... [ENTER to send]"></textarea>
+                    <textarea id="oracle-editor" class="lore-input" rows="2" placeholder="Leave the Oracle a fragment... [ENTER to send]"></textarea>
                     <button class="toy-btn" style="align-self:flex-end; padding: 8px 22px; border-color: var(--accent);" onclick="summonOracle()">Send</button>
                 </div>
             </div>
@@ -2952,25 +2952,96 @@
             somniaAlert('Preset Loaded', `${preset.label} is active.`);
         }
 
-        const INK_ORACLE_PERSONALITY = `The Ink Oracle is a local, offline companion inside SomniaScribes. It offers quiet reflection, gentle untangling, soft prompts, and story-shaped reframing without calling any cloud AI service. It never diagnoses, never pressures, and treats fragments as enough.`;
+        const INK_ORACLE_PERSONALITY = `The Ink Oracle is not a local service or conversational model. It is local Scriptorium lore: room whispers, Nib exchanges, tower fragments, and journal sparks that help the room feel alive.`;
 
-        const LOCAL_ORACLE_PROMPTS = [
-            "One word is enough.",
-            "What color is today?",
-            "What is sitting on your chest?",
-            "What do you wish the room understood?",
-            "What can wait til tomorrow?",
-            "What would feel lighter if it had somewhere to sit?",
-            "What tiny thing is asking for warmth?",
-            "What did you carry longer than you meant to?"
+        const ORACLE_ROOM_WHISPERS = [
+            "The candle leans closer, as if the room has noticed you returned.",
+            "Ink settles in the bottle like a small black moon.",
+            "The desk remembers unfinished things without judging them.",
+            "Rain taps the tower glass in a language older than advice.",
+            "The Scriptorium keeps one chair open for the part of you that is tired.",
+            "Somewhere in the shelves, a book exhales dust and patience.",
+            "The city below is sharp. The room around you is not.",
+            "A page turns by itself, then thinks better of interrupting.",
+            "The fire makes a low sound of agreement.",
+            "The walls hum softly, like they are pretending not to listen.",
+            "The ink does not rush. Neither must you.",
+            "The room believes in drafts.",
+            "A little warmth gathers at the edge of the desk.",
+            "Nothing here needs to become a performance.",
+            "You may be unfinished here."
         ];
 
-        const LOCAL_ORACLE_OPENINGS = [
-            "I am here quietly.",
-            "The page can hold this without needing it to be tidy.",
-            "A fragment is enough for tonight.",
-            "We can make this small enough to touch.",
-            "Nothing has to be solved before it can be set down."
+        const NIB_ROOM_WHISPERS = [
+            "Nib noses a crumb across the desk and looks terribly busy.",
+            "A tiny pawprint appears in the dust near the candle.",
+            "Nib sneezes at a mote of moonlight.",
+            "Nib climbs onto a closed book and declares it a hill.",
+            "Nib flicks his ears at the rain.",
+            "Nib watches the candle like it is telling secrets.",
+            "Nib tucks his tail around his feet and becomes a tiny comma.",
+            "Nib stares down the darkness with the confidence of a very small knight.",
+            "Nib drags a thread of gold ribbon behind the ink bottle.",
+            "Nib taps the desk twice. This may be a spell. Or manners.",
+            "Nib curls beside the warmest shadow.",
+            "Nib steals a crumb, regrets nothing, and vanishes behind a page.",
+            "Nib finds a safe corner in the margin.",
+            "Nib blinks at you as if you are also part of the furniture now.",
+            "Nib performs one tiny patrol around the candle."
+        ];
+
+        const ORACLE_NIB_EXCHANGES = [
+            "Nib: squeak.\nInk Oracle: Yes, little candle-thief, the scribe may have another minute.",
+            "The Ink Oracle lowers her voice. Nib immediately does the opposite and knocks over a crumb.",
+            "Nib climbs the bookstack. The Oracle pretends not to be impressed.",
+            "Ink Oracle: Careful with the quill.\nNib: absolutely not.",
+            "Nib circles the candle. The Oracle whispers, “Warmth is not a luxury here.”",
+            "Nib hides behind the inkpot. The Oracle marks his location with great discretion.",
+            "The Oracle hums a tower-lullaby. Nib falls asleep halfway through being suspicious.",
+            "Nib brings nothing useful and somehow improves the room.",
+            "Ink Oracle: We are being quiet.\nNib performs one tiny tap dance.",
+            "Nib squeaks at the window. The Oracle says, “Yes. The city is loud tonight.”",
+            "Nib settles near your words. The Oracle does not translate him. Some comfort does not need translation.",
+            "The Oracle folds a little silence around the room. Nib immediately curls inside it.",
+            "Nib gnaws a corner of imaginary paperwork. The Oracle approves this form of administration.",
+            "The candle flickers. Nib looks proud, as though he invented fire.",
+            "Ink Oracle: The room is still holding.\nNib: squeak.\nInk Oracle: Correct. So are we."
+        ];
+
+        const TOWER_LORE_LINES = [
+            "The Scriptorium lives high in the Candleward Tower, above gothic roofs where rain turns silver before it touches stone.",
+            "SomniaScapes glitters beautifully from up here, which is how the city hides its teeth.",
+            "The tower is older than the streets below it. Some say the city was built around its shadow, not the other way around.",
+            "At certain hours, the stairwell outside the Scriptorium adds an extra landing for people who are not ready to go back down.",
+            "The gargoyles below the tower do not guard treasure. They guard quiet.",
+            "From the window, the city canals look like ink spilled between cathedral bones.",
+            "The tower bells do not mark time. They mark thresholds.",
+            "There is a district below called the Velvet Narrows where every alley looks warm until it asks your name.",
+            "The Scriptorium is warded by candle-smoke, old grammar, and the small defiance of staying gentle in a dangerous city.",
+            "No one finds this room by being impressive. They find it by needing somewhere safe enough to be unfinished.",
+            "The upper tower windows bend moonlight into margins so silence has somewhere to sit.",
+            "The roofs of SomniaScapes are stitched with laundry lines, spell-cords, messenger ravens, and escaped wishes.",
+            "The Candleward Tower has no throne room. Its highest chamber is this desk.",
+            "In old city maps, this tower is labeled: For Fragments, Drafts, Small Survivals, and Weathered Hearts.",
+            "When thunder rolls across SomniaScapes, the tower does not shake. It listens.",
+            "Somewhere under the tower is a sealed archive of dreams too heavy to carry alone.",
+            "At dawn, the tower casts a shadow shaped like an open book across the sleeping district.",
+            "This is one of the few rooms in SomniaScapes where magic is allowed to be quiet."
+        ];
+
+        const TOWER_PROMPTS = [
+            "Look out the tower window: what does the city ask of you tonight?",
+            "Nib found a key that does not open a door. What does it open?",
+            "A bell tolls far below. What thought answers it?",
+            "The city is glittering and dangerous. What part of you needs a room above it?",
+            "Write one sentence the Candleward Tower would keep safe.",
+            "What would you leave on the desk before returning to the city?",
+            "A gargoyle saw you through the rain and nodded once. What did it understand?",
+            "The tower stairs added one extra landing for you. What was waiting there?",
+            "Nib dragged a tiny map across the page. Where does it lead?",
+            "A lantern below blinks three times. What message did it send?",
+            "The Scriptorium window shows the city as a spell. What word completes it?",
+            "What tiny thing in this room is protecting you tonight?"
         ];
 
         function escapeOracleHTML(value) {
@@ -2986,7 +3057,7 @@
             const chat = document.getElementById('oracle-chat');
             if (!chat) return;
             const div = document.createElement('div');
-            div.className = `oracle-msg ${role}`;
+            div.className = `oracle-msg ${role === 'user' ? 'user' : 'ai'}`;
             div.innerHTML = escapeOracleHTML(text).replace(/\n/g, '<br>');
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
@@ -3006,100 +3077,27 @@
             if (input) input.value = "";
         }
 
-        function localOracleReflect(text) {
-            if (!text) {
-                return `${randomOracleItem(LOCAL_ORACLE_OPENINGS)}\n\nTry this: ${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
+        function loreReply(kind, text = "") {
+            const fragment = text ? `\n\nThe page keeps your fragment safely:\n“${text.length > 170 ? text.slice(0, 170).trim() + "..." : text}”` : "";
+            if (kind === 'untangle') {
+                return `${randomOracleItem(ORACLE_NIB_EXCHANGES)}${fragment}`;
+            }
+            if (kind === 'story') {
+                return `${randomOracleItem(TOWER_LORE_LINES)}\n\nPrompt from the tower:\n${randomOracleItem(TOWER_PROMPTS)}${fragment}`;
+            }
+            if (kind === 'reflect') {
+                return `${randomOracleItem(ORACLE_ROOM_WHISPERS)}\n\n${randomOracleItem(TOWER_PROMPTS)}${fragment}`;
             }
 
-            const shortText = text.length > 170 ? text.slice(0, 170).trim() + "..." : text;
-
-            return `${randomOracleItem(LOCAL_ORACLE_OPENINGS)}
-
-What I hear is this:
-“${shortText}”
-
-You do not have to organize all of it right now. Start with the gentlest edge: is this asking to be witnessed, released, named, or simply placed somewhere safe?`;
-        }
-
-        function localOracleUntangle(text) {
-            if (!text) {
-                return `We can untangle from almost nothing.
-
-Choose one thread:
-• Feeling: what emotion is loudest?
-• Body: where is it sitting?
-• Room: what around you feels too sharp?
-• Tomorrow: what can wait?
-
-${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
-            }
-
-            const words = text.split(/\s+/).filter(Boolean);
-            const tinyStep = words.length < 18
-                ? "write one more sentence beside it"
-                : "circle one sentence that feels most true";
-
-            return `Let us separate the threads gently.
-
-What is here:
-• A thought or memory asking for a place to land.
-• A feeling that may not need a perfect explanation.
-• A small signal that something in you wants less pressure.
-
-One tiny next step:
-• ${tinyStep}.
-• Then stop before the page becomes a chore.
-
-Nothing here has to become a plan tonight.`;
-        }
-
-        function localOracleStory(text) {
-            if (!text) {
-                return `In the high tower of the Scriptorium, a blank page waited beside a candle.
-
-It did not demand a confession.
-It did not ask for order.
-It only opened its quiet hands and said:
-
-“Bring me one word. I will keep it warm.”`;
-            }
-
-            const cleaned = text.replace(/\s+/g, ' ').trim();
-            const fragment = cleaned.length > 140 ? cleaned.slice(0, 140).trim() + "..." : cleaned;
-
-            return `In a rain-dark tower above the dangerous city, the Scribe found a small scrap of feeling tucked beneath the desk.
-
-On it was written:
-“${fragment}”
-
-The Ink Oracle did not correct it. Nib did not nibble it. The candle simply leaned closer, and the room made a little more space.
-
-For now, that was enough magic.`;
-        }
-
-        function localOracleGeneral(text) {
-            if (!text) {
-                return `${randomOracleItem(LOCAL_ORACLE_OPENINGS)}\n\n${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
-            }
-
-            const lower = text.toLowerCase();
-
-            if (lower.includes("story") || lower.includes("make it a story")) {
-                return localOracleStory(text);
-            }
-
-            if (lower.includes("untangle") || lower.includes("confused") || lower.includes("stuck") || lower.includes("mess")) {
-                return localOracleUntangle(text);
-            }
-
-            return localOracleReflect(text);
+            const roll = Math.random();
+            if (roll < 0.28) return `${randomOracleItem(ORACLE_ROOM_WHISPERS)}${fragment}`;
+            if (roll < 0.54) return `${randomOracleItem(NIB_ROOM_WHISPERS)}${fragment}`;
+            if (roll < 0.78) return `${randomOracleItem(ORACLE_NIB_EXCHANGES)}${fragment}`;
+            return `${randomOracleItem(TOWER_LORE_LINES)}\n\n${randomOracleItem(TOWER_PROMPTS)}${fragment}`;
         }
 
         function generateLocalOracleReply(kind, text) {
-            if (kind === 'story') return localOracleStory(text);
-            if (kind === 'untangle') return localOracleUntangle(text);
-            if (kind === 'reflect') return localOracleReflect(text);
-            return localOracleGeneral(text);
+            return loreReply(kind, text);
         }
 
         function oracleQuick(kind) {
@@ -3108,13 +3106,8 @@ For now, that was enough magic.`;
                 appendOracleMessage('user', text);
                 clearOracleInput();
             }
-
-            const reply = generateLocalOracleReply(kind, text);
-            appendOracleMessage('ai', reply);
-
-            if (typeof addXP === 'function') {
-                addXP(1, 'local oracle');
-            }
+            appendOracleMessage('ai', loreReply(kind, text));
+            if (typeof addXP === 'function') addXP(1, 'oracle lore');
         }
 
         function injectPrompt(text) {
@@ -3125,17 +3118,11 @@ For now, that was enough magic.`;
         }
 
         function summonOracle(kind = 'general') {
-            const input = document.getElementById('oracle-editor');
-            const prompt = input ? input.value.trim() : "";
-
-            if (prompt) {
-                appendOracleMessage('user', prompt);
-            }
-
-            const reply = generateLocalOracleReply(kind, prompt);
+            const text = getOracleInputText();
+            if (text) appendOracleMessage('user', text);
             clearOracleInput();
 
-            const loadingId = 'local-oracle-' + Date.now();
+            const loadingId = 'local-lore-oracle-' + Date.now();
             const chat = document.getElementById('oracle-chat');
 
             if (chat) {
@@ -3143,7 +3130,7 @@ For now, that was enough magic.`;
                 loading.id = loadingId;
                 loading.className = 'oracle-msg ai';
                 loading.style.opacity = '0.55';
-                loading.textContent = 'Ink settling...';
+                loading.textContent = 'The candle listens...';
                 chat.appendChild(loading);
                 chat.scrollTop = chat.scrollHeight;
             }
@@ -3151,21 +3138,29 @@ For now, that was enough magic.`;
             setTimeout(() => {
                 const loading = document.getElementById(loadingId);
                 if (loading) loading.remove();
-                appendOracleMessage('ai', reply);
-                if (typeof addXP === 'function') {
-                    addXP(1, 'local oracle');
-                }
-            }, 260);
+                appendOracleMessage('ai', loreReply(kind, text));
+                if (typeof addXP === 'function') addXP(1, 'oracle lore');
+            }, 240);
         }
 
         function clearOracleChat() {
             const chat = document.getElementById('oracle-chat');
             if (!chat) return;
-            chat.innerHTML = `<div class="oracle-msg ai">The old ink has been cleared. I am still here quietly. No cloud, no key, no pressure.</div>`;
+            chat.innerHTML = `<div class="oracle-msg ai">The old ink has been cleared. The candle, the tower, and Nib are still here.</div>`;
+        }
+
+        function ambientOracleLore() {
+            if (document.body.classList.contains('booting') || document.body.classList.contains('cloaked')) return;
+            if (!document.body.classList.contains('oracle-open')) return;
+            if (Math.random() < 0.42) appendOracleMessage('ai', loreReply('general', ''));
+        }
+
+        if (!window.__oracleLoreTimer) {
+            window.__oracleLoreTimer = setInterval(ambientOracleLore, 42000);
         }
 
 
-        // === 10. FLOATING AI WIDGET INTERACTION ===
+        // === 10. FLOATING ORACLE WIDGET INTERACTION ===
         function activateOracle(event) {
             if (event) event.stopPropagation();
             // Toggle the Oracle Assistant Modal. The toggleModal script dynamically updates coordinates of the widget!
@@ -3189,7 +3184,7 @@ For now, that was enough magic.`;
 
 
             try {
-                localStorage.removeItem('gemini_api_key');
+                
             } catch (error) {
                 console.warn('Local Oracle cleanup skipped:', error);
             }
@@ -3578,9 +3573,9 @@ function setNibGameInstructions(mode) {
     if (!instructions || !tip) return;
 
     if (mode === 'catch') {
-        instructions.innerHTML = `<span><strong>Catch Nib:</strong> Tap the glowing mouse every time he hops.</span><span id="nib-game-tip">Catch him 5 times before the clock runs out.</span>`;
+        instructions.innerHTML = `<span><strong>Catch Nib:</strong> Tap the glowing mouse every time he hops.</span><span id="nib-game-tip">Catch him 12 times before the clock runs out.</span>`;
     } else {
-        instructions.innerHTML = `<span><strong>Feed Nib:</strong> Tap the falling snacks before they hit the floor.</span><span id="nib-game-tip">Good treats help. Junk or puddles cost a point.</span>`;
+        instructions.innerHTML = `<span><strong>Feed Nib:</strong> Tap the falling snacks before they hit the floor.</span><span id="nib-game-tip">Good treats help. Junk, rocks, and puddles cost points.</span>`;
     }
 }
 
@@ -3619,14 +3614,14 @@ function openNibGame(mode) {
     toggleFeedGuide(mode === 'feed');
 
     if (mode === 'catch') {
-        NIB_GAME_STATE.target = 5;
-        NIB_GAME_STATE.timeLeft = 20;
+        NIB_GAME_STATE.target = 12;
+        NIB_GAME_STATE.timeLeft = 45;
         title.textContent = 'Catch Nib';
         modal.classList.add('active');
         startCatchNibGame();
     } else {
-        NIB_GAME_STATE.target = 8;
-        NIB_GAME_STATE.timeLeft = 24;
+        NIB_GAME_STATE.target = 18;
+        NIB_GAME_STATE.timeLeft = 50;
         title.textContent = 'Feed Nib';
         modal.classList.add('active');
         startFeedNibGame();
@@ -3704,7 +3699,7 @@ function finishNibGame(won) {
     NIB_GAME_STATE.mover = null;
     NIB_GAME_STATE.active = false;
 
-    const xp = won ? (mode === 'catch' ? 18 : 20) : Math.max(2, Math.floor(score / 2));
+    const xp = won ? (mode === 'catch' ? 28 : 32) : Math.max(3, Math.floor(score / 2));
     awardNibGameXP(xp, won ? `${mode} Nib win` : `${mode} Nib try`);
 
     if (typeof somniaAlert === 'function') {
@@ -3786,9 +3781,9 @@ function startCatchNibGame() {
     NIB_GAME_STATE.timer = setInterval(tickNibGameTimer, 1000);
     NIB_GAME_STATE.mover = setInterval(() => {
         if (NIB_GAME_STATE.active && NIB_GAME_STATE.mode === 'catch') moveCatchTarget(target);
-    }, 1450);
+    }, 900);
 
-    showNibGameToast("Tap Nib!");
+    showNibGameToast("Catch Nib twelve times!");
 }
 
 function spawnFeedItem() {
@@ -3798,7 +3793,7 @@ function spawnFeedItem() {
     if (!stage) return;
 
     const item = document.createElement('button');
-    const good = Math.random() > 0.22;
+    const good = Math.random() > 0.32;
     const goodFood = [
         { emoji: '🍓', label: 'Berry' },
         { emoji: '🫐', label: 'Blue' },
@@ -3825,7 +3820,7 @@ function spawnFeedItem() {
     const bounds = getNibGameBounds(78);
     item.style.left = `${12 + Math.random() * bounds.maxX}px`;
     item.style.top = `-84px`;
-    item.style.animationDuration = `${3.8 + Math.random() * 1.4}s`;
+    item.style.animationDuration = `${2.7 + Math.random() * 1.15}s`;
 
     item.addEventListener('click', event => {
         event.stopPropagation();
@@ -3852,10 +3847,11 @@ function spawnFeedItem() {
 
 function startFeedNibGame() {
     NIB_GAME_STATE.timer = setInterval(tickNibGameTimer, 1000);
-    NIB_GAME_STATE.spawner = setInterval(spawnFeedItem, 720);
+    NIB_GAME_STATE.spawner = setInterval(spawnFeedItem, 520);
     spawnFeedItem();
     spawnFeedItem();
-    showNibGameToast("Tap the falling snacks!");
+    spawnFeedItem();
+    showNibGameToast("Feed Nib eighteen treats!");
 }
 </script>
 
