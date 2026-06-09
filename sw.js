@@ -1,9 +1,9 @@
 /* SOMNIASCRIBES SERVICE WORKER
-   Tower Lore Safe Hotfix build.
+   Stable Local Oracle Rollback build.
    Put beside index.html.
 */
 
-const CACHE_VERSION = 'somniascribes-v16-tower-lore-safe-hotfix';
+const CACHE_VERSION = 'somniascribes-v17-stable-local-oracle-rollback';
 
 const APP_SHELL = [
   './',
