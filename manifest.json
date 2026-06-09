@@ -2,24 +2,10 @@
   "name": "SomniaScribes",
   "short_name": "Scribes",
   "description": "SOMNIASCRIBES // The Scriptorium.",
-  "start_url": "./index.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#020204",
   "theme_color": "#020204",
-  "orientation": "any",
-  "icons": [
-    {
-      "src": "icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
+  "orientation": "any"
 }
