@@ -1,9 +1,9 @@
 /* SOMNIASCRIBES SERVICE WORKER
-   GitHub-safe full build.
+   Nib mini-games build.
    Put beside index.html.
 */
 
-const CACHE_VERSION = 'somniascribes-v9-github-safe-full-build';
+const CACHE_VERSION = 'somniascribes-v10-nib-mini-games';
 
 const APP_SHELL = [
   './',
@@ -120,7 +120,6 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(request).then(cached => {
       if (cached) return cached;
-
       return fetch(request).then(response => {
         if (response && response.ok && url.pathname.match(/\.(html|css|js|json|png|jpg|jpeg|webp|gif|svg|ico|mp3|wav|ogg|m4a|flac)$/i)) {
           const copy = response.clone();
