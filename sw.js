@@ -1,9 +1,9 @@
 /* SOMNIASCRIBES SERVICE WORKER
-   Lore Oracle + harder Nib games + clean phone weather build.
+   Desktop Return-only polish.
    Put beside index.html.
 */
 
-const CACHE_VERSION = 'somniascribes-v23-clean-phone-weather';
+const CACHE_VERSION = 'somniascribes-v26-return-only';
 
 const APP_SHELL = [
   './',
