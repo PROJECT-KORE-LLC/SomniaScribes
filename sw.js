@@ -1,9 +1,9 @@
 /* SOMNIASCRIBES SERVICE WORKER
-   Stable Local Oracle Rollback build.
+   Lore Oracle + harder Nib games + clean phone weather build.
    Put beside index.html.
 */
 
-const CACHE_VERSION = 'somniascribes-v17-stable-local-oracle-rollback';
+const CACHE_VERSION = 'somniascribes-v23-clean-phone-weather';
 
 const APP_SHELL = [
   './',
@@ -15,6 +15,11 @@ const APP_SHELL = [
 const CORE_IMAGES = [
   './scribes1.0.png',
   './scribe1.png',
+  './scribe.png',
+  './librarian.png',
+  './moth.png',
+  './ship.png',
+  './somniascribes.png',
   './rainywindow.png',
   './candledesk.png',
   './midnightpages.png',
