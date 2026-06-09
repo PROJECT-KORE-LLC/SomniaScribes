@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="tower-city-lore-local-oracle-v1">
+    <meta name="somniascribes-build" content="tower-lore-safe-hotfix-v1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SOMNIASCRIBES // THE SCRIPTORIUM // TOWER LORE BUILD</title>
+    <title>SOMNIASCRIBES // THE SCRIPTORIUM // TOWER LORE HOTFIX</title>
     
     <link rel="manifest" href="manifest.json">
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
@@ -1377,38 +1377,11 @@
     </div>
     
     <div id="drop-modal" class="modal-overlay" onclick="toggleModal('drop-modal')">
-        <div class="cast-box drop-vibe-box" onclick="event.stopPropagation()">
-            <h3 class="drop-vibe-title">Drop This Vibe</h3>
-            <p class="drop-vibe-copy">
-                Share the atmosphere only: background/preset, glow, particles, palette, built-in audio layers, and Nib mood.
-                Your journal, Oracle conversation, notes, private entries, and uploaded files are never included.
-            </p>
-
-            <div class="drop-vibe-preview" id="drop-vibe-preview">
-                <div class="drop-vibe-preview-bg" id="drop-vibe-preview-bg"></div>
-                <div class="drop-vibe-preview-glow" id="drop-vibe-preview-glow"></div>
-                <div class="drop-vibe-preview-content">
-                    <span class="drop-vibe-kicker">SOMNIASCRIBES VIBE</span>
-                    <strong id="drop-vibe-preview-name">Current Atmosphere</strong>
-                    <small id="drop-vibe-preview-meta">Palette · Particles · Audio</small>
-                </div>
-            </div>
-
-            <label class="drop-vibe-label" for="drop-link-input">Private-safe share link</label>
+        <div class="cast-box" onclick="event.stopPropagation()">
+            <h3 style="color: var(--primary); letter-spacing: 4px; margin-top: 0; text-transform: uppercase; font-family: 'Times New Roman', serif;">Drop Your Vibe</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; font-family: 'Georgia', serif; font-style: italic;">Copy the link below to drop this setup anywhere:</p>
             <input type="text" id="drop-link-input" class="core-input" readonly onclick="this.select()">
-
-            <div class="drop-vibe-actions">
-                <button class="toy-btn" onclick="copyDropVibeLink()">Copy Link</button>
-                <button class="toy-btn" onclick="nativeShareDropVibe()">Share</button>
-                <button class="toy-btn" onclick="returnToCity(event)">Enter SomniaScapes</button>
-            </div>
-
-            <p class="drop-vibe-privacy">
-                This link does not contain journal text, Oracle conversation text, uploaded custom files, or personal notes.
-                Custom backgrounds are represented as atmosphere-only unless a future publish feature explicitly uploads them.
-            </p>
-
-            <button class="toy-btn" style="width: 100%; border-color:var(--glass-border); color:var(--text-main);" onclick="toggleModal('drop-modal')">Close</button>
+            <button class="toy-btn" style="width: 100%; border-color:var(--accent); color:var(--text-mloren);" onclick="toggleModal('drop-modal')">Close</button>
         </div>
     </div>
 
@@ -1436,8 +1409,8 @@
             <button class="artifact-btn" onclick="toggleModal('scratchpad-modal')">Journal</button>
             <button class="artifact-btn" onclick="toggleModal('oracle-modal')">Ink Oracle</button>
             <button class="artifact-btn" onclick="toggleModal('cast-modal')">Project</button>
-            <button class="artifact-btn return-city-btn" onclick="returnToCity(event)">Return to City</button>
-            <button class="artifact-btn drop-vibe-btn" onclick="dropSomnia()">Drop Vibe</button>
+            <button class="artifact-btn" onclick="returnToCity(event)">Return to City</button>
+            <button class="artifact-btn" onclick="dropSomnia()">Drop Vibe</button>
         </div>
 
         <div class="widget-dock" onclick="event.stopPropagation()" aria-label="SomniaScribes time and weather widgets">
@@ -1676,7 +1649,6 @@
                     <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('reflect')">Gentle Reflection</button>
                     <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('untangle')">Sort the Threads</button>
                     <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('story')">Story Seed</button>
-                    <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('tower')">Tower Lore</button>
                     <button class="artifact-btn oracle-clear-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="clearOracleChat()">Clear</button>
                 </div>
 
@@ -3104,148 +3076,6 @@
             ]
         };
 
-
-        const SOMNIASCAPES_TOWER_LORE_LINES = [
-            "The Scriptorium lives high in the Candleward Tower, above the gothic roofs of SomniaScapes where rain becomes silver before it touches stone.",
-            "The tower is older than the streets below it. Some say the city was built around its shadow, not the other way around.",
-            "Far beneath this room, the dangerous city turns in loops of black iron, gold lanternlight, wet cobblestone, and locked doors with listening keyholes.",
-            "The Candleward Tower keeps one lit window for every unfinished thought ever carried safely to its upper rooms.",
-            "At certain hours, the stairwell outside the Scriptorium adds an extra landing for people who are not ready to go back down.",
-            "The gargoyles below the tower do not guard treasure. They guard quiet.",
-            "SomniaScapes glitters beautifully from up here, which is how the city hides its teeth.",
-            "The tower bells do not mark time. They mark thresholds: before the storm, after the ache, during the sentence that saves you.",
-            "There is a district below called the Velvet Narrows where every alley looks warm until it asks your name.",
-            "From the Scriptorium window, the city’s canals look like ink spilled between cathedral bones.",
-            "The tower’s stones remember every scribe who arrived empty-handed and left with one word less trapped inside them.",
-            "Down in the city, charm-merchants sell bottled courage, false maps, and umbrellas that only open in honest rain.",
-            "The Scriptorium is warded by candle-smoke, old grammar, and the small defiance of staying gentle in a dangerous city.",
-            "Some nights, the city sends fog up the tower stairs like a question. The room answers by lighting another candle.",
-            "No one finds the Scriptorium by being impressive. They find it by needing somewhere safe enough to be unfinished.",
-            "The upper tower windows bend moonlight into margins so even silence has somewhere to sit.",
-            "There are seven bridges below that refuse to be crossed by anyone lying to themselves. Nib claims to have crossed all seven. This is unlikely.",
-            "The roofs of SomniaScapes are stitched with laundry lines, spell-cords, messenger ravens, and the occasional escaped wish.",
-            "The Candleward Tower has no throne room. Its highest chamber is this desk.",
-            "In old city maps, this tower is labeled: For Fragments, Drafts, Small Survivals, and Weathered Hearts.",
-            "The city below is full of doors that require a password. The Scriptorium only requires that you arrive.",
-            "When thunder rolls across SomniaScapes, the tower does not shake. It listens.",
-            "Somewhere under the tower is a sealed archive of dreams too heavy to carry alone.",
-            "At dawn, the tower casts a shadow shaped like an open book across the sleeping district.",
-            "The Scriptorium is one of the few rooms in SomniaScapes where magic is allowed to be quiet."
-        ];
-
-        const SOMNIASCAPES_CITY_WHISPERS = [
-            "Below the tower, a night carriage passes without horses. Its lanterns are blue and politely haunted.",
-            "A bell rings from the Glass Chapel District, and every puddle in the street trembles.",
-            "Somewhere in the market below, a vendor is selling warm bread, lucky buttons, and apologies in small paper bags.",
-            "The river under SomniaScapes carries reflections that do not always match the people above them.",
-            "A rooftop garden blooms in the storm. The flowers only open when someone tells the truth nearby.",
-            "Far below, the Lantern Court argues with the Moon Registry over who owns the color silver.",
-            "A raven lands on a neighboring spire and pretends it was expected.",
-            "The city patrol lights pass beneath the tower like slow golden fish.",
-            "In the clock district, one hour has gone missing again. No one seems surprised.",
-            "The alley cats of SomniaScapes know three secret routes to the tower. Nib knows four and refuses to explain.",
-            "A street musician below plays a song that sounds like a memory finding its coat.",
-            "A window across the city blinks awake, then another, then another, until SomniaScapes looks briefly like a constellation that fell to earth.",
-            "The old aqueduct hums under the rain. The tower hums back.",
-            "Somewhere below, a door refuses to open until it hears kinder language.",
-            "The dangerous city is not evil. It is hungry, enchanted, and very badly supervised.",
-            "A courier moth beats softly against the glass, carrying a message addressed only to The One Who Is Still Trying.",
-            "The city’s black towers lean toward each other at night to trade gossip.",
-            "Every lantern in the Scholar’s Quarter wears a little halo of rain.",
-            "A bridge in the distance folds itself away for the night.",
-            "The moon catches on the cathedral spines and tears into a thousand silver threads."
-        ];
-
-        const NIB_TOWER_LORE_LINES = [
-            "Nib knows the tower’s smallest staircases, including one that only appears beside crumbs.",
-            "Nib claims the Candleward Tower belongs to him. The tower has not corrected him.",
-            "Nib drags a thread of city-magic into the room and hides it under the rug for emergencies.",
-            "Nib once challenged a gargoyle to a staring contest. The gargoyle is still recovering.",
-            "Nib has a nest behind the third loose brick, lined with lint, ribbon, and rejected metaphors.",
-            "Nib patrols the desk like the safety of the tower depends on his tiny feet. It may.",
-            "Nib stole a moonbeam from the window and tucked it beside the candle.",
-            "Nib squeaks whenever the city below gets too loud, which the Oracle considers an official weather report.",
-            "Nib leaves crumbs at the threshold to confuse any bad dreams trying to enter.",
-            "Nib has hidden three keys in this room. None open doors. One opens courage, allegedly.",
-            "Nib once rode a paperclip down the banister of the tower stairs. He has been unbearable about it since.",
-            "Nib can hear when the city fog reaches the fourth landing.",
-            "Nib refuses to enter the Velvet Narrows after sunset, which is one of his wiser policies.",
-            "Nib believes every journal entry should include a snack inventory.",
-            "Nib keeps watch over the candle flame as if it is a small sun assigned to his care."
-        ];
-
-        const ORACLE_TOWER_EXCHANGES = [
-            "Ink Oracle: The city is loud tonight.\nNib: squeak.\nInk Oracle: Yes. That is why the tower has walls.",
-            "Nib presses his nose to the glass.\nInk Oracle: Do not challenge the entire city, little one. Not before tea.",
-            "Ink Oracle: The Candleward Tower remembers you.\nNib: taps the desk twice, as if signing the witness line.",
-            "Nib drags a crumb toward the window.\nInk Oracle: That is not a tribute to the gargoyles.\nNib: continues.",
-            "Ink Oracle: The streets below are sharp.\nNib: squeak.\nInk Oracle: Correct. We remain soft anyway.",
-            "The city bells ring far below. Nib freezes. The Oracle whispers, “Only a threshold, not a threat.”",
-            "Nib hides behind the inkpot when the tower creaks.\nInk Oracle: The old stones are stretching. Even towers get tired.",
-            "Ink Oracle: One day the Scribe may walk the city again.\nNib: squeak.\nInk Oracle: But not before the page is ready.",
-            "Nib pats the windowsill like a guard captain.\nInk Oracle: Yes, yes. The entire skyline is under your supervision.",
-            "Ink Oracle: The tower keeps what the city would scatter.\nNib: places one crumb beside the journal, contributing to the archive."
-        ];
-
-        const SCRIPTORIUM_TOWER_PROMPTS = [
-            "Look out the tower window: what does the city ask of you tonight?",
-            "Nib found a key that does not open a door. What does it open?",
-            "A bell tolls far below. What thought answers it?",
-            "The city is glittering and dangerous. What part of you needs a room above it?",
-            "Write one sentence the Candleward Tower would keep safe.",
-            "What would you leave on the desk before returning to the city?",
-            "A gargoyle saw you through the rain and nodded once. What did it understand?",
-            "The tower stairs added one extra landing for you. What was waiting there?",
-            "The Oracle says the city is hungry but the room is kind. What are you hungry for that kindness could feed?",
-            "Nib dragged a tiny map across the page. Where does it lead?",
-            "A lantern below blinks three times. What message did it send?",
-            "The Scriptorium window shows the city as a spell. What word completes it?"
-        ];
-
-        const PRESET_TOWER_LORE_LINES = {
-            "Rainy Window": [
-                "From the tower window, rain turns SomniaScapes into a watercolor of lanterns and secrets.",
-                "Nib counts the raindrops racing down the glass and loses with great dignity.",
-                "The Oracle says the city is safest when blurred by rain."
-            ],
-            "Candle Desk": [
-                "The Candleward Tower recognizes this light. It has kept scribes alive through worse nights.",
-                "Nib patrols the candle circle as if guarding the last warm border in the city.",
-                "The Oracle lowers her voice until the room feels sealed in amber."
-            ],
-            "Midnight Pages": [
-                "Midnight opens the high shelves. The city below becomes a footnote.",
-                "Nib steps carefully across the desk, leaving no mark except company.",
-                "The Oracle says the best secrets are not hidden; they are given a quiet enough room."
-            ],
-            "Forest Margins": [
-                "Green magic climbs the tower stones from rooftop gardens below.",
-                "Nib finds imaginary moss between two sentences.",
-                "The Oracle remembers when the city still had trees where the clock towers now stand."
-            ],
-            "Blanket Fort": [
-                "The tower folds itself closer, becoming a room within a room within a spell.",
-                "Nib approves the fortification and appoints himself crumb inspector.",
-                "The Oracle says shelter is architecture made from permission."
-            ],
-            "Ink and Thunder": [
-                "Thunder rolls across the cathedral roofs, but the Candleward Tower holds.",
-                "Nib hides behind courage, which looks suspiciously like the inkpot.",
-                "The Oracle steadies the page while the sky argues with the city."
-            ],
-            "Gentle Static": [
-                "Old tower wires hum with messages from districts that no longer exist.",
-                "Nib’s whiskers twitch like antennae receiving nonsense from the moon.",
-                "The Oracle hears the static say: stay, soften, remain."
-            ],
-            "Moonlit Archive": [
-                "Moonlight unlocks the upper archive, where SomniaScapes stores its almost-forgotten kindnesses.",
-                "Nib walks patrol between silver shelves and pretends to be ancient.",
-                "The Oracle says archives are memories that learned how to become rooms."
-            ]
-        };
-
-
         function escapeOracleHTML(value) {
             return String(value || "")
                 .replace(/&/g, "&amp;")
@@ -3343,41 +3173,14 @@ The Ink Oracle did not correct it. Nib did not nibble it. The candle simply lean
 For now, that was enough magic.`;
         }
 
-
-        function localOracleTowerLore(text) {
-            const pool = [
-                ...SOMNIASCAPES_TOWER_LORE_LINES,
-                ...SOMNIASCAPES_CITY_WHISPERS,
-                ...ORACLE_TOWER_EXCHANGES
-            ];
-
-            if (text) {
-                return `${randomOracleItem(pool)}
-
-The tower folds your fragment into its map:
-“${text.length > 160 ? text.slice(0, 160).trim() + "..." : text}”
-
-Some rooms do not answer directly. They become safer while you speak.`;
-            }
-
-            return `${randomOracleItem(pool)}
-
-Prompt from the tower:
-${randomOracleItem(SCRIPTORIUM_TOWER_PROMPTS)}`;
-        }
-
-
         function localOracleGeneral(text) {
             if (!text) {
                 const roll = Math.random();
-                if (roll < 0.18) return randomOracleItem(ORACLE_ROOM_LINES);
-                if (roll < 0.34) return randomOracleItem(SOMNIASCAPES_TOWER_LORE_LINES);
-                if (roll < 0.50) return randomOracleItem(SOMNIASCAPES_CITY_WHISPERS);
-                if (roll < 0.66) return randomOracleItem(NIB_TOWER_LORE_LINES);
-                if (roll < 0.82) return randomOracleItem(ORACLE_TOWER_EXCHANGES);
+                if (roll < 0.34) return randomOracleItem(ORACLE_ROOM_LINES);
+                if (roll < 0.67) return randomOracleItem(ORACLE_NIB_EXCHANGES);
                 return `${randomOracleItem(ORACLE_DIRECT_LINES)}
 
-${randomOracleItem(SCRIPTORIUM_TOWER_PROMPTS)}`;
+${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
             }
 
             const lower = text.toLowerCase();
@@ -3388,7 +3191,6 @@ ${randomOracleItem(SCRIPTORIUM_TOWER_PROMPTS)}`;
 
         function generateLocalOracleReply(kind, text) {
             if (kind === 'story') return localOracleStory(text);
-            if (kind === 'tower') return localOracleTowerLore(text);
             if (kind === 'untangle') return localOracleUntangle(text);
             if (kind === 'reflect') return localOracleReflect(text);
             return localOracleGeneral(text);
@@ -3457,23 +3259,14 @@ ${randomOracleItem(SCRIPTORIUM_TOWER_PROMPTS)}`;
             let text;
             let role = 'room';
 
-            if (roll < 0.16) {
+            if (roll < 0.34) {
                 text = randomOracleItem(ORACLE_ROOM_LINES);
                 role = 'room';
-            } else if (roll < 0.32) {
-                text = randomOracleItem(SOMNIASCAPES_TOWER_LORE_LINES);
-                role = 'room';
-            } else if (roll < 0.48) {
-                text = randomOracleItem(SOMNIASCAPES_CITY_WHISPERS);
-                role = 'room';
-            } else if (roll < 0.64) {
+            } else if (roll < 0.67) {
                 text = randomOracleItem(NIB_AMBIENT_LINES);
                 role = 'nib';
-            } else if (roll < 0.80) {
-                text = randomOracleItem(NIB_TOWER_LORE_LINES);
-                role = 'nib';
             } else {
-                text = randomOracleItem(ORACLE_TOWER_EXCHANGES);
+                text = randomOracleItem(ORACLE_NIB_EXCHANGES);
                 role = 'room';
             }
 
@@ -4192,204 +3985,227 @@ function startFeedNibGame() {
 
 
 <script>
-/* === DROP VIBE 2.0 + RETURN TO CITY === */
-const SOMNIASCAPES_HOME_URL = 'https://project-kore-llc.github.io/SomniaScapes/';
+/* === SAFE SOMNIASCAPES TOWER LORE HOTFIX === */
+window.SOMNIASCAPES_TOWER_LORE_LINES = [
+    "The Scriptorium lives high in the Candleward Tower, above the gothic roofs of SomniaScapes where rain becomes silver before it touches stone.",
+    "The Candleward Tower is older than the streets below it. Some say the city was built around its shadow, not the other way around.",
+    "Far beneath this room, SomniaScapes turns in loops of black iron, gold lanternlight, wet cobblestone, and locked doors with listening keyholes.",
+    "The tower keeps one lit window for every unfinished thought ever carried safely to its upper rooms.",
+    "At certain hours, the stairwell outside the Scriptorium adds an extra landing for people who are not ready to go back down.",
+    "The gargoyles below the tower do not guard treasure. They guard quiet.",
+    "SomniaScapes glitters beautifully from up here, which is how the city hides its teeth.",
+    "The tower bells do not mark time. They mark thresholds.",
+    "There is a district below called the Velvet Narrows where every alley looks warm until it asks your name.",
+    "From the Scriptorium window, the city canals look like ink spilled between cathedral bones.",
+    "The tower stones remember every scribe who arrived empty-handed and left with one word less trapped inside them.",
+    "Down in the city, charm-merchants sell bottled courage, false maps, and umbrellas that only open in honest rain.",
+    "The Scriptorium is warded by candle-smoke, old grammar, and the small defiance of staying gentle in a dangerous city.",
+    "Some nights, the city sends fog up the tower stairs like a question. The room answers by lighting another candle.",
+    "No one finds the Scriptorium by being impressive. They find it by needing somewhere safe enough to be unfinished.",
+    "The upper tower windows bend moonlight into margins so even silence has somewhere to sit.",
+    "There are seven bridges below that refuse to be crossed by anyone lying to themselves. Nib claims to have crossed all seven.",
+    "The roofs of SomniaScapes are stitched with laundry lines, spell-cords, messenger ravens, and escaped wishes.",
+    "The Candleward Tower has no throne room. Its highest chamber is this desk.",
+    "In old city maps, this tower is labeled: For Fragments, Drafts, Small Survivals, and Weathered Hearts.",
+    "The city below is full of doors that require a password. The Scriptorium only requires that you arrive.",
+    "When thunder rolls across SomniaScapes, the tower does not shake. It listens.",
+    "Somewhere under the tower is a sealed archive of dreams too heavy to carry alone.",
+    "At dawn, the tower casts a shadow shaped like an open book across the sleeping district.",
+    "The Scriptorium is one of the few rooms in SomniaScapes where magic is allowed to be quiet."
+];
 
-const DROP_VIBE_BACKGROUND_NAMES = {
-    'rainywindow.png': 'Rainy Window',
-    'candledesk.png': 'Candle Desk',
-    'midnightpages.png': 'Midnight Pages',
-    'forestmargins.png': 'Forest Margins',
-    'blanketfort.png': 'Blanket Fort',
-    'inkandthunder.png': 'Ink and Thunder',
-    'gentlestatic.png': 'Gentle Static',
-    'moonlitarchive.png': 'Moonlit Archive',
-    'scribes1.0.png': 'The Scriptorium'
+window.SOMNIASCAPES_CITY_WHISPERS = [
+    "Below the tower, a night carriage passes without horses. Its lanterns are blue and politely haunted.",
+    "A bell rings from the Glass Chapel District, and every puddle in the street trembles.",
+    "Somewhere in the market below, a vendor is selling warm bread, lucky buttons, and apologies in small paper bags.",
+    "The river under SomniaScapes carries reflections that do not always match the people above them.",
+    "A rooftop garden blooms in the storm. The flowers only open when someone tells the truth nearby.",
+    "Far below, the Lantern Court argues with the Moon Registry over who owns the color silver.",
+    "A raven lands on a neighboring spire and pretends it was expected.",
+    "The city patrol lights pass beneath the tower like slow golden fish.",
+    "In the clock district, one hour has gone missing again. No one seems surprised.",
+    "The alley cats of SomniaScapes know three secret routes to the tower. Nib knows four and refuses to explain.",
+    "A street musician below plays a song that sounds like a memory finding its coat.",
+    "A window across the city blinks awake, then another, until SomniaScapes looks like a constellation that fell to earth.",
+    "The old aqueduct hums under the rain. The tower hums back.",
+    "Somewhere below, a door refuses to open until it hears kinder language.",
+    "The dangerous city is not evil. It is hungry, enchanted, and very badly supervised.",
+    "A courier moth beats softly against the glass, carrying a message addressed only to The One Who Is Still Trying.",
+    "The city black towers lean toward each other at night to trade gossip.",
+    "Every lantern in the Scholar Quarter wears a little halo of rain.",
+    "A bridge in the distance folds itself away for the night.",
+    "The moon catches on the cathedral spines and tears into a thousand silver threads."
+];
+
+window.NIB_TOWER_LORE_LINES = [
+    "Nib knows the tower smallest staircases, including one that only appears beside crumbs.",
+    "Nib claims the Candleward Tower belongs to him. The tower has not corrected him.",
+    "Nib drags a thread of city-magic into the room and hides it under the rug for emergencies.",
+    "Nib once challenged a gargoyle to a staring contest. The gargoyle is still recovering.",
+    "Nib has a nest behind the third loose brick, lined with lint, ribbon, and rejected metaphors.",
+    "Nib patrols the desk like the safety of the tower depends on his tiny feet. It may.",
+    "Nib stole a moonbeam from the window and tucked it beside the candle.",
+    "Nib squeaks whenever the city below gets too loud, which the Oracle considers an official weather report.",
+    "Nib leaves crumbs at the threshold to confuse any bad dreams trying to enter.",
+    "Nib has hidden three keys in this room. None open doors. One opens courage, allegedly.",
+    "Nib once rode a paperclip down the banister of the tower stairs. He has been unbearable about it since.",
+    "Nib can hear when the city fog reaches the fourth landing.",
+    "Nib refuses to enter the Velvet Narrows after sunset, which is one of his wiser policies.",
+    "Nib believes every journal entry should include a snack inventory.",
+    "Nib keeps watch over the candle flame as if it is a small sun assigned to his care."
+];
+
+window.ORACLE_TOWER_EXCHANGES = [
+    "Ink Oracle: The city is loud tonight.\nNib: squeak.\nInk Oracle: Yes. That is why the tower has walls.",
+    "Nib presses his nose to the glass.\nInk Oracle: Do not challenge the entire city, little one. Not before tea.",
+    "Ink Oracle: The Candleward Tower remembers you.\nNib taps the desk twice, as if signing the witness line.",
+    "Nib drags a crumb toward the window.\nInk Oracle: That is not a tribute to the gargoyles.",
+    "Ink Oracle: The streets below are sharp.\nNib: squeak.\nInk Oracle: Correct. We remain soft anyway.",
+    "The city bells ring far below. Nib freezes. The Oracle whispers, Only a threshold, not a threat.",
+    "Nib hides behind the inkpot when the tower creaks.\nInk Oracle: The old stones are stretching. Even towers get tired.",
+    "Ink Oracle: One day the Scribe may walk the city again.\nNib: squeak.\nInk Oracle: But not before the page is ready.",
+    "Nib pats the windowsill like a guard captain.\nInk Oracle: Yes, yes. The entire skyline is under your supervision.",
+    "Ink Oracle: The tower keeps what the city would scatter.\nNib places one crumb beside the journal, contributing to the archive."
+];
+
+window.SCRIPTORIUM_TOWER_PROMPTS = [
+    "Look out the tower window: what does the city ask of you tonight?",
+    "Nib found a key that does not open a door. What does it open?",
+    "A bell tolls far below. What thought answers it?",
+    "The city is glittering and dangerous. What part of you needs a room above it?",
+    "Write one sentence the Candleward Tower would keep safe.",
+    "What would you leave on the desk before returning to the city?",
+    "A gargoyle saw you through the rain and nodded once. What did it understand?",
+    "The tower stairs added one extra landing for you. What was waiting there?",
+    "The Oracle says the city is hungry but the room is kind. What are you hungry for that kindness could feed?",
+    "Nib dragged a tiny map across the page. Where does it lead?",
+    "A lantern below blinks three times. What message did it send?",
+    "The Scriptorium window shows the city as a spell. What word completes it?"
+];
+
+window.PRESET_TOWER_LORE_LINES = {
+    "Rainy Window": [
+        "From the tower window, rain turns SomniaScapes into a watercolor of lanterns and secrets.",
+        "Nib counts the raindrops racing down the glass and loses with great dignity.",
+        "The Oracle says the city is safest when blurred by rain."
+    ],
+    "Candle Desk": [
+        "The Candleward Tower recognizes this light. It has kept scribes alive through worse nights.",
+        "Nib patrols the candle circle as if guarding the last warm border in the city.",
+        "The Oracle lowers her voice until the room feels sealed in amber."
+    ],
+    "Midnight Pages": [
+        "Midnight opens the high shelves. The city below becomes a footnote.",
+        "Nib steps carefully across the desk, leaving no mark except company.",
+        "The Oracle says the best secrets are not hidden; they are given a quiet enough room."
+    ],
+    "Forest Margins": [
+        "Green magic climbs the tower stones from rooftop gardens below.",
+        "Nib finds imaginary moss between two sentences.",
+        "The Oracle remembers when the city still had trees where the clock towers now stand."
+    ],
+    "Blanket Fort": [
+        "The tower folds itself closer, becoming a room within a room within a spell.",
+        "Nib approves the fortification and appoints himself crumb inspector.",
+        "The Oracle says shelter is architecture made from permission."
+    ],
+    "Ink and Thunder": [
+        "Thunder rolls across the cathedral roofs, but the Candleward Tower holds.",
+        "Nib hides behind courage, which looks suspiciously like the inkpot.",
+        "The Oracle steadies the page while the sky argues with the city."
+    ],
+    "Gentle Static": [
+        "Old tower wires hum with messages from districts that no longer exist.",
+        "Nib whiskers twitch like antennae receiving nonsense from the moon.",
+        "The Oracle hears the static say: stay, soften, remain."
+    ],
+    "Moonlit Archive": [
+        "Moonlight unlocks the upper archive, where SomniaScapes stores its almost-forgotten kindnesses.",
+        "Nib walks patrol between silver shelves and pretends to be ancient.",
+        "The Oracle says archives are memories that learned how to become rooms."
+    ]
 };
 
-function safeDropVibeValue(value, fallback = '') {
-    if (value === undefined || value === null) return fallback;
-    return String(value).replace(/[^\w\s\-.,:#()%]/g, '').trim().slice(0, 120);
-}
+window.randomTowerLoreLine = function () {
+    const pools = [
+        window.SOMNIASCAPES_TOWER_LORE_LINES,
+        window.SOMNIASCAPES_CITY_WHISPERS,
+        window.NIB_TOWER_LORE_LINES,
+        window.ORACLE_TOWER_EXCHANGES
+    ];
+    const pool = pools[Math.floor(Math.random() * pools.length)];
+    return pool[Math.floor(Math.random() * pool.length)];
+};
 
-function getCurrentBuiltInBgFile() {
-    const activeBgKey = localStorage.getItem('somnia_active_bg_key') || '';
-    if (activeBgKey.startsWith('builtin:')) return activeBgKey.replace('builtin:', '');
-
-    const bgAnchor = document.getElementById('bg-anchor');
-    if (!bgAnchor) return 'scribes1.0.png';
-
-    const bg = bgAnchor.style.backgroundImage || getComputedStyle(bgAnchor).backgroundImage || '';
-    const match = bg.match(/url\(["']?([^"')]+)["']?\)/);
-    if (!match) return 'scribes1.0.png';
-
-    const raw = match[1].split('/').pop();
-    if (DROP_VIBE_BACKGROUND_NAMES[raw]) return raw;
-
-    return 'custom-atmosphere';
-}
-
-function getCurrentPresetLabelForDropVibe(bgFile) {
-    const stored = localStorage.getItem('somnia_active_preset_label');
-    if (stored) return safeDropVibeValue(stored, 'Custom Vibe');
-    if (DROP_VIBE_BACKGROUND_NAMES[bgFile]) return DROP_VIBE_BACKGROUND_NAMES[bgFile];
-    return 'Custom Atmosphere';
-}
-
-function getActiveBuiltInAudioIds() {
-    try {
-        if (typeof activeAudio === 'object' && activeAudio) {
-            return Object.keys(activeAudio)
-                .filter(Boolean)
-                .map(id => safeDropVibeValue(id))
-                .filter(id => id && !id.startsWith('custom_'))
-                .slice(0, 8);
-        }
-    } catch (err) {
-        console.warn('Drop Vibe audio read skipped:', err);
+window.showTowerLore = function () {
+    const text = window.randomTowerLoreLine();
+    if (typeof appendOracleMessage === 'function' && document.body.classList.contains('oracle-open')) {
+        appendOracleMessage(text.includes("Nib") ? 'nib' : 'room', text);
     }
-    return [];
-}
+    if (typeof showNib === 'function' && Math.random() > 0.4) {
+        showNib(text.split('\\n')[0]);
+    }
+    return text;
+};
 
-function getCurrentNibMood() {
-    const nibImg = document.querySelector('#pet-nib img');
-    const src = nibImg ? (nibImg.getAttribute('src') || '') : '';
-    if (src.includes('cozy')) return 'cozy';
-    if (src.includes('startled')) return 'startled';
-    if (src.includes('curious')) return 'curious';
-    return 'default';
-}
-
-function buildDropVibeState() {
-    const root = document.documentElement;
-    const styles = getComputedStyle(root);
-    const bgFile = getCurrentBuiltInBgFile();
-    const preset = getCurrentPresetLabelForDropVibe(bgFile);
-    const glowLayer = document.getElementById('glow-layer');
-
-    return {
-        source: 'scriptorium',
-        preset,
-        bg: bgFile === 'custom-atmosphere' ? 'atmosphere-only' : bgFile,
-        customBg: bgFile === 'custom-atmosphere' ? 'hidden' : 'none',
-        palette: safeDropVibeValue(root.className || 'lunar-mode', 'lunar-mode'),
-        glow: safeDropVibeValue(glowLayer ? glowLayer.className : 'glow-pulse', 'glow-pulse'),
-        particles: safeDropVibeValue(window.particleType || 'dust', 'dust'),
-        particleCount: safeDropVibeValue(window.particleCount || '50', '50'),
-        particleColor: safeDropVibeValue(styles.getPropertyValue('--particle-color') || ''),
-        glowColor: safeDropVibeValue(styles.getPropertyValue('--glow-color') || ''),
-        brightness: safeDropVibeValue(styles.getPropertyValue('--bg-bright') || '0.85'),
-        zoom: safeDropVibeValue(styles.getPropertyValue('--bg-zoom') || '1'),
-        speed: safeDropVibeValue(styles.getPropertyValue('--anim-speed') || '10s'),
-        audio: getActiveBuiltInAudioIds().join(','),
-        nib: getCurrentNibMood()
+window.addEventListener('DOMContentLoaded', function () {
+    const tryHookTowerLore = function () {
+        const row = document.querySelector('.oracle-intent-row');
+        if (!row || document.getElementById('tower-lore-btn')) return;
+        const btn = document.createElement('button');
+        btn.id = 'tower-lore-btn';
+        btn.className = 'artifact-btn';
+        btn.style.fontSize = '0.65rem';
+        btn.style.padding = '8px 15px';
+        btn.textContent = 'Tower Lore';
+        btn.onclick = function () {
+            if (typeof appendOracleMessage === 'function') {
+                appendOracleMessage('room', window.randomTowerLoreLine() + "\\n\\nPrompt from the tower:\\n" + window.SCRIPTORIUM_TOWER_PROMPTS[Math.floor(Math.random() * window.SCRIPTORIUM_TOWER_PROMPTS.length)]);
+            }
+            if (typeof addXP === 'function') addXP(1, 'tower lore');
+        };
+        row.appendChild(btn);
     };
-}
 
-function encodeDropVibeState(state) {
-    const params = new URLSearchParams();
-    Object.entries(state).forEach(([key, value]) => {
-        if (value !== undefined && value !== null && String(value).trim() !== '') params.set(key, String(value));
-    });
-    return params.toString();
-}
+    tryHookTowerLore();
+    setTimeout(tryHookTowerLore, 1000);
 
-function buildDropVibeLink() {
-    const state = buildDropVibeState();
-    const query = encodeDropVibeState(state);
-    return `${SOMNIASCAPES_HOME_URL}?dropVibe=1&${query}`;
-}
-
-function updateDropVibePreview(state, link) {
-    const input = document.getElementById('drop-link-input');
-    const previewBg = document.getElementById('drop-vibe-preview-bg');
-    const previewGlow = document.getElementById('drop-vibe-preview-glow');
-    const name = document.getElementById('drop-vibe-preview-name');
-    const meta = document.getElementById('drop-vibe-preview-meta');
-
-    if (input) input.value = link;
-
-    if (previewBg) {
-        const bgFile = state.bg && state.bg !== 'atmosphere-only' ? state.bg : 'scribes1.0.png';
-        previewBg.style.backgroundImage = `url('${bgFile}')`;
+    if (!window.__towerLoreAmbientTimer) {
+        window.__towerLoreAmbientTimer = setInterval(function () {
+            if (document.body.classList.contains('booting') || document.body.classList.contains('cloaked')) return;
+            if (Math.random() < 0.45) return;
+            if (typeof window.showTowerLore === 'function') window.showTowerLore();
+        }, 52000);
     }
+});
+</script>
 
-    if (previewGlow) {
-        previewGlow.style.background = `radial-gradient(circle at 50% 38%, ${state.glowColor || 'var(--primary-glow)'}, transparent 62%)`;
-    }
 
-    if (name) name.textContent = state.preset || 'Current Atmosphere';
+<script>
+/* === SAFE PRESET TOWER LORE WRAPPER === */
+window.addEventListener('DOMContentLoaded', function () {
+    if (window.__presetTowerLoreWrapped) return;
+    window.__presetTowerLoreWrapped = true;
 
-    if (meta) {
-        const audioText = state.audio ? ` · ${state.audio.split(',').slice(0, 3).join(' + ')}` : '';
-        const customText = state.customBg === 'hidden' ? ' · Custom image hidden' : '';
-        meta.textContent = `${state.palette.replace('-mode', '')} · ${state.particles} · ${state.glow.replace('glow-', '')}${audioText}${customText}`;
-    }
-}
-
-function dropSomnia() {
-    const state = buildDropVibeState();
-    const link = buildDropVibeLink();
-    updateDropVibePreview(state, link);
-
-    if (typeof toggleModal === 'function') {
-        toggleModal('drop-modal');
-    } else {
-        const modal = document.getElementById('drop-modal');
-        if (modal) modal.classList.add('active');
-    }
-}
-
-async function copyDropVibeLink() {
-    const input = document.getElementById('drop-link-input');
-    const link = input ? input.value : buildDropVibeLink();
-
-    try {
-        if (navigator.clipboard && window.isSecureContext) {
-            await navigator.clipboard.writeText(link);
-        } else if (input) {
-            input.focus();
-            input.select();
-            document.execCommand('copy');
+    const oldShowPresetLore = window.showPresetLore;
+    window.showPresetLore = function (presetLabel) {
+        if (typeof oldShowPresetLore === 'function') {
+            try { oldShowPresetLore(presetLabel); } catch (error) { console.warn('old preset lore skipped', error); }
         }
-        if (typeof somniaAlert === 'function') {
-            somniaAlert('Vibe Link Copied', 'Your atmosphere link is ready to share. No private writing or Oracle conversation was included.');
-        }
-    } catch (err) {
-        if (input) {
-            input.focus();
-            input.select();
-        }
-        if (typeof somniaAlert === 'function') {
-            somniaAlert('Copy Manually', 'The link is selected. Copy it manually from the field.');
-        }
-    }
-}
 
-async function nativeShareDropVibe() {
-    const link = buildDropVibeLink();
-    const state = buildDropVibeState();
-
-    if (navigator.share) {
         try {
-            await navigator.share({
-                title: `SomniaScribes Vibe: ${state.preset}`,
-                text: 'I dropped a SomniaScribes atmosphere. No private journal text is included.',
-                url: link
-            });
-            return;
-        } catch (err) {
-            console.warn('Native share cancelled or failed:', err);
+            const lines = (window.PRESET_TOWER_LORE_LINES && window.PRESET_TOWER_LORE_LINES[presetLabel]) || window.SOMNIASCAPES_TOWER_LORE_LINES || [];
+            if (!lines.length) return;
+            const text = lines[Math.floor(Math.random() * lines.length)];
+            if (typeof appendOracleMessage === 'function' && document.body.classList.contains('oracle-open')) {
+                appendOracleMessage('room', text);
+            }
+            if (typeof showNib === 'function') showNib(text);
+        } catch (error) {
+            console.warn('tower preset lore skipped', error);
         }
-    }
-
-    await copyDropVibeLink();
-}
-
-function returnToCity(event) {
-    if (event) event.stopPropagation();
-    window.location.href = SOMNIASCAPES_HOME_URL;
-}
+    };
+});
 </script>
 
 </body>
