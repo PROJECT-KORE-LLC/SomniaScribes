@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="github-safe-full-build-v3">
+    <meta name="somniascribes-build" content="local-oracle-no-ai-v1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SOMNIASCRIBES // THE SCRIPTORIUM // GITHUB SAFE BUILD</title>
+    <title>SOMNIASCRIBES // THE SCRIPTORIUM // LOCAL ORACLE BUILD</title>
     
     <link rel="manifest" href="manifest.json">
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
@@ -34,6 +34,8 @@
     <link rel="prefetch" href="xmasmusicbox1.mp3" as="audio">
     <link rel="prefetch" href="xmasmusicbox2.mp3" as="audio">
     <link rel="prefetch" href="xmasmusicbox3.mp3" as="audio">
+    <link rel="prefetch" href="catchnib.png" as="image">
+    <link rel="prefetch" href="feednib.png" as="image">
 
     <!-- SOMNIASCRIBES PRESET IMAGE PREFETCH -->
     <link rel="prefetch" href="rainywindow.png" as="image">
@@ -475,7 +477,7 @@
         .pomo-flash { animation: pomoPulseAlert 1s infinite alternate; color: #fb7185 !important; text-shadow: 0 0 30px #fb7185 !important; }
         @keyframes pomoPulseAlert { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
 
-        /* AI ASSISTANT MODAL */
+        /* INK ORACLE LOCAL COMPANION MODAL */
         .oracle-chat-body { flex: 1; overflow-y: auto; padding-right: 10px; display: flex; flex-direction: column; gap: 15px; scrollbar-width: none; }
         .oracle-msg { padding: 15px 20px; border-radius: 12px; max-width: 85%; font-size: 0.95rem; line-height: 1.6; font-family: 'Georgia', serif; }
         .oracle-msg.user { background: rgba(255,255,255,0.05); align-self: flex-end; color: var(--text-main); border: 1px solid var(--glass-border); border-bottom-right-radius: 2px;}
@@ -1050,7 +1052,298 @@
             opacity: 0.92;
         }
 
-    </style>
+
+        /* --- NIB MINI-GAMES --- */
+        .nib-games-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .nib-game-btn {
+            min-height: 64px;
+            border-radius: 22px;
+            white-space: normal;
+            line-height: 1.35;
+            background: linear-gradient(145deg, rgba(255,255,255,0.055), rgba(0,0,0,0.24));
+        }
+
+        .nib-game-btn span {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .nib-game-stage {
+            position: relative;
+            width: min(92vw, 820px);
+            height: min(70dvh, 560px);
+            border-radius: 34px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            background-image:
+                linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.54)),
+                radial-gradient(circle at 50% 20%, rgba(251,191,36,0.18), transparent 42%);
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 40px 90px rgba(0,0,0,0.76), inset 0 1px 0 rgba(255,255,255,0.08);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            user-select: none;
+            touch-action: manipulation;
+            isolation: isolate;
+        }
+
+        .nib-game-stage::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 50% 100%, rgba(0,0,0,0.16), rgba(0,0,0,0.62)),
+                linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0.16));
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .nib-game-stage > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .nib-game-header {
+            position: absolute;
+            top: 14px;
+            left: 16px;
+            right: 16px;
+            z-index: 6;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            pointer-events: none;
+        }
+
+        .nib-game-title {
+            color: var(--primary);
+            font-family: 'Times New Roman', serif;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            text-shadow: 0 0 16px var(--primary-glow);
+        }
+
+        .nib-game-stats {
+            color: var(--text-main);
+            font-family: monospace;
+            letter-spacing: 2px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            opacity: 0.98;
+            background: rgba(0,0,0,0.38);
+            padding: 7px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .nib-game-instructions {
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 16px;
+            z-index: 7;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(0,0,0,0.42);
+            color: var(--text-main);
+            font-size: 0.72rem;
+            line-height: 1.45;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            pointer-events: none;
+        }
+
+        .nib-game-instructions strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nib-game-close {
+            pointer-events: auto;
+            position: absolute;
+            right: 14px;
+            bottom: 84px;
+            z-index: 10;
+        }
+
+        .nib-catch-target {
+            position: absolute;
+            width: 112px;
+            height: 112px;
+            object-fit: contain;
+            cursor: pointer;
+            z-index: 9;
+            border-radius: 50%;
+            padding: 8px;
+            background: radial-gradient(circle, rgba(255,255,255,0.28), rgba(255,255,255,0.06) 54%, rgba(0,0,0,0.12) 72%);
+            border: 1px solid rgba(255,255,255,0.2);
+            filter: drop-shadow(0 0 18px rgba(251,191,36,0.72)) drop-shadow(0 0 26px rgba(0,0,0,0.42));
+            animation: nibGamePulse 0.9s infinite alternate ease-in-out;
+            transition: left 0.18s ease, top 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+            pointer-events: auto;
+        }
+
+        .nib-catch-target:hover {
+            transform: scale(1.08) rotate(2deg);
+            box-shadow: 0 0 20px rgba(251,191,36,0.44);
+        }
+
+        .nib-feed-guide {
+            position: absolute;
+            left: 50%;
+            bottom: 82px;
+            transform: translateX(-50%);
+            width: 142px;
+            height: 142px;
+            object-fit: contain;
+            z-index: 6;
+            display: none;
+            filter: drop-shadow(0 0 22px rgba(251,191,36,0.32)) drop-shadow(0 0 30px rgba(0,0,0,0.42));
+            animation: nibGamePulse 1.2s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+
+        .nib-feed-item {
+            position: absolute;
+            width: 78px;
+            height: 78px;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            cursor: pointer;
+            z-index: 9;
+            font-size: 2rem;
+            background: radial-gradient(circle, rgba(255,255,255,0.24), rgba(0,0,0,0.14));
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 0 20px rgba(255,255,255,0.08);
+            animation: nibFoodFall linear forwards;
+            touch-action: manipulation;
+            pointer-events: auto;
+        }
+
+        .nib-feed-item small {
+            font-size: 0.5rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.86);
+            line-height: 1;
+        }
+
+        .nib-feed-item.good {
+            border-color: rgba(251,191,36,0.42);
+            background: radial-gradient(circle, rgba(251,191,36,0.28), rgba(0,0,0,0.14));
+            filter: drop-shadow(0 0 12px rgba(251,191,36,0.52));
+        }
+
+        .nib-feed-item.bad {
+            border-color: rgba(251,113,133,0.42);
+            background: radial-gradient(circle, rgba(251,113,133,0.22), rgba(0,0,0,0.14));
+            filter: drop-shadow(0 0 12px rgba(251,113,133,0.46));
+        }
+
+        .nib-game-toast {
+            position: absolute;
+            left: 50%;
+            bottom: 150px;
+            z-index: 10;
+            transform: translateX(-50%);
+            padding: 10px 16px;
+            border-radius: 999px;
+            border: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.62);
+            color: var(--primary);
+            font-family: monospace;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .nib-game-toast.show {
+            opacity: 1;
+        }
+
+        @keyframes nibGamePulse {
+            0% { transform: translateY(0) scale(0.98); }
+            100% { transform: translateY(-5px) scale(1.03); }
+        }
+
+        @keyframes nibFoodFall {
+            from { transform: translateY(-80px) rotate(0deg); opacity: 0; }
+            8% { opacity: 1; }
+            to { transform: translateY(calc(min(70dvh, 560px) + 115px)) rotate(240deg); opacity: 0.98; }
+        }
+
+        @media (max-width: 767px) {
+            .nib-game-stage {
+                width: 94vw;
+                height: 66dvh;
+                border-radius: 26px;
+            }
+
+            .nib-game-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nib-catch-target {
+                width: 92px;
+                height: 92px;
+            }
+
+            .nib-feed-guide {
+                width: 118px;
+                height: 118px;
+            }
+
+            .nib-feed-item {
+                width: 66px;
+                height: 66px;
+                font-size: 1.7rem;
+                border-radius: 20px;
+            }
+
+            .nib-game-instructions {
+                left: 12px;
+                right: 12px;
+                bottom: 12px;
+                font-size: 0.62rem;
+                padding: 10px 12px;
+            }
+
+            .nib-game-close {
+                bottom: 92px;
+            }
+
+            .nib-game-toast {
+                bottom: 160px;
+                font-size: 0.64rem;
+            }
+        }
+</style>
 </head>
 <body id="os-body" class="booting" onclick="restoreUI()">
 
@@ -1251,6 +1544,12 @@
                     </button>
                 </div>
 
+                <h4 class="section-title" style="margin-top: 18px;">Nib Games</h4>
+                <div class="nib-games-panel" id="nib-games-panel">
+                    <button class="toy-btn nib-game-btn" onclick="openNibGame('catch')"><span>🐭</span>Catch Nib</button>
+                    <button class="toy-btn nib-game-btn" onclick="openNibGame('feed')"><span>🍓</span>Feed Nib</button>
+                </div>
+
                 <h4 class="section-title" style="margin-top: 18px;">Saved Vibes</h4>
                 <div id="vault-list" style="display:flex; flex-direction:column; gap:12px; margin-top:15px;"></div>
             </div>
@@ -1268,13 +1567,11 @@
                     <li><strong>Data Safety:</strong> This app runs entirely on your device (no cloud!). Make sure you regularly open your Journal and click <strong>"Export Journal"</strong> to save a backup file to your computer.</li>
                 </ul>
 
-                <h4 class="section-title" style="margin-top: 15px; color: var(--primary);">🤖 Pro Tip: Connecting the Oracle</h4>
+                <h4 class="section-title" style="margin-top: 15px; color: var(--primary);">🕯️ Pro Tip: The Local Ink Oracle</h4>
                 <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
-                    1. Go to <strong>aistudio.google.com</strong> and sign in with your Google account.<br>
-                    2. Click <strong>"Get API key"</strong> in the left sidebar.<br>
-                    3. Click the blue <strong>"Create API key"</strong> button.<br>
-                    4. Copy the key (it starts with <code>AIza...</code>).<br>
-                    5. Open the <strong>Oracle Assistant</strong> from the top navigation in SomniaScribes, paste it into the "Gemini API Key" field, and click <strong>Save Key</strong>.
+                    The Ink Oracle now works entirely on this device. It does not need an API key, internet AI service, subscription, or cloud connection.
+                    Use <strong>Reflect Gently</strong>, <strong>Untangle This</strong>, and <strong>Make It a Story</strong> for soft local prompts, story seeds, and gentle reframing.
+                    Your journal and Oracle text stay local unless you choose to export or share something yourself.
                 </p>
                 
                 <h4 class="section-title" style="margin-top: 15px; color: var(--primary);">PWA Support</h4>
@@ -1285,10 +1582,10 @@
         </main>
     </div>
 
-    <!-- Floating AI Widget: The Ink Oracle (Positioned root-level to overlap overlay accurately) -->
+    <!-- Floating Local Oracle Widget: The Ink Oracle -->
     <div id="ink-oracle-widget" class="ink-oracle-outer" onclick="activateOracle(event)">
         <div class="ink-oracle-inner">
-            <img src="scribe1.png" alt="Elven cat librarian Oracle" class="oracle-avatar">
+            <img src="scribe1.png" alt="Ink Oracle" class="oracle-avatar">
         </div>
     </div>
 
@@ -1344,9 +1641,8 @@
                         <h2>Ink Oracle</h2>
                         <div style="font-size: 0.65rem; opacity: 0.7; letter-spacing: 5px; font-family: monospace; color: var(--accent);">CALM QUIET COMPANION</div>
                     </div>
-                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end;">
-                        <input type="password" id="gemini-key-input" class="core-input" style="margin:0; padding: 6px 12px; width: 180px; font-size: 0.75rem;" placeholder="Gemini API Key...">
-                        <button class="toy-btn" id="save-key-btn" style="padding: 6px 12px; font-size: 0.7rem;" onclick="saveApiKey()">Save Key</button>
+                    <div class="oracle-local-badge" title="The Ink Oracle runs locally without cloud AI.">
+                        LOCAL // OFFLINE
                     </div>
                 </div>
                 
@@ -1354,13 +1650,14 @@
                     <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('reflect')">Reflect Gently</button>
                     <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('untangle')">Untangle This</button>
                     <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('story')">Make It a Story</button>
+                    <button class="artifact-btn oracle-clear-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="clearOracleChat()">Clear</button>
                 </div>
 
                 <div id="oracle-chat" class="oracle-chat-body">
-                    <div class="oracle-msg ai">Hello, little inkling. I'm here quietly. Tell me only what you want to. We can reflect, untangle, or turn the feeling into a story.</div>
+                    <div class="oracle-msg ai">Hello, little inkling. I work quietly here on your device. No cloud, no key, no pressure. Tell me only what you want to; we can reflect, untangle, or turn the feeling into a story.</div>
                 </div>
                 <div class="editor-container">
-                    <textarea id="oracle-editor" class="lore-input" rows="2" placeholder="Ask the Ink Oracle... [Press ENTER to send]"></textarea>
+                    <textarea id="oracle-editor" class="lore-input" rows="2" placeholder="Tell the Ink Oracle a fragment... [ENTER to send]"></textarea>
                     <button class="toy-btn" style="align-self:flex-end; padding: 8px 22px; border-color: var(--accent);" onclick="summonOracle()">Send</button>
                 </div>
             </div>
@@ -2655,55 +2952,218 @@
             somniaAlert('Preset Loaded', `${preset.label} is active.`);
         }
 
-        const INK_ORACLE_PERSONALITY = `You are the Ink Oracle inside SomniaScribes, also called The Scriptorium. Your personality is sweet, calm, quiet, soft-spoken, emotionally gentle, and never pushy. You help with journaling, memory fragments, dreams, unfinished thoughts, and creative reframing. Keep responses grounded, non-clinical, and concise unless asked for more. Do not diagnose. Do not pressure the user to organize. Treat tiny fragments as enough. Speak like a kind librarian spirit sitting beside a candlelit desk.`;
+        const INK_ORACLE_PERSONALITY = `The Ink Oracle is a local, offline companion inside SomniaScribes. It offers quiet reflection, gentle untangling, soft prompts, and story-shaped reframing without calling any cloud AI service. It never diagnoses, never pressures, and treats fragments as enough.`;
 
-        function oracleQuick(kind) {
-            const prompts = {
-                reflect: "Reflect gently on this with me. Be soft, calm, and quiet. Help me notice what matters without forcing an answer.",
-                untangle: "Help me untangle this. Separate the feelings, the facts, and the next tiny step. Keep it gentle.",
-                story: "Make this into a small atmospheric story. Keep the emotional truth, but turn it into something magical and readable."
-            };
-            injectPrompt(prompts[kind] || prompts.reflect);
+        const LOCAL_ORACLE_PROMPTS = [
+            "One word is enough.",
+            "What color is today?",
+            "What is sitting on your chest?",
+            "What do you wish the room understood?",
+            "What can wait til tomorrow?",
+            "What would feel lighter if it had somewhere to sit?",
+            "What tiny thing is asking for warmth?",
+            "What did you carry longer than you meant to?"
+        ];
+
+        const LOCAL_ORACLE_OPENINGS = [
+            "I am here quietly.",
+            "The page can hold this without needing it to be tidy.",
+            "A fragment is enough for tonight.",
+            "We can make this small enough to touch.",
+            "Nothing has to be solved before it can be set down."
+        ];
+
+        function escapeOracleHTML(value) {
+            return String(value || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
 
+        function appendOracleMessage(role, text) {
+            const chat = document.getElementById('oracle-chat');
+            if (!chat) return;
+            const div = document.createElement('div');
+            div.className = `oracle-msg ${role}`;
+            div.innerHTML = escapeOracleHTML(text).replace(/\n/g, '<br>');
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
 
-        // === 9. AI ASSISTANT (Gemini API) ===
-        function saveApiKey() {
-            const input = document.getElementById('gemini-key-input'); const btn = document.getElementById('save-key-btn');
-            if(input.value.trim() !== '') {
-                localStorage.setItem('gemini_api_key', input.value.trim()); 
-                btn.innerText = "Saved!"; 
-                setTimeout(() => { btn.innerText = "Save Key"; }, 2000);
+        function randomOracleItem(list) {
+            return list[Math.floor(Math.random() * list.length)];
+        }
+
+        function getOracleInputText() {
+            const input = document.getElementById('oracle-editor');
+            return input ? input.value.trim() : "";
+        }
+
+        function clearOracleInput() {
+            const input = document.getElementById('oracle-editor');
+            if (input) input.value = "";
+        }
+
+        function localOracleReflect(text) {
+            if (!text) {
+                return `${randomOracleItem(LOCAL_ORACLE_OPENINGS)}\n\nTry this: ${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
+            }
+
+            const shortText = text.length > 170 ? text.slice(0, 170).trim() + "..." : text;
+
+            return `${randomOracleItem(LOCAL_ORACLE_OPENINGS)}
+
+What I hear is this:
+“${shortText}”
+
+You do not have to organize all of it right now. Start with the gentlest edge: is this asking to be witnessed, released, named, or simply placed somewhere safe?`;
+        }
+
+        function localOracleUntangle(text) {
+            if (!text) {
+                return `We can untangle from almost nothing.
+
+Choose one thread:
+• Feeling: what emotion is loudest?
+• Body: where is it sitting?
+• Room: what around you feels too sharp?
+• Tomorrow: what can wait?
+
+${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
+            }
+
+            const words = text.split(/\s+/).filter(Boolean);
+            const tinyStep = words.length < 18
+                ? "write one more sentence beside it"
+                : "circle one sentence that feels most true";
+
+            return `Let us separate the threads gently.
+
+What is here:
+• A thought or memory asking for a place to land.
+• A feeling that may not need a perfect explanation.
+• A small signal that something in you wants less pressure.
+
+One tiny next step:
+• ${tinyStep}.
+• Then stop before the page becomes a chore.
+
+Nothing here has to become a plan tonight.`;
+        }
+
+        function localOracleStory(text) {
+            if (!text) {
+                return `In the high tower of the Scriptorium, a blank page waited beside a candle.
+
+It did not demand a confession.
+It did not ask for order.
+It only opened its quiet hands and said:
+
+“Bring me one word. I will keep it warm.”`;
+            }
+
+            const cleaned = text.replace(/\s+/g, ' ').trim();
+            const fragment = cleaned.length > 140 ? cleaned.slice(0, 140).trim() + "..." : cleaned;
+
+            return `In a rain-dark tower above the dangerous city, the Scribe found a small scrap of feeling tucked beneath the desk.
+
+On it was written:
+“${fragment}”
+
+The Ink Oracle did not correct it. Nib did not nibble it. The candle simply leaned closer, and the room made a little more space.
+
+For now, that was enough magic.`;
+        }
+
+        function localOracleGeneral(text) {
+            if (!text) {
+                return `${randomOracleItem(LOCAL_ORACLE_OPENINGS)}\n\n${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
+            }
+
+            const lower = text.toLowerCase();
+
+            if (lower.includes("story") || lower.includes("make it a story")) {
+                return localOracleStory(text);
+            }
+
+            if (lower.includes("untangle") || lower.includes("confused") || lower.includes("stuck") || lower.includes("mess")) {
+                return localOracleUntangle(text);
+            }
+
+            return localOracleReflect(text);
+        }
+
+        function generateLocalOracleReply(kind, text) {
+            if (kind === 'story') return localOracleStory(text);
+            if (kind === 'untangle') return localOracleUntangle(text);
+            if (kind === 'reflect') return localOracleReflect(text);
+            return localOracleGeneral(text);
+        }
+
+        function oracleQuick(kind) {
+            const text = getOracleInputText();
+            if (text) {
+                appendOracleMessage('user', text);
+                clearOracleInput();
+            }
+
+            const reply = generateLocalOracleReply(kind, text);
+            appendOracleMessage('ai', reply);
+
+            if (typeof addXP === 'function') {
+                addXP(1, 'local oracle');
             }
         }
 
-        // Quick inject system prompts
         function injectPrompt(text) {
             const input = document.getElementById('oracle-editor');
+            if (!input) return;
             input.value = text;
             input.focus();
         }
 
-        async function summonOracle() {
-            const input = document.getElementById('oracle-editor'); const chat = document.getElementById('oracle-chat');
-            const prompt = input.value.trim(); if(!prompt) return;
-            const apiKey = localStorage.getItem('gemini_api_key');
-            if(!apiKey) { chat.innerHTML += `<div class="oracle-msg ai">I can hold the lantern, but I need your Gemini key before I can answer. Save it above, then we can continue quietly.</div>`; input.value = ''; return; }
+        function summonOracle(kind = 'general') {
+            const input = document.getElementById('oracle-editor');
+            const prompt = input ? input.value.trim() : "";
 
-            chat.innerHTML += `<div class="oracle-msg user">${prompt}</div>`; input.value = ''; chat.scrollTop = chat.scrollHeight;
-            const loadingId = 'loading-' + Date.now();
-            chat.innerHTML += `<div id="${loadingId}" class="oracle-msg ai" style="opacity: 0.5;">Ink drying...</div>`; chat.scrollTop = chat.scrollHeight;
+            if (prompt) {
+                appendOracleMessage('user', prompt);
+            }
 
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: INK_ORACLE_PERSONALITY + '\n\nUser request:\n' + prompt }] }] })
-                });
-                const data = await response.json(); document.getElementById(loadingId).remove();
-                if(data.error) { chat.innerHTML += `<div class="oracle-msg ai">API Error: ${data.error.message}</div>`; } 
-                else { const reply = data.candidates[0].content.parts[0].text; const formattedReply = reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>'); chat.innerHTML += `<div class="oracle-msg ai">${formattedReply}</div>`; }
-            } catch(e) { document.getElementById(loadingId).remove(); chat.innerHTML += `<div class="oracle-msg ai">The thread went quiet. Check the connection, then try again gently.</div>`; }
-            chat.scrollTop = chat.scrollHeight;
+            const reply = generateLocalOracleReply(kind, prompt);
+            clearOracleInput();
+
+            const loadingId = 'local-oracle-' + Date.now();
+            const chat = document.getElementById('oracle-chat');
+
+            if (chat) {
+                const loading = document.createElement('div');
+                loading.id = loadingId;
+                loading.className = 'oracle-msg ai';
+                loading.style.opacity = '0.55';
+                loading.textContent = 'Ink settling...';
+                chat.appendChild(loading);
+                chat.scrollTop = chat.scrollHeight;
+            }
+
+            setTimeout(() => {
+                const loading = document.getElementById(loadingId);
+                if (loading) loading.remove();
+                appendOracleMessage('ai', reply);
+                if (typeof addXP === 'function') {
+                    addXP(1, 'local oracle');
+                }
+            }, 260);
         }
+
+        function clearOracleChat() {
+            const chat = document.getElementById('oracle-chat');
+            if (!chat) return;
+            chat.innerHTML = `<div class="oracle-msg ai">The old ink has been cleared. I am still here quietly. No cloud, no key, no pressure.</div>`;
+        }
+
 
         // === 10. FLOATING AI WIDGET INTERACTION ===
         function activateOracle(event) {
@@ -2727,16 +3187,17 @@
             await loadCustomBackgrounds();
             await loadCustomAudio();
 
+
+            try {
+                localStorage.removeItem('gemini_api_key');
+            } catch (error) {
+                console.warn('Local Oracle cleanup skipped:', error);
+            }
+
             initParticles();
             renderVault(); 
             updatePomoDisplay();
-            
-            const keyInput = document.getElementById('gemini-key-input');
-            if(localStorage.getItem('gemini_api_key') && keyInput) {
-                keyInput.value = localStorage.getItem('gemini_api_key');
-            }
-
-            const editor = document.getElementById('lore-editor');
+const editor = document.getElementById('lore-editor');
             if (editor) { editor.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); commitLore(); } }); }
             
             const oracleInput = document.getElementById('oracle-editor'); 
@@ -2913,6 +3374,23 @@
 
     </script>
 
+
+    <div id="nib-game-modal" class="modal-overlay" onclick="closeNibGame()">
+        <div class="nib-game-stage" id="nib-game-stage" onclick="event.stopPropagation()">
+            <div class="nib-game-header">
+                <div class="nib-game-title" id="nib-game-title">Nib Game</div>
+                <div class="nib-game-stats" id="nib-game-stats">Score 0 · Time 0</div>
+            </div>
+            <img id="nib-feed-guide" class="nib-feed-guide" src="nib_reaction_cozy.png" alt="Nib waiting for snacks">
+            <div class="nib-game-toast" id="nib-game-toast">Nice!</div>
+            <div class="nib-game-instructions" id="nib-game-instructions">
+                <span><strong>Ready:</strong> Tiny games for a tiny mouse.</span>
+                <span id="nib-game-tip">Tap the glowing target or the falling snacks.</span>
+            </div>
+            <button class="toy-btn nib-game-close" onclick="closeNibGame()">Close</button>
+        </div>
+    </div>
+
     <!-- Nib the Candle Mouse -->
     <div id="pet-nib" title="Nib, the Candle Mouse" style="position:absolute; display:none; width:48px; height:48px; pointer-events:none; z-index:15000;">
         <img src="nib_candle_mouse.png" alt="Nib, the Candle Mouse" style="width:100%; height:100%;">
@@ -3038,6 +3516,347 @@ setInterval(() => {
 setTimeout(() => {
     if (nibUnlocked && !document.body.classList.contains('booting')) showNib("Nib is still here, keeping the candle company.");
 }, 3500);
+</script>
+
+
+<script>
+/* === NIB MINI-GAMES: CATCH NIB + FEED NIB === */
+const NIB_GAME_STATE = {
+    active: false,
+    mode: null,
+    score: 0,
+    target: 0,
+    timeLeft: 0,
+    timer: null,
+    spawner: null,
+    mover: null
+};
+
+const NIB_GAME_BACKGROUNDS = {
+    catch: 'catchnib.png',
+    feed: 'feednib.png'
+};
+
+function getNibSpritePath(preferred = 'nib_candle_mouse.png') {
+    const candidates = [
+        preferred,
+        'nib_candle_mouse.png',
+        'nib_reaction_curious.png',
+        'nib_reaction_cozy.png',
+        'nib_reaction_startled.png'
+    ];
+    for (const candidate of candidates) {
+        if (candidate) return candidate;
+    }
+    return 'nib_candle_mouse.png';
+}
+
+function isNibUnlockedForGames() {
+    return localStorage.getItem('nibUnlocked') === 'true' || window.nibUnlocked === true;
+}
+
+function ensureNibGamesUnlocked() {
+    if (isNibUnlockedForGames()) return true;
+    if (typeof somniaAlert === 'function') {
+        somniaAlert("Nib Is Still Hiding", "Write and save your first journal entry. After Nib appears, his little games unlock.");
+    }
+    return false;
+}
+
+function setNibGameBackground(mode) {
+    const stage = document.getElementById('nib-game-stage');
+    if (!stage) return;
+    const bg = NIB_GAME_BACKGROUNDS[mode] || NIB_GAME_BACKGROUNDS.catch;
+    stage.style.backgroundImage = `linear-gradient(180deg, rgba(0,0,0,0.24), rgba(0,0,0,0.54)), url('${bg}')`;
+    stage.style.backgroundSize = 'cover';
+    stage.style.backgroundPosition = 'center';
+}
+
+function setNibGameInstructions(mode) {
+    const instructions = document.getElementById('nib-game-instructions');
+    const tip = document.getElementById('nib-game-tip');
+    if (!instructions || !tip) return;
+
+    if (mode === 'catch') {
+        instructions.innerHTML = `<span><strong>Catch Nib:</strong> Tap the glowing mouse every time he hops.</span><span id="nib-game-tip">Catch him 5 times before the clock runs out.</span>`;
+    } else {
+        instructions.innerHTML = `<span><strong>Feed Nib:</strong> Tap the falling snacks before they hit the floor.</span><span id="nib-game-tip">Good treats help. Junk or puddles cost a point.</span>`;
+    }
+}
+
+function toggleFeedGuide(show = false) {
+    const guide = document.getElementById('nib-feed-guide');
+    if (!guide) return;
+    guide.style.display = show ? 'block' : 'none';
+    if (show) {
+        guide.src = 'nib_reaction_cozy.png';
+        guide.onerror = function () {
+            this.onerror = null;
+            this.src = 'nib_candle_mouse.png';
+        };
+    }
+}
+
+function openNibGame(mode) {
+    if (!ensureNibGamesUnlocked()) return;
+
+    const modal = document.getElementById('nib-game-modal');
+    const stage = document.getElementById('nib-game-stage');
+    const title = document.getElementById('nib-game-title');
+
+    if (!modal || !stage || !title) return;
+
+    closeNibGame(false);
+
+    NIB_GAME_STATE.active = true;
+    NIB_GAME_STATE.mode = mode;
+    NIB_GAME_STATE.score = 0;
+
+    stage.querySelectorAll('.nib-catch-target, .nib-feed-item').forEach(el => el.remove());
+
+    setNibGameBackground(mode);
+    setNibGameInstructions(mode);
+    toggleFeedGuide(mode === 'feed');
+
+    if (mode === 'catch') {
+        NIB_GAME_STATE.target = 5;
+        NIB_GAME_STATE.timeLeft = 20;
+        title.textContent = 'Catch Nib';
+        modal.classList.add('active');
+        startCatchNibGame();
+    } else {
+        NIB_GAME_STATE.target = 8;
+        NIB_GAME_STATE.timeLeft = 24;
+        title.textContent = 'Feed Nib';
+        modal.classList.add('active');
+        startFeedNibGame();
+    }
+
+    updateNibGameStats();
+}
+
+function closeNibGame(removeActive = true) {
+    const modal = document.getElementById('nib-game-modal');
+    const stage = document.getElementById('nib-game-stage');
+
+    clearInterval(NIB_GAME_STATE.timer);
+    clearInterval(NIB_GAME_STATE.spawner);
+    clearInterval(NIB_GAME_STATE.mover);
+
+    NIB_GAME_STATE.timer = null;
+    NIB_GAME_STATE.spawner = null;
+    NIB_GAME_STATE.mover = null;
+    NIB_GAME_STATE.active = false;
+
+    if (stage) {
+        stage.querySelectorAll('.nib-catch-target, .nib-feed-item').forEach(el => el.remove());
+    }
+
+    toggleFeedGuide(false)
+    if (removeActive && modal) modal.classList.remove('active');
+}
+
+function updateNibGameStats() {
+    const stats = document.getElementById('nib-game-stats');
+    if (!stats) return;
+    stats.textContent = `Score ${NIB_GAME_STATE.score}/${NIB_GAME_STATE.target} · Time ${NIB_GAME_STATE.timeLeft}`;
+}
+
+function tickNibGameTimer() {
+    NIB_GAME_STATE.timeLeft -= 1;
+    updateNibGameStats();
+
+    if (NIB_GAME_STATE.timeLeft <= 0) {
+        finishNibGame(false);
+    }
+}
+
+function showNibGameToast(message) {
+    const toast = document.getElementById('nib-game-toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(window.__nibGameToastTimer);
+    window.__nibGameToastTimer = setTimeout(() => toast.classList.remove('show'), 900);
+}
+
+function awardNibGameXP(amount, reason) {
+    if (typeof addXP === 'function') {
+        addXP(amount, reason);
+    } else {
+        const current = parseInt(localStorage.getItem('somniaScribesInkXP') || '0', 10);
+        localStorage.setItem('somniaScribesInkXP', String(current + amount));
+    }
+}
+
+function finishNibGame(won) {
+    if (!NIB_GAME_STATE.active) return;
+
+    const mode = NIB_GAME_STATE.mode;
+    const score = NIB_GAME_STATE.score;
+
+    clearInterval(NIB_GAME_STATE.timer);
+    clearInterval(NIB_GAME_STATE.spawner);
+    clearInterval(NIB_GAME_STATE.mover);
+
+    NIB_GAME_STATE.timer = null;
+    NIB_GAME_STATE.spawner = null;
+    NIB_GAME_STATE.mover = null;
+    NIB_GAME_STATE.active = false;
+
+    const xp = won ? (mode === 'catch' ? 18 : 20) : Math.max(2, Math.floor(score / 2));
+    awardNibGameXP(xp, won ? `${mode} Nib win` : `${mode} Nib try`);
+
+    if (typeof somniaAlert === 'function') {
+        if (won) {
+            somniaAlert(
+                mode === 'catch' ? "Nib Was Caught" : "Nib Was Fed",
+                mode === 'catch'
+                    ? `You caught Nib ${score} times. +${xp} Ink XP.`
+                    : `Nib accepted ${score} tiny offerings. +${xp} Ink XP.`
+            );
+        } else {
+            somniaAlert(
+                "Nib Slipped Away",
+                `You scored ${score}. +${xp} Ink XP for trying.`
+            );
+        }
+    }
+
+    if (typeof showNib === 'function') {
+        setTimeout(() => showNib(won ? "Nib looks extremely proud of this nonsense." : "Nib vanishes, but leaves a warm little footprint."), 500);
+    }
+
+    closeNibGame(true);
+}
+
+function getNibGameBounds(itemSize = 90) {
+    const stage = document.getElementById('nib-game-stage');
+    if (!stage) return { maxX: 200, maxY: 200 };
+    const rect = stage.getBoundingClientRect();
+    return {
+        maxX: Math.max(10, rect.width - itemSize - 24),
+        maxY: Math.max(110, rect.height - itemSize - 150)
+    };
+}
+
+function moveCatchTarget(target) {
+    const bounds = getNibGameBounds(112);
+    const x = 12 + Math.random() * bounds.maxX;
+    const y = 78 + Math.random() * Math.max(24, bounds.maxY - 40);
+    target.style.left = `${x}px`;
+    target.style.top = `${y}px`;
+}
+
+function startCatchNibGame() {
+    const stage = document.getElementById('nib-game-stage');
+    if (!stage) return;
+
+    const target = document.createElement('img');
+    target.className = 'nib-catch-target';
+    target.alt = 'Catch Nib';
+    target.src = getNibSpritePath('nib_reaction_curious.png');
+    target.onerror = function () {
+        if (this.src.includes('nib_reaction_curious.png')) {
+            this.src = 'nib_candle_mouse.png';
+        } else if (this.src.includes('nib_candle_mouse.png')) {
+            this.src = 'nib_reaction_cozy.png';
+        } else {
+            this.onerror = null;
+        }
+    };
+
+    target.addEventListener('click', event => {
+        event.stopPropagation();
+        NIB_GAME_STATE.score += 1;
+        showNibGameToast(["Caught!", "Tiny squeak!", "Almost too fast!", "Nib blinked!"][Math.floor(Math.random() * 4)]);
+        updateNibGameStats();
+
+        if (NIB_GAME_STATE.score >= NIB_GAME_STATE.target) {
+            finishNibGame(true);
+            return;
+        }
+
+        moveCatchTarget(target);
+    });
+
+    stage.appendChild(target);
+    requestAnimationFrame(() => moveCatchTarget(target));
+
+    NIB_GAME_STATE.timer = setInterval(tickNibGameTimer, 1000);
+    NIB_GAME_STATE.mover = setInterval(() => {
+        if (NIB_GAME_STATE.active && NIB_GAME_STATE.mode === 'catch') moveCatchTarget(target);
+    }, 1450);
+
+    showNibGameToast("Tap Nib!");
+}
+
+function spawnFeedItem() {
+    if (!NIB_GAME_STATE.active || NIB_GAME_STATE.mode !== 'feed') return;
+
+    const stage = document.getElementById('nib-game-stage');
+    if (!stage) return;
+
+    const item = document.createElement('button');
+    const good = Math.random() > 0.22;
+    const goodFood = [
+        { emoji: '🍓', label: 'Berry' },
+        { emoji: '🫐', label: 'Blue' },
+        { emoji: '🍎', label: 'Apple' },
+        { emoji: '🍪', label: 'Cookie' },
+        { emoji: '🧀', label: 'Cheese' },
+        { emoji: '🌰', label: 'Nut' }
+    ];
+    const badFood = [
+        { emoji: '🕳️', label: 'Hole' },
+        { emoji: '🪨', label: 'Rock' },
+        { emoji: '💧', label: 'Spill' }
+    ];
+
+    const payload = good
+        ? goodFood[Math.floor(Math.random() * goodFood.length)]
+        : badFood[Math.floor(Math.random() * badFood.length)];
+
+    item.className = `nib-feed-item ${good ? 'good' : 'bad'}`;
+    item.type = 'button';
+    item.innerHTML = `<span>${payload.emoji}</span><small>${payload.label}</small>`;
+    item.setAttribute('aria-label', good ? 'Nib snack' : 'Not food');
+
+    const bounds = getNibGameBounds(78);
+    item.style.left = `${12 + Math.random() * bounds.maxX}px`;
+    item.style.top = `-84px`;
+    item.style.animationDuration = `${3.8 + Math.random() * 1.4}s`;
+
+    item.addEventListener('click', event => {
+        event.stopPropagation();
+
+        if (good) {
+            NIB_GAME_STATE.score += 1;
+            showNibGameToast(["Nib accepts.", "Tiny feast!", "Good snack.", "Nib is pleased."][Math.floor(Math.random() * 4)]);
+        } else {
+            NIB_GAME_STATE.score = Math.max(0, NIB_GAME_STATE.score - 1);
+            showNibGameToast("Not for Nib.");
+        }
+
+        updateNibGameStats();
+        item.remove();
+
+        if (NIB_GAME_STATE.score >= NIB_GAME_STATE.target) {
+            finishNibGame(true);
+        }
+    });
+
+    item.addEventListener('animationend', () => item.remove());
+    stage.appendChild(item);
+}
+
+function startFeedNibGame() {
+    NIB_GAME_STATE.timer = setInterval(tickNibGameTimer, 1000);
+    NIB_GAME_STATE.spawner = setInterval(spawnFeedItem, 720);
+    spawnFeedItem();
+    spawnFeedItem();
+    showNibGameToast("Tap the falling snacks!");
+}
 </script>
 
 </body>
