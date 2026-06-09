@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="no-drop-vibe-full-screen-label-v1">
+    <meta name="somniascribes-build" content="weather-copy-clean-v1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>SOMNIASCRIBES // THE SCRIPTORIUM // LORE ORACLE BUILD</title>
@@ -1407,10 +1407,10 @@
                 <div class="time-display" id="clock-widget">00:00</div>
                 <div class="date-display" id="date-widget">Loading...</div>
             </div>
-            <div class="gorgeous-widget weather-card-clickable" id="weather-card" onclick="refreshSomniaWeather()" title="Tap for phone weather">
+            <div class="gorgeous-widget weather-card-clickable" id="weather-card" onclick="refreshSomniaWeather()" title="Tap for local weather">
                 <div class="weather-display" id="weather-icon">🌙 --°F</div>
                 <div class="weather-desc" id="weather-text">Sanctuary Sky</div>
-                <div class="weather-subnote" id="weather-subnote">TAP CARD FOR PHONE SKY</div>
+                <div class="weather-subnote" id="weather-subnote">TAP CARD FOR LOCAL SKY</div>
             </div>
         </div>
 
@@ -3846,7 +3846,7 @@ function startFeedNibGame() {
 
 
 <script>
-/* === PHONE LOCATION WEATHER // OPEN-METEO // SAFE PATCH === */
+/* === LOCAL WEATHER // OPEN-METEO // SAFE PATCH === */
 (function () {
     const WEATHER_CODE_MAP = {
         0: ['☀️', 'Clear Sky'],
@@ -3905,8 +3905,8 @@ function startFeedNibGame() {
         const subnote = weatherEls().subnote;
         if (subnote && label) {
             const clean = String(label)
-                .replace('Tap for phone sky', 'Tap for phone sky')
-                .replace('Tap to refresh sky', 'Tap to refresh sky')
+                .replace('Tap for local sky', 'Tap for local sky')
+                .replace('Refresh local sky', 'Refresh local sky')
                 .replace('Tap to try again', 'Tap to try again')
                 .replace('Weather Unavailable', 'Weather unavailable')
                 .replace('Locating...', 'Locating sky...');
@@ -3945,15 +3945,15 @@ function startFeedNibGame() {
         const mapped = WEATHER_CODE_MAP[code] || ['🌙', 'Local Sky'];
         const tempText = Number.isFinite(temp) ? `${Math.round(temp)}${unitInfo.suffix}` : '--°';
 
-        setSomniaWeather(mapped[0], mapped[1], 'PHONE LOCATION SKY', tempText);
-        setWeatherButton('Tap to refresh sky', false);
+        setSomniaWeather(mapped[0], mapped[1], 'LOCAL SKY', tempText);
+        setWeatherButton('Refresh local sky', false);
 
         try {
             localStorage.setItem('somnia_weather_ok', '1');
             localStorage.setItem('somnia_weather_last', JSON.stringify({
                 icon: mapped[0],
                 main: mapped[1],
-                detail: 'PHONE LOCATION SKY',
+                detail: 'LOCAL SKY',
                 tempText,
                 at: Date.now()
             }));
@@ -3966,8 +3966,8 @@ function startFeedNibGame() {
             if (!raw) return false;
             const cached = JSON.parse(raw);
             if (!cached || !cached.at || Date.now() - cached.at > 1000 * 60 * 60 * 4) return false;
-            setSomniaWeather(cached.icon, cached.main, 'CACHED PHONE SKY', cached.tempText);
-            setWeatherButton('Tap to refresh sky', false);
+            setSomniaWeather(cached.icon, cached.main, 'CACHED LOCAL SKY', cached.tempText);
+            setWeatherButton('Refresh local sky', false);
             return true;
         } catch (error) {
             return false;
@@ -3981,7 +3981,7 @@ function startFeedNibGame() {
             return;
         }
 
-        setSomniaWeather('🜁', 'Locating Sky', 'ALLOW PHONE LOCATION', '--°');
+        setSomniaWeather('🜁', 'Locating Sky', 'ALLOW LOCATION', '--°');
         setWeatherButton('Locating...', true);
 
         navigator.geolocation.getCurrentPosition(
@@ -3997,7 +3997,7 @@ function startFeedNibGame() {
             error => {
                 console.warn('[SomniaScribes] Location denied/unavailable:', error);
                 setSomniaWeather('🌙', 'Weather Veiled', 'LOCATION NOT ALLOWED', '--°');
-                setWeatherButton('Tap for phone sky', false);
+                setWeatherButton('Tap for local sky', false);
             },
             {
                 enableHighAccuracy: false,
@@ -4009,8 +4009,8 @@ function startFeedNibGame() {
 
     window.addEventListener('DOMContentLoaded', function () {
         if (!loadCachedWeather()) {
-            setSomniaWeather('🌙', 'Sanctuary Sky', 'TAP CARD FOR PHONE SKY', '--°');
-            setWeatherButton('Tap for phone sky', false);
+            setSomniaWeather('🌙', 'Sanctuary Sky', 'TAP CARD FOR LOCAL SKY', '--°');
+            setWeatherButton('Tap for local sky', false);
         }
 
         // If user already allowed before, try one quiet refresh shortly after load.
@@ -4032,7 +4032,7 @@ window.addEventListener('DOMContentLoaded', function () {
     if (card && !card.id) card.id = 'weather-card';
     if (card) {
         card.classList.add('weather-card-clickable');
-        card.title = 'Tap for phone weather';
+        card.title = 'Tap for local weather';
         card.onclick = function (event) {
             event.stopPropagation();
             if (typeof window.refreshSomniaWeather === 'function') {
