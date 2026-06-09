@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="lore-oracle-games-weather-clean-v1">
+    <meta name="somniascribes-build" content="desktop-return-only-v2">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>SOMNIASCRIBES // THE SCRIPTORIUM // LORE ORACLE BUILD</title>
@@ -1376,15 +1376,6 @@
         <img id="lightbox-img" src="" alt="Journal entry full size">
     </div>
     
-    <div id="drop-modal" class="modal-overlay" onclick="toggleModal('drop-modal')">
-        <div class="cast-box" onclick="event.stopPropagation()">
-            <h3 style="color: var(--primary); letter-spacing: 4px; margin-top: 0; text-transform: uppercase; font-family: 'Times New Roman', serif;">Drop Your Vibe</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; font-family: 'Georgia', serif; font-style: italic;">Copy the link below to drop this setup anywhere:</p>
-            <input type="text" id="drop-link-input" class="core-input" readonly onclick="this.select()">
-            <button class="toy-btn" style="width: 100%; border-color:var(--accent); color:var(--text-main);" onclick="toggleModal('drop-modal')">Close</button>
-        </div>
-    </div>
-
     <div id="bg-anchor"></div>
     <div id="glow-layer" class="glow-pulse"></div>
     <canvas id="particleCanvas"></canvas>
@@ -1409,8 +1400,7 @@
             <button class="artifact-btn" onclick="toggleModal('scratchpad-modal')">Journal</button>
             <button class="artifact-btn" onclick="toggleModal('oracle-modal')">Ink Oracle</button>
             <button class="artifact-btn" onclick="toggleModal('cast-modal')">Project</button>
-            <button class="artifact-btn" onclick="returnToCity(event)">Return to City</button>
-            <button class="artifact-btn" onclick="dropSomnia()">Drop Vibe</button>
+            <button class="artifact-btn return-city-btn" onclick="returnToCity(event)">Return to City</button>
         </div>
 
         <div class="widget-dock" onclick="event.stopPropagation()" aria-label="SomniaScribes time and weather widgets">
@@ -2405,7 +2395,7 @@
             if(urlParams.has('g')) document.getElementById('glow-layer').className = 'glow-' + urlParams.get('g');
         }
 
-        async function dropSomnia() {
+        async function  {
             const dropUrl = `https://project-kore-llc.github.io/SomniaScribes/`;
             
             if (navigator.share) {
@@ -3325,116 +3315,11 @@ const editor = document.getElementById('lore-editor');
 
     
         // === SCRIPTORIUM INTEGRATION: RETURN, XP, AND ROOM BOND ===
-        function returnToCity(event) {
-            if (event) event.stopPropagation();
-            window.location.href = 'https://project-kore-llc.github.io/SomniaScapes/';
-        }
+        const SOMNIASCAPES_HOME_URL = 'https://project-kore-llc.github.io/SomniaScapes/';
 
-        function getInkXP() {
-            return parseInt(localStorage.getItem('somniaScribesInkXP') || '0', 10);
-        }
-
-        function setInkXP(value) {
-            localStorage.setItem('somniaScribesInkXP', String(Math.max(0, value)));
-            updateXPDisplay();
-        }
-
-        function updateXPDisplay() {
-            const xpEl = document.getElementById('xp-display');
-            if (!xpEl) return;
-            const xp = getInkXP();
-            const level = Math.floor(xp / 100) + 1;
-            xpEl.textContent = `INK XP // ${xp}  ·  ROOM BOND ${level}`;
-        }
-
-        function addXP(amount, reason = '') {
-            const current = getInkXP();
-            setInkXP(current + Number(amount || 0));
-            if (reason) console.log(`[SomniaScribes] +${amount} XP: ${reason}`);
-        }
-
-        function awardJournalXP() {
-            const saves = parseInt(localStorage.getItem('somniaScribesJournalSaves') || '0', 10);
-            const isFirstEntry = saves === 0;
-            localStorage.setItem('somniaScribesJournalSaves', String(saves + 1));
-            addXP(isFirstEntry ? 25 : 10, isFirstEntry ? 'first journal entry' : 'journal entry');
-        }
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', updateXPDisplay);
-        } else {
-            updateXPDisplay();
-        }
-
-
-    </script>
-
-
-    <div id="nib-game-modal" class="modal-overlay" onclick="closeNibGame()">
-        <div class="nib-game-stage" id="nib-game-stage" onclick="event.stopPropagation()">
-            <div class="nib-game-header">
-                <div class="nib-game-title" id="nib-game-title">Nib Game</div>
-                <div class="nib-game-stats" id="nib-game-stats">Score 0 · Time 0</div>
-            </div>
-            <img id="nib-feed-guide" class="nib-feed-guide" src="nib_reaction_cozy.png" alt="Nib waiting for snacks">
-            <div class="nib-game-toast" id="nib-game-toast">Nice!</div>
-            <div class="nib-game-instructions" id="nib-game-instructions">
-                <span><strong>Ready:</strong> Tiny games for a tiny mouse.</span>
-                <span id="nib-game-tip">Tap the glowing target or the falling snacks.</span>
-            </div>
-            <button class="toy-btn nib-game-close" onclick="closeNibGame()">Close</button>
-        </div>
-    </div>
-
-    <!-- Nib the Candle Mouse -->
-    <div id="pet-nib" title="Nib, the Candle Mouse" style="position:absolute; display:none; width:48px; height:48px; pointer-events:none; z-index:15000;">
-        <img src="nib_candle_mouse.png" alt="Nib, the Candle Mouse" style="width:100%; height:100%;">
-        <div id="pet-nib-lore" style="position:absolute; bottom:60px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.7); color:white; padding:4px 8px; border-radius:4px; font-size:12px; display:none;"></div>
-    </div>
-
-
-<script>
-const nibLore = [
-    "The ink remembers more kindly than people do.",
-    "A little draft is moving through the margins.",
-    "The room kept your words warm.",
-    "Something under the desk blinked, then pretended it didn’t.",
-    "The candle leaned closer."
-];
-
-const nibPresetLore = {
-    "Rainy Window": [
-        "Nib tucks his candle close to the rainy glass.",
-        "The window whispers. Nib listens from the warm side."
-    ],
-    "Candle Desk": [
-        "Nib approves of this candle. Very professional.",
-        "The desk glow makes Nib brave enough to peek out."
-    ],
-    "Midnight Pages": [
-        "Nib pads softly between the midnight pages.",
-        "The moonlight makes his little candle look ancient."
-    ],
-    "Forest Margins": [
-        "Nib found leaf-dust in the margins.",
-        "Something green and quiet made Nib sneeze."
-    ],
-    "Blanket Fort": [
-        "Nib has declared this blanket fort structurally excellent.",
-        "The room folds itself softer around you."
-    ],
-    "Ink and Thunder": [
-        "Nib heard the thunder and hid behind a comma.",
-        "The ink shivers, but the candle stays lit."
-    ],
-    "Gentle Static": [
-        "Nib’s whiskers twitch at the soft static.",
-        "The room hums like an old secret."
-    ],
-    "Moonlit Archive": [
-        "Nib patrols the moonlit shelves with great seriousness.",
-        "Silver dust gathers where tiny feet have been."
-    ]
+function returnToCity(event) {
+    if (event) event.stopPropagation();
+    window.location.href = SOMNIASCAPES_HOME_URL;
 };
 
 let nibUnlocked = localStorage.getItem('nibUnlocked') === 'true';
@@ -4053,6 +3938,7 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 });
 </script>
+
 
 </body>
 </html>
