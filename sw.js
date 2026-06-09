@@ -1,9 +1,9 @@
 /* SOMNIASCRIBES SERVICE WORKER
-   Desktop Return-only polish.
+   Safe Return City build from confirmed v23.
    Put beside index.html.
 */
 
-const CACHE_VERSION = 'somniascribes-v26-return-only';
+const CACHE_VERSION = 'somniascribes-v28-safe-return-city';
 
 const APP_SHELL = [
   './',
