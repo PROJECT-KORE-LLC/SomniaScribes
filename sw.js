@@ -3,7 +3,7 @@
    Put beside index.html.
 */
 
-const CACHE_VERSION = 'somniascribes-v31-safe-nav-labels-only';
+const CACHE_VERSION = 'somniascribes-v35-return-to-dot-com';
 
 const APP_SHELL = [
   './',
