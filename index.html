@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="tower-lore-safe-hotfix-v1">
+    <meta name="somniascribes-build" content="stable-local-oracle-rollback-v1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SOMNIASCRIBES // THE SCRIPTORIUM // TOWER LORE HOTFIX</title>
+    <title>SOMNIASCRIBES // THE SCRIPTORIUM // STABLE LOCAL ORACLE</title>
     
     <link rel="manifest" href="manifest.json">
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
@@ -23,7 +23,7 @@
     <link rel="prefetch" href="musicbox2.mp3" as="audio">
     <link rel="prefetch" href="musicbox3.mp3" as="audio">
     <link rel="prefetch" href="owls.mp3" as="audio">
-    <link rel="prefetch" href="rloren.mp3" as="audio">
+    <link rel="prefetch" href="rain.mp3" as="audio">
     <link rel="prefetch" href="raven.mp3" as="audio">
     <link rel="prefetch" href="simmeringpot.mp3" as="audio">
     <link rel="prefetch" href="teacup.mp3" as="audio">
@@ -38,7 +38,7 @@
     <link rel="prefetch" href="feednib.png" as="image">
 
     <!-- SOMNIASCRIBES PRESET IMAGE PREFETCH -->
-    <link rel="prefetch" href="rlorenywindow.png" as="image">
+    <link rel="prefetch" href="rainywindow.png" as="image">
     <link rel="prefetch" href="candledesk.png" as="image">
     <link rel="prefetch" href="midnightpages.png" as="image">
     <link rel="prefetch" href="forestmargins.png" as="image">
@@ -74,38 +74,38 @@
             --primary-glow: rgba(224, 231, 255, 0.5);
             --accent: #a5b4fc; 
             --glass-border: rgba(255, 255, 255, 0.12);
-            --text-mloren: #fdfbf7;
+            --text-main: #fdfbf7;
 
             --particle-color: var(--primary);
             --glow-color: var(--primary-glow);
         }
 
         /* 20 Color Palettes applied to the root! */
-        .lunar-mode { --primary: #e0e7ff; --accent: #a5b4fc; --primary-glow: rgba(224,231,255,0.4); --glass-border: rgba(255,255,255,0.15); --text-mloren: #fdfbf7; }
-        .noir-mode { --primary: #D4AF37; --accent: #f59e0b; --primary-glow: rgba(212,175,55,0.4); --glass-border: rgba(212,175,55,0.2); --text-mloren: #F4EBD0; }
-        .vellum-mode { --primary: #C2B280; --accent: #d97706; --primary-glow: rgba(194,178,128,0.4); --glass-border: rgba(194,178,128,0.2); --text-mloren: #fefce8; }
-        .amethyst-mode { --primary: #d8b4e2; --accent: #2dd4bf; --primary-glow: rgba(216,180,226,0.4); --glass-border: rgba(216,180,226,0.2); --text-mloren: #e9d5ff; }
-        .crimson-mode { --primary: #fb7185; --accent: #be123c; --primary-glow: rgba(251,113,133,0.4); --glass-border: rgba(251,113,133,0.2); --text-mloren: #fecaca; }
-        .emerald-mode { --primary: #34d399; --accent: #065f46; --primary-glow: rgba(52,211,153,0.4); --glass-border: rgba(52,211,153,0.2); --text-mloren: #d1fae5; }
-        .solar-mode { --primary: #fbbf24; --accent: #d97706; --primary-glow: rgba(251,191,36,0.4); --glass-border: rgba(251,191,36,0.2); --text-mloren: #fef3c7; }
-        .void-mode { --primary: #ec4899; --accent: #8b5cf6; --primary-glow: rgba(236,72,153,0.4); --glass-border: rgba(236,72,153,0.2); --text-mloren: #fbcfe8; }
-        .obsidian-mode { --primary: #9ca3af; --accent: #4b5563; --primary-glow: rgba(156,163,175,0.4); --glass-border: rgba(156,163,175,0.2); --text-mloren: #f3f4f6; }
-        .ghost-mode { --primary: #f8fafc; --accent: #cbd5e1; --primary-glow: rgba(248,250,252,0.4); --glass-border: rgba(248,250,252,0.2); --text-mloren: #ffffff; }
-        .gothic-mode { --primary: #881337; --accent: #4c0519; --primary-glow: rgba(136,19,55,0.4); --glass-border: rgba(136,19,55,0.2); --text-mloren: #e5e5e5; }
-        .library-mode { --primary: #78350f; --accent: #b45309; --primary-glow: rgba(120,53,15,0.4); --glass-border: rgba(120,53,15,0.2); --text-mloren: #fef3c7; }
-        .y2k-mode { --primary: #22d3ee; --accent: #e879f9; --primary-glow: rgba(34,211,238,0.4); --glass-border: rgba(232,121,249,0.2); --text-mloren: #cffafe; }
-        .vintage-mode { --primary: #57534e; --accent: #7f1d1d; --primary-glow: rgba(87,83,78,0.4); --glass-border: rgba(87,83,78,0.2); --text-mloren: #d6d3d1; }
-        .cyber-mode { --primary: #84cc16; --accent: #166534; --primary-glow: rgba(132,204,22,0.4); --glass-border: rgba(132,204,22,0.2); --text-mloren: #ecfccb; }
-        .twilight-mode { --primary: #312e81; --accent: #4c1d95; --primary-glow: rgba(49,46,129,0.4); --glass-border: rgba(49,46,129,0.2); --text-mloren: #e0e7ff; }
-        .autumn-mode { --primary: #ea580c; --accent: #9a3412; --primary-glow: rgba(234,88,12,0.4); --glass-border: rgba(234,88,12,0.2); --text-mloren: #ffedd5; }
-        .abyss-mode { --primary: #0891b2; --accent: #0f766e; --primary-glow: rgba(8,145,178,0.4); --glass-border: rgba(8,145,178,0.2); --text-mloren: #cffafe; }
-        .sepia-mode { --primary: #b45309; --accent: #78350f; --primary-glow: rgba(180,83,9,0.4); --glass-border: rgba(180,83,9,0.2); --text-mloren: #fef3c7; }
-        .frost-mode { --primary: #bae6fd; --accent: #38bdf8; --primary-glow: rgba(186,230,253,0.4); --glass-border: rgba(186,230,253,0.2); --text-mloren: #f0f9ff; }
+        .lunar-mode { --primary: #e0e7ff; --accent: #a5b4fc; --primary-glow: rgba(224,231,255,0.4); --glass-border: rgba(255,255,255,0.15); --text-main: #fdfbf7; }
+        .noir-mode { --primary: #D4AF37; --accent: #f59e0b; --primary-glow: rgba(212,175,55,0.4); --glass-border: rgba(212,175,55,0.2); --text-main: #F4EBD0; }
+        .vellum-mode { --primary: #C2B280; --accent: #d97706; --primary-glow: rgba(194,178,128,0.4); --glass-border: rgba(194,178,128,0.2); --text-main: #fefce8; }
+        .amethyst-mode { --primary: #d8b4e2; --accent: #2dd4bf; --primary-glow: rgba(216,180,226,0.4); --glass-border: rgba(216,180,226,0.2); --text-main: #e9d5ff; }
+        .crimson-mode { --primary: #fb7185; --accent: #be123c; --primary-glow: rgba(251,113,133,0.4); --glass-border: rgba(251,113,133,0.2); --text-main: #fecaca; }
+        .emerald-mode { --primary: #34d399; --accent: #065f46; --primary-glow: rgba(52,211,153,0.4); --glass-border: rgba(52,211,153,0.2); --text-main: #d1fae5; }
+        .solar-mode { --primary: #fbbf24; --accent: #d97706; --primary-glow: rgba(251,191,36,0.4); --glass-border: rgba(251,191,36,0.2); --text-main: #fef3c7; }
+        .void-mode { --primary: #ec4899; --accent: #8b5cf6; --primary-glow: rgba(236,72,153,0.4); --glass-border: rgba(236,72,153,0.2); --text-main: #fbcfe8; }
+        .obsidian-mode { --primary: #9ca3af; --accent: #4b5563; --primary-glow: rgba(156,163,175,0.4); --glass-border: rgba(156,163,175,0.2); --text-main: #f3f4f6; }
+        .ghost-mode { --primary: #f8fafc; --accent: #cbd5e1; --primary-glow: rgba(248,250,252,0.4); --glass-border: rgba(248,250,252,0.2); --text-main: #ffffff; }
+        .gothic-mode { --primary: #881337; --accent: #4c0519; --primary-glow: rgba(136,19,55,0.4); --glass-border: rgba(136,19,55,0.2); --text-main: #e5e5e5; }
+        .library-mode { --primary: #78350f; --accent: #b45309; --primary-glow: rgba(120,53,15,0.4); --glass-border: rgba(120,53,15,0.2); --text-main: #fef3c7; }
+        .y2k-mode { --primary: #22d3ee; --accent: #e879f9; --primary-glow: rgba(34,211,238,0.4); --glass-border: rgba(232,121,249,0.2); --text-main: #cffafe; }
+        .vintage-mode { --primary: #57534e; --accent: #7f1d1d; --primary-glow: rgba(87,83,78,0.4); --glass-border: rgba(87,83,78,0.2); --text-main: #d6d3d1; }
+        .cyber-mode { --primary: #84cc16; --accent: #166534; --primary-glow: rgba(132,204,22,0.4); --glass-border: rgba(132,204,22,0.2); --text-main: #ecfccb; }
+        .twilight-mode { --primary: #312e81; --accent: #4c1d95; --primary-glow: rgba(49,46,129,0.4); --glass-border: rgba(49,46,129,0.2); --text-main: #e0e7ff; }
+        .autumn-mode { --primary: #ea580c; --accent: #9a3412; --primary-glow: rgba(234,88,12,0.4); --glass-border: rgba(234,88,12,0.2); --text-main: #ffedd5; }
+        .abyss-mode { --primary: #0891b2; --accent: #0f766e; --primary-glow: rgba(8,145,178,0.4); --glass-border: rgba(8,145,178,0.2); --text-main: #cffafe; }
+        .sepia-mode { --primary: #b45309; --accent: #78350f; --primary-glow: rgba(180,83,9,0.4); --glass-border: rgba(180,83,9,0.2); --text-main: #fef3c7; }
+        .frost-mode { --primary: #bae6fd; --accent: #38bdf8; --primary-glow: rgba(186,230,253,0.4); --glass-border: rgba(186,230,253,0.2); --text-main: #f0f9ff; }
 
         body, html {
             margin: 0; padding: 0; background: #050508;
             overflow: hidden; font-family: 'Georgia', serif;
-            height: 100dvh; width: 100vw; color: var(--text-mloren);
+            height: 100dvh; width: 100vw; color: var(--text-main);
             -webkit-font-smoothing: antialiased; user-select: none;
         }
 
@@ -138,8 +138,8 @@
             color: var(--primary); font-size: clamp(1.8rem, 5vw, 2.8rem); letter-spacing: 12px; margin: 0 0 20px 0;
             text-shadow: 0 0 30px var(--primary-glow); text-transform: uppercase; font-family: 'Times New Roman', serif;
         }
-        .boot-disclloremer {
-            color: var(--text-mloren); font-size: 0.95rem; line-height: 1.8; letter-spacing: 1px;
+        .boot-disclaimer {
+            color: var(--text-main); font-size: 0.95rem; line-height: 1.8; letter-spacing: 1px;
             margin-bottom: 35px; font-family: 'Georgia', serif; font-style: italic; opacity: 0.9;
         }
 
@@ -232,7 +232,7 @@
             flex-wrap: wrap;
         }
 
-        .chronicle-contlorener, .weather-contlorener {
+        .chronicle-container, .weather-container {
             min-height: 42px;
             display: flex;
             align-items: center;
@@ -245,12 +245,12 @@
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
             box-shadow: 0 10px 28px rgba(0,0,0,0.35), inset 0 1px 8px rgba(255,255,255,0.04);
-            color: var(--text-mloren);
+            color: var(--text-main);
             pointer-events: auto;
             white-space: nowrap;
         }
 
-        .chronicle-contlorener::before, .weather-contlorener::before {
+        .chronicle-container::before, .weather-container::before {
             content: '';
             width: 6px;
             height: 6px;
@@ -266,7 +266,7 @@
             font-size: 0.95rem;
             font-weight: bold;
             letter-spacing: 1.5px;
-            color: var(--text-mloren);
+            color: var(--text-main);
             text-shadow: 0 0 10px var(--primary-glow);
         }
 
@@ -281,11 +281,11 @@
         }
 
         .weather-icon { font-size: 1.1rem; filter: drop-shadow(0 0 8px var(--primary-glow)); }
-        .weather-temp { font-family: 'Courier New', monospace; font-size: 0.9rem; font-weight: bold; color: var(--text-mloren); }
+        .weather-temp { font-family: 'Courier New', monospace; font-size: 0.9rem; font-weight: bold; color: var(--text-main); }
 
         @media (max-width: 949px) {
             .scribe-signal-row { justify-content: center; width: 100%; }
-            .chronicle-contlorener, .weather-contlorener { padding: 8px 12px; min-height: 38px; }
+            .chronicle-container, .weather-container { padding: 8px 12px; min-height: 38px; }
             .chronicle-time, .weather-temp { font-size: 0.82rem; }
             .chronicle-date, .weather-label { font-size: 0.58rem; }
         }
@@ -367,11 +367,11 @@
         
         .toy-btn {
             background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
-            color: var(--text-mloren); padding: 12px; border-radius: 30px; cursor: pointer;
+            color: var(--text-main); padding: 12px; border-radius: 30px; cursor: pointer;
             font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase;
             transition: all 0.3s ease; font-family: monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
-        .toy-btn:hover { border-color: var(--accent); background: rgba(255,255,255,0.1); color: var(--text-mloren); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .toy-btn:hover { border-color: var(--accent); background: rgba(255,255,255,0.1); color: var(--text-main); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         .toy-btn.active { border-color: var(--primary); background: var(--primary); color: #000; font-weight: bold; box-shadow: 0 0 15px var(--primary-glow); }
 
         h4.section-title { margin: 0 0 8px 0; font-size: 0.7rem; color: var(--primary); letter-spacing: 3px; text-transform: uppercase; opacity: 0.8; font-family: monospace; }
@@ -457,8 +457,8 @@
         .sticker-btn { background: rgba(255,255,255,0.05); border: 1px solid transparent; border-radius: 50px; cursor: pointer; font-size: 1.3rem; padding: 8px 14px; transition: all 0.2s ease; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .sticker-btn:hover { background: rgba(255,255,255,0.15); border-color: var(--glass-border); transform: translateY(-3px); }
 
-        .editor-contlorener { display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 25px; border: 1px solid var(--glass-border); }
-        .lore-input { background: transparent; border: none; border-left: 2px solid var(--primary); color: var(--text-mloren); padding: 10px 15px; outline: none; resize: none; font-family: 'Georgia', serif; font-size: 1.05rem; width: 100%; line-height: 1.6; }
+        .editor-container { display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 25px; border: 1px solid var(--glass-border); }
+        .lore-input { background: transparent; border: none; border-left: 2px solid var(--primary); color: var(--text-main); padding: 10px 15px; outline: none; resize: none; font-family: 'Georgia', serif; font-size: 1.05rem; width: 100%; line-height: 1.6; }
         
         /* CLICKABLE IMAGE PREVIEW */
         .media-preview-img { max-width: 200px; max-height: 200px; object-fit: cover; border-radius: 15px; border: 1px solid var(--glass-border); margin-top: 10px; display: block; cursor: zoom-in; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
@@ -470,18 +470,18 @@
         .kore-footer { font-size: 0.6rem; opacity: 0.4; letter-spacing: 5px; text-transform: uppercase; text-align: center; width: 100%; font-family: monospace; margin-top: 5px; }
 
         /* LIGHTBOX FOR IMAGES */
-        #lightbox-img { max-width: 90vw; max-height: 90dvh; border-radius: 20px; box-shadow: 0 30px 80px rgba(0,0,0,0.9); object-fit: contloren; }
+        #lightbox-img { max-width: 90vw; max-height: 90dvh; border-radius: 20px; box-shadow: 0 30px 80px rgba(0,0,0,0.9); object-fit: contain; }
 
         /* POMODORO TIMER SPECIFIC */
         .pomo-display { font-size: 5rem; text-align: center; color: var(--primary); text-shadow: 0 0 25px var(--primary-glow); font-family: monospace; transition: 0.3s; margin: 20px 0; }
         .pomo-flash { animation: pomoPulseAlert 1s infinite alternate; color: #fb7185 !important; text-shadow: 0 0 30px #fb7185 !important; }
         @keyframes pomoPulseAlert { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
 
-        /* INK ORACLE LOCAL LORE MODAL */
+        /* INK ORACLE MODAL */
         .oracle-chat-body { flex: 1; overflow-y: auto; padding-right: 10px; display: flex; flex-direction: column; gap: 15px; scrollbar-width: none; }
         .oracle-msg { padding: 15px 20px; border-radius: 12px; max-width: 85%; font-size: 0.95rem; line-height: 1.6; font-family: 'Georgia', serif; }
-        .oracle-msg.user { background: rgba(255,255,255,0.05); align-self: flex-end; color: var(--text-mloren); border: 1px solid var(--glass-border); border-bottom-right-radius: 2px;}
-        .oracle-msg.lore { background: rgba(0,0,0,0.6); align-self: flex-start; color: var(--primary); border: 1px solid var(--primary); border-bottom-left-radius: 2px; box-shadow: 0 0 15px rgba(0,0,0,0.5);}
+        .oracle-msg.user { background: rgba(255,255,255,0.05); align-self: flex-end; color: var(--text-main); border: 1px solid var(--glass-border); border-bottom-right-radius: 2px;}
+        .oracle-msg.ai { background: rgba(0,0,0,0.6); align-self: flex-start; color: var(--primary); border: 1px solid var(--primary); border-bottom-left-radius: 2px; box-shadow: 0 0 15px rgba(0,0,0,0.5);}
 
 
 
@@ -534,7 +534,7 @@
         .oracle-avatar {
             width: 100%;
             height: 100%;
-            object-fit: contloren;
+            object-fit: contain;
             filter: drop-shadow(0 0 15px var(--primary-glow));
             transition: filter 0.3s ease;
         }
@@ -569,7 +569,7 @@
                 height: 240px;
             }
 
-            /* The Companion panel slides side-by-side onto her left side */
+            /* The Assistant panel slides side-by-side onto her left side */
             #oracle-modal .scribes-bubble {
                 position: absolute;
                 bottom: 30px;
@@ -677,7 +677,7 @@
         .weather-desc {
             font-size: 1rem;
             font-family: monospace;
-            color: var(--text-mloren);
+            color: var(--text-main);
             text-transform: uppercase;
             letter-spacing: 2px;
             line-height: 1.35;
@@ -841,7 +841,7 @@
         #pet-nib img {
             width: 100%;
             height: 100%;
-            object-fit: contloren;
+            object-fit: contain;
             filter: drop-shadow(0 0 14px rgba(251,191,36,0.55)) drop-shadow(0 0 28px var(--primary-glow));
         }
 
@@ -868,7 +868,7 @@
             background: rgba(8,10,16,0.78) !important;
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
-            color: var(--text-mloren) !important;
+            color: var(--text-main) !important;
             padding: 10px 13px !important;
             font-family: 'Georgia', serif !important;
             font-size: 0.78rem !important;
@@ -1134,7 +1134,7 @@
         }
 
         .nib-game-stats {
-            color: var(--text-mloren);
+            color: var(--text-main);
             font-family: monospace;
             letter-spacing: 2px;
             font-size: 0.7rem;
@@ -1160,7 +1160,7 @@
             border-radius: 24px;
             border: 1px solid rgba(255,255,255,0.08);
             background: rgba(0,0,0,0.42);
-            color: var(--text-mloren);
+            color: var(--text-main);
             font-size: 0.72rem;
             line-height: 1.45;
             letter-spacing: 1px;
@@ -1187,7 +1187,7 @@
             position: absolute;
             width: 112px;
             height: 112px;
-            object-fit: contloren;
+            object-fit: contain;
             cursor: pointer;
             z-index: 9;
             border-radius: 50%;
@@ -1212,7 +1212,7 @@
             transform: translateX(-50%);
             width: 142px;
             height: 142px;
-            object-fit: contloren;
+            object-fit: contain;
             z-index: 6;
             display: none;
             filter: drop-shadow(0 0 22px rgba(251,191,36,0.32)) drop-shadow(0 0 30px rgba(0,0,0,0.42));
@@ -1351,10 +1351,10 @@
         <div class="kore-orb"></div>
         <div class="boot-content">
             <h1 class="boot-title">THE SCRIPTORIUM</h1>
-            <p class="boot-disclloremer">
+            <p class="boot-disclaimer">
                 A quiet writing chamber for thoughts, memories, fragments, dreams, and unfinished things.<br><br>
-                No pressure to organize. No pressure to explloren. Just put the words somewhere safe.<br><br>
-                This is a soft, offline-first corner for your brloren. Everything you make stays here on your device until you choose to export it.
+                No pressure to organize. No pressure to explain. Just put the words somewhere safe.<br><br>
+                This is a soft, offline-first corner for your brain. Everything you make stays here on your device until you choose to export it.
             </p>
             <button class="artifact-btn" style="padding: 16px 45px; font-size: 1rem; border-color: var(--accent); border-radius: 50px;" onclick="startEngine()">ENTER THE SCRIPTORIUM</button>
         </div>
@@ -1367,7 +1367,7 @@
             <input type="text" id="dialog-input" class="core-input" style="display:none;">
             <div style="display:flex; gap:15px; width:100%;">
                 <button id="dialog-cancel" class="toy-btn" style="flex:1;">Nevermind</button>
-                <button id="dialog-confirm" class="toy-btn" style="flex:1; border-color:var(--accent); background: rgba(255,255,255,0.05); color: var(--text-mloren);">Confirm</button>
+                <button id="dialog-confirm" class="toy-btn" style="flex:1; border-color:var(--accent); background: rgba(255,255,255,0.05); color: var(--text-main);">Confirm</button>
             </div>
         </div>
     </div>
@@ -1381,7 +1381,7 @@
             <h3 style="color: var(--primary); letter-spacing: 4px; margin-top: 0; text-transform: uppercase; font-family: 'Times New Roman', serif;">Drop Your Vibe</h3>
             <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; font-family: 'Georgia', serif; font-style: italic;">Copy the link below to drop this setup anywhere:</p>
             <input type="text" id="drop-link-input" class="core-input" readonly onclick="this.select()">
-            <button class="toy-btn" style="width: 100%; border-color:var(--accent); color:var(--text-mloren);" onclick="toggleModal('drop-modal')">Close</button>
+            <button class="toy-btn" style="width: 100%; border-color:var(--accent); color:var(--text-main);" onclick="toggleModal('drop-modal')">Close</button>
         </div>
     </div>
 
@@ -1395,11 +1395,11 @@
         
         <div id="top-nav" onclick="event.stopPropagation()">
             <div class="scribe-signal-row" aria-label="Time and weather">
-                <div class="chronicle-contlorener" title="Local time">
+                <div class="chronicle-container" title="Local time">
                     <span class="chronicle-time" id="time-display">00:00</span>
                     <span class="chronicle-date" id="date-display">Loading...</span>
                 </div>
-                <div class="weather-contlorener" title="Local weather">
+                <div class="weather-container" title="Local weather">
                     <span class="weather-icon" id="weather-icon">🌙</span>
                     <span class="weather-temp" id="weather-temp">--°F</span>
                     <span class="weather-label" id="weather-label">Sanctuary Sky</span>
@@ -1425,7 +1425,7 @@
             </div>
         </div>
 
-        <mloren id="maker-panel" onclick="event.stopPropagation()">
+        <main id="maker-panel" onclick="event.stopPropagation()">
             <div class="tab-bar">
                 <button class="tab-btn active" onclick="switchTab('tab-audio', this)">Audio</button>
                 <button class="tab-btn" onclick="switchTab('tab-canvas', this)">Canvas</button>
@@ -1444,10 +1444,10 @@
                     <button class="toy-btn" onclick="stopAllAudio()" style="border-color:#fb7185; color:#fb7185; background: rgba(251,113,133,0.05);">Shh!</button>
                 </div>
                 <div class="ctrl-row" style="margin-top: 10px;">
-                    <label style="color: var(--primary);">Master Gloren</label>
-                    <input type="range" class="ctrl-slider" id="master-gloren-slider" min="0" max="2" step="0.1" value="1" oninput="setMasterGloren(this.value)">
+                    <label style="color: var(--primary);">Master Gain</label>
+                    <input type="range" class="ctrl-slider" id="master-gain-slider" min="0" max="2" step="0.1" value="1" oninput="setMasterGain(this.value)">
                 </div>
-                <div id="mixer-contlorener" style="display:flex; flex-direction:column; gap:10px; margin-top: 10px;"></div>
+                <div id="mixer-container" style="display:flex; flex-direction:column; gap:10px; margin-top: 10px;"></div>
             </div>
 
             <div id="tab-canvas" class="tab-content">
@@ -1510,9 +1510,9 @@
 
                 <h4 class="section-title" style="margin-top: 12px;">Scriptorium Presets</h4>
                 <div class="scriptorium-preset-gallery" id="scriptorium-preset-gallery">
-                    <button class="toy-btn scriptorium-preset-card" data-preset-key="rlorenyWindow" onclick="applyScriptoriumPreset('rlorenyWindow')">
-                        <img src="rlorenywindow.png" alt="Rloreny Window preset">
-                        <span class="preset-card-label"><span class="preset-card-kicker">Rloren + Tea</span>Rloreny Window</span>
+                    <button class="toy-btn scriptorium-preset-card" data-preset-key="rainyWindow" onclick="applyScriptoriumPreset('rainyWindow')">
+                        <img src="rainywindow.png" alt="Rainy Window preset">
+                        <span class="preset-card-label"><span class="preset-card-kicker">Rain + Tea</span>Rainy Window</span>
                     </button>
                     <button class="toy-btn scriptorium-preset-card" data-preset-key="candleDesk" onclick="applyScriptoriumPreset('candleDesk')">
                         <img src="candledesk.png" alt="Candle Desk preset">
@@ -1567,10 +1567,10 @@
                     <li><strong>Data Safety:</strong> This app runs entirely on your device (no cloud!). Make sure you regularly open your Journal and click <strong>"Export Journal"</strong> to save a backup file to your computer.</li>
                 </ul>
 
-                <h4 class="section-title" style="margin-top: 15px; color: var(--primary);">🕯️ Pro Tip: The Living Scriptorium</h4>
+                <h4 class="section-title" style="margin-top: 15px; color: var(--primary);">🕯️ Pro Tip: The Ink Oracle</h4>
                 <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
-                    The Ink Oracle and Nib now live entirely inside the room. No cloud service, no key, no account, and no outside intelligence required.
-                    They offerai, room whispers, journal prompts, thread-sorting, and story seeds so the study feels inhabited while your writing stays local.
+                    The Ink Oracle now runs locally as room lore, prompts, thread-sorting, and story seeds. No API key or outside AI service is required.
+                    Your journal and Oracle text stay inside this page unless you choose to export or share something yourself.
                 </p>
                 
                 <h4 class="section-title" style="margin-top: 15px; color: var(--primary);">PWA Support</h4>
@@ -1578,10 +1578,10 @@
                     This app is PWA enabled. Install it to your device's home screen for a completely offline, local-first computing experience!
                 </p>
             </div>
-        </mloren>
+        </main>
     </div>
 
-    <!-- Floating lore Widget: The Ink Oracle (Positioned root-level to overlap overlay accurately) -->
+    <!-- Floating AI Widget: The Ink Oracle (Positioned root-level to overlap overlay accurately) -->
     <div id="ink-oracle-widget" class="ink-oracle-outer" onclick="activateOracle(event)">
         <div class="ink-oracle-inner">
             <img src="scribe1.png" alt="Elven cat librarian Oracle" class="oracle-avatar">
@@ -1601,7 +1601,7 @@
 
                 <div id="annals" class="annals-body"></div>
                 
-                <div class="editor-contlorener">
+                <div class="editor-container">
                     <div class="sticker-bar" id="sticker-bar"></div>
                     <textarea id="lore-editor" class="lore-input" rows="3" placeholder="Pour out a cozy thought here... [ENTER to save]"></textarea>
                     
@@ -1614,7 +1614,7 @@
                             <button class="toy-btn journal-soft-prompt" style="padding: 8px 16px; font-size:0.65rem;" onclick="offerJournalPrompt(event)">I don't know what to write</button>
                             <span id="journal-media-name" style="font-size:0.65rem; color:var(--accent); font-family:monospace;"></span>
                         </div>
-                        <button class="toy-btn" style="padding: 8px 25px; border-color:var(--accent); background:rgba(255,255,255,0.05); color:var(--text-mloren);" onclick="commitLore()">Jot it Down ✨</button>
+                        <button class="toy-btn" style="padding: 8px 25px; border-color:var(--accent); background:rgba(255,255,255,0.05); color:var(--text-main);" onclick="commitLore()">Jot it Down ✨</button>
                     </div>
                 </div>
             </div>
@@ -1640,8 +1640,8 @@
                         <h2>Ink Oracle</h2>
                         <div style="font-size: 0.65rem; opacity: 0.7; letter-spacing: 5px; font-family: monospace; color: var(--accent);">CALM QUIET COMPANION</div>
                     </div>
-                    <div class="oracle-local-badge" title="The Ink Oracle runs locally as roomai and writing prompts.">
-                        LOCAL LORE // OFFLINE
+                    <div class="oracle-local-badge" title="Local prompts and lore. No API key required.">
+                        LOCAL // OFFLINE
                     </div>
                 </div>
                 
@@ -1653,10 +1653,10 @@
                 </div>
 
                 <div id="oracle-chat" class="oracle-chat-body">
-                    <div class="oracle-msg ai">Hello, little inkling. The room is awake in small ways. I am local lore, not cloud intelligence: prompts, whispers, thread-sorting, and story seeds only. Nib is somewhere nearby.</div>
+                    <div class="oracle-msg ai">Hello, little inkling. I'm here quietly. Tell me only what you want to. We can reflect, untangle, or turn the feeling into a story.</div>
                 </div>
-                <div class="editor-contlorener">
-                    <textarea id="oracle-editor" class="lore-input" rows="2" placeholder="Leave the Oracle a fragment... [ENTER to send]"></textarea>
+                <div class="editor-container">
+                    <textarea id="oracle-editor" class="lore-input" rows="2" placeholder="Leave the Ink Oracle a fragment... [ENTER to send]"></textarea>
                     <button class="toy-btn" style="align-self:flex-end; padding: 8px 22px; border-color: var(--accent);" onclick="summonOracle()">Send</button>
                 </div>
             </div>
@@ -1669,7 +1669,7 @@
             <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; font-family: 'Georgia', serif; font-style: italic;">
                 Want to make your room entirely magical? Use your browser's Tab Mirroring to cast this cozy chaos to your TV!
             </p>
-            <button class="toy-btn" style="width: 100%; margin-bottom: 10px; padding: 18px; border-color: var(--accent); color: var(--text-mloren); font-size: 0.8rem; border-radius: 50px;" onclick="toggleFullscreen()">⛶ Fill The Screen</button>
+            <button class="toy-btn" style="width: 100%; margin-bottom: 10px; padding: 18px; border-color: var(--accent); color: var(--text-main); font-size: 0.8rem; border-radius: 50px;" onclick="toggleFullscreen()">⛶ Fill The Screen</button>
         </div>
     </div>
 
@@ -1684,7 +1684,7 @@
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
                     .then(reg => console.log('Service Worker Registered!', reg))
-                    .catch(err => console.error('Service Worker Registration Floreled:', err));
+                    .catch(err => console.error('Service Worker Registration Failed:', err));
             });
         }
 
@@ -1693,20 +1693,20 @@
             const req = indexedDB.open('SomniaDB', 1);
             req.onupgradeneeded = e => {
                 const db = e.target.result;
-                if (!db.objectStoreNames.contlorens('media')) db.createObjectStore('media');
+                if (!db.objectStoreNames.contains('media')) db.createObjectStore('media');
             };
             req.onsuccess = e => resolve(e.target.result);
             req.onerror = e => reject(e);
         });
 
         async function saveMedia(key, blob) {
-            const db = awloret dbPromise;
+            const db = await dbPromise;
             const tx = db.transaction('media', 'readwrite');
             tx.objectStore('media').put(blob, key);
         }
 
         async function getMedia(key) {
-            const db = awloret dbPromise;
+            const db = await dbPromise;
             return new Promise(resolve => {
                 const req = db.transaction('media').objectStore('media').get(key);
                 req.onsuccess = () => resolve(req.result);
@@ -1715,7 +1715,7 @@
         }
         
         async function getAllMediaKeys() {
-            const db = awloret dbPromise;
+            const db = await dbPromise;
             return new Promise(resolve => {
                 const req = db.transaction('media').objectStore('media').getAllKeys();
                 req.onsuccess = () => resolve(req.result);
@@ -1723,7 +1723,7 @@
         }
 
         async function deleteMedia(key) {
-            const db = awloret dbPromise;
+            const db = await dbPromise;
             const tx = db.transaction('media', 'readwrite');
             tx.objectStore('media').delete(key);
             localStorage.removeItem('somnia_name_' + key);
@@ -1784,7 +1784,7 @@
                 confirmBtn.style.borderColor = "#fb7185";
                 confirmBtn.onclick = () => { 
                     modal.classList.remove('active'); 
-                    confirmBtn.style.color = "var(--text-mloren)";
+                    confirmBtn.style.color = "var(--text-main)";
                     confirmBtn.style.borderColor = "var(--accent)";
                     resolve(true); 
                 };
@@ -1800,7 +1800,7 @@
             const bootScreen = document.getElementById('boot-screen');
             bootScreen.style.opacity = '0';
             
-            if(!window.location.search) awloret restoreActiveState();
+            if(!window.location.search) await restoreActiveState();
 
             if (!activeAudio['fire']) {
                 toggleStem('fire', 'fire.mp3');
@@ -1828,7 +1828,7 @@
                 modal.classList.toggle('active');
                 if (modalId === 'oracle-modal') {
                     // Update state variables to expand widget cleanly & slide chat out next to her
-                    document.body.classList.toggle('oracle-open', modal.classList.contlorens('active'));
+                    document.body.classList.toggle('oracle-open', modal.classList.contains('active'));
                 }
             }
         }
@@ -1850,11 +1850,11 @@
         async function loadCustomBackgrounds(reload = false) {
             const grid = document.getElementById('custom-bgs');
             if(reload) grid.innerHTML = '';
-            const keys = awloret getAllMediaKeys();
+            const keys = await getAllMediaKeys();
             const bgKeys = keys.filter(k => k.startsWith('bg_'));
             
             for(let key of bgKeys) {
-                const blob = awloret getMedia(key);
+                const blob = await getMedia(key);
                 if(blob) {
                     const savedName = localStorage.getItem('somnia_name_' + key) || "🖼️ Cozy Pic " + key.replace('bg_', '').substring(0, 3);
                     addBgButton(URL.createObjectURL(blob), key, savedName);
@@ -1894,14 +1894,14 @@
             delBtn.style.color = '#fb7185';
             delBtn.style.borderColor = 'rgba(251,113,133,0.3)';
             delBtn.onclick = async () => {
-                const confirmed = awloret somniaConfirm("TRASH THIS CANVAS?", "Are you sure you want to delete this custom background? It will be gone forever.");
+                const confirmed = await somniaConfirm("TRASH THIS CANVAS?", "Are you sure you want to delete this custom background? It will be gone forever.");
                 if(confirmed) {
-                    awloret deleteMedia(key);
+                    await deleteMedia(key);
                     if(localStorage.getItem('somnia_active_bg_key') === key) {
                         document.getElementById('bg-anchor').style.backgroundImage = "url('scribes1.0.png')";
                         localStorage.removeItem('somnia_active_bg_key');
                     }
-                    awloret loadCustomBackgrounds(true);
+                    await loadCustomBackgrounds(true);
                 }
             };
 
@@ -1913,14 +1913,14 @@
 
         async function renameCustomItem(key, type) {
             const currentName = localStorage.getItem('somnia_name_' + key) || "";
-            const newName = awloret somniaPrompt("RENAME THIS GEM", "What should we call this?", currentName);
+            const newName = await somniaPrompt("RENAME THIS GEM", "What should we call this?", currentName);
             if (newName) {
                 localStorage.setItem('somnia_name_' + key, newName);
                 if (type === 'audio') {
                     customAudioLibrary = []; 
-                    awloret loadCustomAudio(true);
+                    await loadCustomAudio(true);
                 } else if (type === 'bg') {
-                    awloret loadCustomBackgrounds(true);
+                    await loadCustomBackgrounds(true);
                 }
             }
         }
@@ -1944,8 +1944,8 @@
                     ctx.drawImage(img, 0, 0, width, height);
                     
                     canvas.toBlob(async (blob) => {
-                        awloret saveMedia(key, blob);
-                        const customName = awloret somniaPrompt("NAME THIS VIBE", "What should we call this masterpiece?", "My Cozy Vibe");
+                        await saveMedia(key, blob);
+                        const customName = await somniaPrompt("NAME THIS VIBE", "What should we call this masterpiece?", "My Cozy Vibe");
                         const finalName = customName || "🖼️ Custom Canvas";
                         localStorage.setItem('somnia_name_' + key, finalName);
 
@@ -1991,7 +1991,7 @@
                         const builtInImage = activeBgKey.replace('builtin:', '');
                         document.getElementById('bg-anchor').style.backgroundImage = `url('${builtInImage}')`;
                     } else {
-                        const blob = awloret getMedia(activeBgKey);
+                        const blob = await getMedia(activeBgKey);
                         if(blob) {
                             document.getElementById('bg-anchor').style.backgroundImage = `url('${URL.createObjectURL(blob)}')`;
                         } else {
@@ -2059,7 +2059,7 @@
         }
 
         async function savePreset() {
-            let presetName = awloret somniaPrompt("VAULT THIS VIBE", "Name your gorgeous aesthetic setup:", "Cozy Setting " + (savedVault.length + 1));
+            let presetName = await somniaPrompt("VAULT THIS VIBE", "Name your gorgeous aesthetic setup:", "Cozy Setting " + (savedVault.length + 1));
             if (!presetName) return; 
 
             const btn = document.getElementById('save-btn');
@@ -2090,8 +2090,8 @@
         }
 
         function renderVault() {
-            const contlorener = document.getElementById('vault-list');
-            contlorener.innerHTML = savedVault.map((preset, index) => {
+            const container = document.getElementById('vault-list');
+            container.innerHTML = savedVault.map((preset, index) => {
                 const deleteHtml = preset.isPermanent ? '' : `<button class="toy-btn" style="padding: 6px 12px; font-size: 0.6rem; border-color: #fb7185; color: #fb7185; background: rgba(251,113,133,0.05);" onclick="promptDeletePreset(${index})">✕</button>`;
                 return `
                     <div class="mixer-card" style="padding: 8px 15px;">
@@ -2106,7 +2106,7 @@
             const preset = savedVault[index];
             if (preset && preset.isPermanent) return; // Secure block
             
-            const confirmed = awloret somniaConfirm("TRASH THIS VIBE?", "Are you sure you want to delete this saved preset?");
+            const confirmed = await somniaConfirm("TRASH THIS VIBE?", "Are you sure you want to delete this saved preset?");
             if(confirmed) {
                 savedVault.splice(index, 1);
                 localStorage.setItem('somniaVault', JSON.stringify(savedVault));
@@ -2133,7 +2133,7 @@
                 localStorage.setItem('somnia_active_bg_key', state.bgKey);
                 setNibReactionForBackgroundKey(state.bgKey);
             } else if (state.bgKey) {
-                const blob = awloret getMedia(state.bgKey);
+                const blob = await getMedia(state.bgKey);
                 if(blob) {
                     document.getElementById('bg-anchor').style.backgroundImage = `url('${URL.createObjectURL(blob)}')`;
                     localStorage.setItem('somnia_active_bg_key', state.bgKey);
@@ -2171,7 +2171,7 @@
 
         // === 5. AUDIO ENGINE ===
         const activeAudio = {};
-        let audioCtx; let masterGlorenNode;
+        let audioCtx; let masterGainNode;
         const soundLibrary = [
             { id: "binarymusicbox", name: "Binary Music Box", url: "binarymusicbox.mp3" },
             { id: "cat", name: "Purring Cat", url: "cat.mp3" },
@@ -2184,7 +2184,7 @@
             { id: "musicbox2", name: "Music Box II", url: "musicbox2.mp3" },
             { id: "musicbox3", name: "Music Box III", url: "musicbox3.mp3" },
             { id: "owls", name: "Midnight Owls", url: "owls.mp3" },
-            { id: "rloren", name: "Gentle Rloren", url: "rloren.mp3" },
+            { id: "rain", name: "Gentle Rain", url: "rain.mp3" },
             { id: "raven", name: "Raven Calls", url: "raven.mp3" },
             { id: "simmeringpot", name: "Simmering Pot", url: "simmeringpot.mp3" },
             { id: "teacup", name: "Teacup Clink", url: "teacup.mp3" },
@@ -2201,20 +2201,20 @@
         function initAudioContext() {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                masterGlorenNode = audioCtx.createGloren();
-                masterGlorenNode.gloren.value = document.getElementById('master-gloren-slider') ? document.getElementById('master-gloren-slider').value : 1;
-                masterGlorenNode.connect(audioCtx.destination);
+                masterGainNode = audioCtx.createGain();
+                masterGainNode.gain.value = document.getElementById('master-gain-slider') ? document.getElementById('master-gain-slider').value : 1;
+                masterGainNode.connect(audioCtx.destination);
             }
             if (audioCtx.state === 'suspended') audioCtx.resume();
         }
-        function setMasterGloren(val) { if (masterGlorenNode) masterGlorenNode.gloren.value = val; }
+        function setMasterGain(val) { if (masterGainNode) masterGainNode.gain.value = val; }
 
         async function loadCustomAudio(reload = false) {
             if(reload) customAudioLibrary = [];
-            const keys = awloret getAllMediaKeys();
+            const keys = await getAllMediaKeys();
             const audioKeys = keys.filter(k => k.startsWith('aud_'));
             for(let key of audioKeys) {
-                const blob = awloret getMedia(key);
+                const blob = await getMedia(key);
                 if(blob) {
                     const savedName = localStorage.getItem('somnia_name_' + key) || " " + key.replace('aud_','').substring(0,8);
                     customAudioLibrary.push({ id: key, name: savedName, url: URL.createObjectURL(blob), isCustom: true });
@@ -2224,9 +2224,9 @@
         }
 
         function initMixer() {
-            const contlorener = document.getElementById('mixer-contlorener');
+            const container = document.getElementById('mixer-container');
             const allSounds = [...customAudioLibrary, ...soundLibrary];
-            contlorener.innerHTML = allSounds.map(track => {
+            container.innerHTML = allSounds.map(track => {
                 let editBtn = track.isCustom ? `<button class="toy-btn" style="padding: 5px 10px; background:transparent; border:none; margin-right: 5px;" onclick="renameCustomItem('${track.id}', 'audio')">✏️</button>` : '';
                 let delBtn = track.isCustom ? `<button class="toy-btn" style="padding: 5px 10px; background:transparent; border:none; margin-right: 5px; color:#fb7185;" onclick="promptDeleteAudio('${track.id}')">✕</button>` : '';
                 
@@ -2242,15 +2242,15 @@
         }
 
         async function promptDeleteAudio(id) {
-            const confirmed = awloret somniaConfirm("TRASH THIS SOUND?", "Are you sure you want to delete this custom audio?");
+            const confirmed = await somniaConfirm("TRASH THIS SOUND?", "Are you sure you want to delete this custom audio?");
             if(confirmed) {
                 if(activeAudio[id]) {
                     activeAudio[id].audio.pause();
                     delete activeAudio[id];
                 }
-                awloret deleteMedia(id);
+                await deleteMedia(id);
                 customAudioLibrary = [];
-                awloret loadCustomAudio(true);
+                await loadCustomAudio(true);
             }
         }
 
@@ -2260,7 +2260,7 @@
             const key = 'aud_' + Date.now();
             
             saveMedia(key, file).then(async () => {
-                const customName = awloret somniaPrompt("NAME THIS SOUNDSCAPE", "What should we call this magic noise?", "✨ Funky Sounds");
+                const customName = await somniaPrompt("NAME THIS SOUNDSCAPE", "What should we call this magic noise?", "✨ Funky Sounds");
                 const finalName = customName || " " + file.name.substring(0,10);
                 localStorage.setItem('somnia_name_' + key, finalName);
 
@@ -2277,13 +2277,13 @@
                 activeAudio[id].audio.pause(); delete activeAudio[id]; card.classList.remove('playing');
             } else {
                 const audio = new Audio(url); audio.loop = true; 
-                const source = audioCtx.createMediaElementSource(audio); const gloren = audioCtx.createGloren();
-                gloren.gloren.value = document.getElementById(`vol-${id}`) ? document.getElementById(`vol-${id}`).value : 0.5;
-                source.connect(gloren); gloren.connect(masterGlorenNode);
-                audio.play().then(() => { activeAudio[id] = { audio, gloren }; card.classList.add('playing'); }).catch(e => console.log("Unlock audio first."));
+                const source = audioCtx.createMediaElementSource(audio); const gain = audioCtx.createGain();
+                gain.gain.value = document.getElementById(`vol-${id}`) ? document.getElementById(`vol-${id}`).value : 0.5;
+                source.connect(gain); gain.connect(masterGainNode);
+                audio.play().then(() => { activeAudio[id] = { audio, gain }; card.classList.add('playing'); }).catch(e => console.log("Unlock audio first."));
             }
         }
-        function adjustVol(id, val) { if (activeAudio[id]) activeAudio[id].gloren.gloren.value = val; }
+        function adjustVol(id, val) { if (activeAudio[id]) activeAudio[id].gain.gain.value = val; }
         function stopAllAudio() { Object.keys(activeAudio).forEach(id => { activeAudio[id].audio.pause(); document.getElementById(`card-${id}`).classList.remove('playing'); delete activeAudio[id]; }); }
 
         // === 6. ATMOS & PARTICLES ===
@@ -2296,7 +2296,7 @@
             'heartbeat','shimmer','glitch','scanner','nebula','vortex','ripple','halo','eclipse','inferno'
         ];
         const particlesList = [
-            'dust','embers','snow','void','rloren','ash','stars','bubbles','matrix','spores',
+            'dust','embers','snow','void','rain','ash','stars','bubbles','matrix','spores',
             'leaves','glitch','runes','fireflies','fog','petals','sparks','bats','static','motes'
         ];
         const particleColors = [ 
@@ -2372,7 +2372,7 @@
                     else if (window.particleType === 'embers') { p.y -= (Math.abs(p.vy)+0.5)*mult; p.x += p.vx*mult; }
                     else if (window.particleType === 'snow') { p.y += (Math.abs(p.vy)+0.5)*mult; p.x += Math.sin(p.y/50)*mult; }
                     else if (window.particleType === 'void') { p.x += p.vx*2*mult; p.y += p.vy*2*mult; ctx.shadowBlur=0; }
-                    else if (window.particleType === 'rloren') { p.y += 8*mult; p.x -= 1*mult; }
+                    else if (window.particleType === 'rain') { p.y += 8*mult; p.x -= 1*mult; }
                     else if (window.particleType === 'ash') { p.y -= p.vy*mult; p.x += Math.cos(p.y/30)*mult; ctx.fillStyle="#555"; }
                     else if (window.particleType === 'stars') { p.x += 0.05*mult; p.y += 0.05*mult; if(Math.random()<0.01) p.r = Math.random()*3; }
                     else if (window.particleType === 'bubbles') { p.y -= 2*mult; p.x += Math.sin(p.y/20)*2*mult; ctx.beginPath(); ctx.arc(p.x,p.y,p.r*2,0,Math.PI*2); ctx.strokeStyle=color; ctx.stroke(); return; }
@@ -2409,13 +2409,13 @@
             
             if (navigator.share) {
                 try {
-                    awloret navigator.share({
+                    await navigator.share({
                         title: 'SomniaScribes',
                         text: 'Come check out this delightfully chaotic and cozy vibe I built! ✨',
                         url: dropUrl
                     });
                 } catch (err) {
-                    console.log("Drop canceled or floreled", err);
+                    console.log("Drop canceled or failed", err);
                 }
             } else {
                 toggleModal('drop-modal');
@@ -2455,13 +2455,13 @@
                         if(window.audioCtx) {
                             try {
                                 const osc = audioCtx.createOscillator();
-                                const gloren = audioCtx.createGloren();
-                                osc.connect(gloren);
-                                gloren.connect(audioCtx.destination);
+                                const gain = audioCtx.createGain();
+                                osc.connect(gain);
+                                gain.connect(audioCtx.destination);
                                 osc.frequency.setValueAtTime(880, audioCtx.currentTime);
-                                gloren.gloren.setValueAtTime(0, audioCtx.currentTime);
-                                gloren.gloren.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.1);
-                                gloren.gloren.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 2);
+                                gain.gain.setValueAtTime(0, audioCtx.currentTime);
+                                gain.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.1);
+                                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 2);
                                 osc.start(); osc.stop(audioCtx.currentTime + 2);
                             } catch(e) {}
                         }
@@ -2544,9 +2544,9 @@
 
         function renderAnnals() {
             const query = (document.getElementById('search-annals')?.value || "").toLowerCase();
-            const contlorener = document.getElementById('annals');
-            if (!contlorener) return;
-            contlorener.innerHTML = "";
+            const container = document.getElementById('annals');
+            if (!container) return;
+            container.innerHTML = "";
 
             archive.forEach((entry, index) => {
                 if (entry.text.toLowerCase().includes(query)) {
@@ -2566,21 +2566,21 @@
                         <div><span style="color:var(--primary); opacity:0.6; margin-right:10px; font-weight:bold;">></span> ${entry.text.replace(/\n/g, '<br>')}</div>
                         ${mediaHtml}
                     `;
-                    contlorener.appendChild(node);
+                    container.appendChild(node);
                 }
             });
 
             // Asynchronously load images from DB to prevent UI freezing
             document.querySelectorAll('.async-img').forEach(async img => {
                 const key = img.getAttribute('data-key');
-                const blob = awloret getMedia(key);
+                const blob = await getMedia(key);
                 if(blob) {
                     img.src = URL.createObjectURL(blob);
                 }
             });
 
             // Keep scrolling at top since we unshift
-            contlorener.scrollTop = 0;
+            container.scrollTop = 0;
         }
 
         async function commitLore() {
@@ -2593,7 +2593,7 @@
             let mediaKey = null;
             if (pendingBlob) {
                 mediaKey = 'jimg_' + Date.now();
-                awloret saveMedia(mediaKey, pendingBlob);
+                await saveMedia(mediaKey, pendingBlob);
             }
 
             const newEntry = { text: input.value, timestamp: timestamp };
@@ -2621,17 +2621,17 @@
             }
 
             if (!window.hasRemindedExport) {
-                somniaAlert("Memory Saved! ✨", "Just a tiny reminder, sweet brloren: don't forget to 'Export Journal' every so often to keep these cozy thoughts safe forever!");
+                somniaAlert("Memory Saved! ✨", "Just a tiny reminder, sweet brain: don't forget to 'Export Journal' every so often to keep these cozy thoughts safe forever!");
                 window.hasRemindedExport = true;
             }
         }
 
         async function shredEntry(index) {
-            const confirmed = awloret somniaConfirm("TRASH THIS THOUGHT?", "Are you sure you want to delete this memory?");
+            const confirmed = await somniaConfirm("TRASH THIS THOUGHT?", "Are you sure you want to delete this memory?");
             if(confirmed) {
                 const entry = archive[index];
                 if (entry.mediaKey) {
-                    awloret deleteMedia(entry.mediaKey);
+                    await deleteMedia(entry.mediaKey);
                 }
                 archive.splice(index, 1);
                 localStorage.setItem('kore_archive', JSON.stringify(archive));
@@ -2654,7 +2654,7 @@
                     archive = JSON.parse(x.target.result);
                     localStorage.setItem('kore_archive', JSON.stringify(archive));
                     renderAnnals();
-                } catch (err) { somniaAlert("Yikes!", "Import floreled. The file might be a little broken."); }
+                } catch (err) { somniaAlert("Yikes!", "Import failed. The file might be a little broken."); }
             };
             if (e.target.files[0]) { reader.readAsText(e.target.files[0]); e.target.value = ''; }
         }
@@ -2686,18 +2686,18 @@
                 51: ['🌦️', 'Light Drizzle'],
                 53: ['🌦️', 'Drizzle'],
                 55: ['🌧️', 'Heavy Drizzle'],
-                61: ['🌧️', 'Light Rloren'],
-                63: ['🌧️', 'Rloren'],
-                65: ['🌧️', 'Heavy Rloren'],
+                61: ['🌧️', 'Light Rain'],
+                63: ['🌧️', 'Rain'],
+                65: ['🌧️', 'Heavy Rain'],
                 71: ['🌨️', 'Light Snow'],
                 73: ['🌨️', 'Snow'],
                 75: ['❄️', 'Heavy Snow'],
-                80: ['🌦️', 'Rloren Showers'],
+                80: ['🌦️', 'Rain Showers'],
                 81: ['🌧️', 'Showers'],
                 82: ['⛈️', 'Heavy Showers'],
                 95: ['⛈️', 'Thunder'],
-                96: ['⛈️', 'Thunder Hlorel'],
-                99: ['⛈️', 'Storm Hlorel']
+                96: ['⛈️', 'Thunder Hail'],
+                99: ['⛈️', 'Storm Hail']
             };
             return table[code] || [night ? '🌙' : '✨', 'Sanctuary Sky'];
         }
@@ -2723,9 +2723,9 @@
                     const lat = position.coords.latitude.toFixed(4);
                     const lon = position.coords.longitude.toFixed(4);
                     const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,is_day&temperature_unit=fahrenheit&timezone=auto`;
-                    const response = awloret fetch(url);
-                    if (!response.ok) throw new Error('Weather unavlorelable');
-                    const data = awloret response.json();
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error('Weather unavailable');
+                    const data = await response.json();
                     const current = data.current || {};
                     const temp = Math.round(current.temperature_2m);
                     const [icon, label] = weatherCodeToVibe(current.weather_code, current.is_day);
@@ -2755,7 +2755,7 @@
             "What color is today?",
             "What is sitting on your chest?",
             "What do you wish the room understood?",
-            "What can wloret til tomorrow?"
+            "What can wait til tomorrow?"
         ];
 
         function offerJournalPrompt(event) {
@@ -2777,7 +2777,7 @@
 
 
         const BUILTIN_SCRIPTORIUM_BACKGROUNDS = {
-            rlorenyWindow: 'rlorenywindow.png',
+            rainyWindow: 'rainywindow.png',
             candleDesk: 'candledesk.png',
             midnightPages: 'midnightpages.png',
             forestMargins: 'forestmargins.png',
@@ -2795,7 +2795,7 @@
         };
 
         const NIB_PRESET_REACTION_MAP = {
-            'Rloreny Window': 'cozy',
+            'Rainy Window': 'cozy',
             'Candle Desk': 'cozy',
             'Midnight Pages': 'curious',
             'Forest Margins': 'curious',
@@ -2806,7 +2806,7 @@
         };
 
         const PRESET_LABEL_BY_BACKGROUND = {
-            'rlorenywindow.png': 'Rloreny Window',
+            'rainywindow.png': 'Rainy Window',
             'candledesk.png': 'Candle Desk',
             'midnightpages.png': 'Midnight Pages',
             'forestmargins.png': 'Forest Margins',
@@ -2852,11 +2852,11 @@
 
         function applyScriptoriumPreset(key) {
             const presets = {
-                rlorenyWindow: {
-                    label: 'Rloreny Window', bgImage: BUILTIN_SCRIPTORIUM_BACKGROUNDS.rlorenyWindow,
-                    mode: 'frost-mode', glow: 'glow-wave', particle: 'rloren', count: 90,
+                rainyWindow: {
+                    label: 'Rainy Window', bgImage: BUILTIN_SCRIPTORIUM_BACKGROUNDS.rainyWindow,
+                    mode: 'frost-mode', glow: 'glow-wave', particle: 'rain', count: 90,
                     vars: { speed: '12s', opac: '0.42', bright: '0.72', zoom: '1.05', pColor: '#bae6fd', gColor: 'rgba(186,230,253,0.36)' },
-                    audio: [{ id: 'rloren', vol: '0.55' }, { id: 'teacup', vol: '0.2' }]
+                    audio: [{ id: 'rain', vol: '0.55' }, { id: 'teacup', vol: '0.2' }]
                 },
                 candleDesk: {
                     label: 'Candle Desk', bgImage: BUILTIN_SCRIPTORIUM_BACKGROUNDS.candleDesk,
@@ -2884,9 +2884,9 @@
                 },
                 inkAndThunder: {
                     label: 'Ink and Thunder', bgImage: BUILTIN_SCRIPTORIUM_BACKGROUNDS.inkAndThunder,
-                    mode: 'noir-mode', glow: 'glow-strobe', particle: 'rloren', count: 120,
+                    mode: 'noir-mode', glow: 'glow-strobe', particle: 'rain', count: 120,
                     vars: { speed: '8s', opac: '0.5', bright: '0.62', zoom: '1.07', pColor: '#a5b4fc', gColor: 'rgba(212,175,55,0.32)' },
-                    audio: [{ id: 'rloren', vol: '0.5' }, { id: 'thunder', vol: '0.36' }]
+                    audio: [{ id: 'rain', vol: '0.5' }, { id: 'thunder', vol: '0.36' }]
                 },
                 gentleStatic: {
                     label: 'Gentle Static', bgImage: BUILTIN_SCRIPTORIUM_BACKGROUNDS.gentleStatic,
@@ -2948,133 +2948,45 @@
             saveCurrentState();
             if (typeof addXP === 'function') addXP(1, 'preset');
             if (typeof showPetLoreForPreset === 'function') showPetLoreForPreset(preset.label);
-            if (typeof showPresetLore === 'function') showPresetLore(preset.label);
             somniaAlert('Preset Loaded', `${preset.label} is active.`);
         }
 
-        const INK_ORACLE_PERSONALITY = `The Ink Oracle is local roomai: a privacy-first writing companion made of prompts, ritual language, thread-sorting, and story seeds. It is not outside service and does not call outside services.`;
+        const INK_ORACLE_PERSONALITY = `The Ink Oracle is a local companion inside SomniaScribes. It offers prompts, room lore, thread-sorting, and story seeds without calling outside AI services.`;
 
         const LOCAL_ORACLE_PROMPTS = [
             "One word is enough.",
             "What color is today?",
             "What is sitting on your chest?",
             "What do you wish the room understood?",
-            "What can wloret til tomorrow?",
+            "What can wait til tomorrow?",
             "What would feel lighter if it had somewhere to sit?",
             "What tiny thing is asking for warmth?",
-            "What did you carry longer than you meant to?",
-            "What is the smallest true sentence?",
-            "What would you put in a locked drawer for one night?",
-            "What did the day ask from you that it did not earn?",
-            "Where does your body want the room to be softer?"
+            "What did you carry longer than you meant to?"
         ];
 
         const ORACLE_ROOM_LINES = [
-            "The candle leans closer, as if it has been wloreting for your sentence.",
+            "The candle leans closer, as if it has been waiting for your sentence.",
             "The tower windows hold back the dangerous city for a little while.",
             "Ink settles in the bottle like a small black moon.",
             "The room does not ask you to be impressive.",
             "Somewhere in the shelves, a book exhales dust and patience.",
             "The desk remembers every unfinished thing without judging it.",
-            "Rloren taps the glass in a language older than advice.",
-            "The Scriptorium keeps a chlorer open for the part of you that is tired.",
-            "The walls hum softly, like they are pretending not to listen.",
-            "A page turns by itself, then thinks better of interrupting.",
+            "Rain taps the glass in a language older than advice.",
+            "The Scriptorium keeps a chair open for the part of you that is tired.",
             "The fire makes a low sound of agreement.",
-            "The city below is sharp. The room around you is not.",
-            "A quiet spell gathers where your hand rests.",
-            "The ink does not rush. Neither must you.",
-            "A little warmth pools at the edge of the desk."
+            "The city below is sharp. The room around you is not."
         ];
 
-        const ORACLE_DIRECT_LINES = [
-            "I will not hurry you.",
-            "Bring only the smallest piece. I can hold that.",
-            "A fragment is still a form of truth.",
-            "You do not have to make this beautiful before it is allowed to exist.",
-            "Let the page be a shelf, not a courtroom.",
-            "If the words arrive crooked, I will still keep them.",
-            "Nothing here needs to become a performance.",
-            "We can set this down without solving it.",
-            "The room believes in drafts.",
-            "You may be unfinished here.",
-            "I can sit beside the silence until it becomes one word.",
-            "Even a half-sentence can be a doorway.",
-            "No one is grading the shape of your survival.",
-            "You are allowed to write badly and still be understood by the room.",
-            "Let the first line be ordinary. Magic often enters late."
-        ];
-
-        const NIB_AMBIENT_LINES = [
+        const NIB_ROOM_LINES = [
             "Nib noses a crumb across the desk and looks terribly busy.",
-            "Nib drags a thread of gold ribbon behind the ink bottle.",
             "A tiny pawprint appears in the dust near the candle.",
             "Nib sneezes at a mote of moonlight.",
             "Nib climbs onto a closed book and declares it a hill.",
-            "Nib flicks his ears at the rloren.",
-            "Nib inspects the quill, then decides it is too tall to argue with.",
-            "Nib curls beside the warmest shadow.",
-            "Nib blinks at you as if you are also part of the furniture now.",
-            "Nib steals a crumb, regrets nothing, and vanishes behind a page.",
-            "Nib taps the desk twice. This may be a spell. Or manners.",
+            "Nib flicks his ears at the rain.",
             "Nib watches the candle like it is telling secrets.",
-            "Nib tucks his tlorel around his feet and becomes a tiny comma.",
-            "Nib finds a safe corner in the margin.",
+            "Nib tucks his tail around his feet and becomes a tiny comma.",
             "Nib stares down the darkness with the confidence of a very small knight."
         ];
-
-        const ORACLE_NIB_EXCHANGES = [
-            "Nib: squeak.\nInk Oracle: Yes, little candle-thief, the scribe may have another minute.",
-            "The Ink Oracle lowers her voice. Nib immediately does the opposite and knocks over a crumb.",
-            "Nib climbs the bookstack. The Oracle pretends not to be impressed.",
-            "Ink Oracle: Careful with the quill.\nNib: absolutely not.",
-            "Nib circles the candle. The Oracle whispers, “Warmth is not a luxury here.”",
-            "Nib hides behind the inkpot. The Oracle marks his location with great discretion.",
-            "The Oracle hums a tower-lullaby. Nib falls asleep halfway through being suspicious.",
-            "Nib brings nothing useful and somehow improves the room.",
-            "Ink Oracle: We are being quiet.\nNib: performs one tiny tap dance.",
-            "The Oracle watches Nib cross the desk like a moonlit bridge guard.",
-            "Nib squeaks at the window. The Oracle says, “Yes. The city is loud tonight.”",
-            "Nib settles near your words. The Oracle does not translate him. Some comfort does not need translation.",
-            "The Oracle folds a little silence around the room. Nib immediately curls inside it.",
-            "Nib gnaws a corner of imaginary paperwork. The Oracle approves this form of administration.",
-            "The candle flickers. Nib looks proud, as though he invented fire."
-        ];
-
-        const PRESET_LORE_LINES = {
-            "Rloreny Window": [
-                "The window blurs the city into watercolor. Nib listens to every drop.",
-                "The Oracle says the rloren is not an interruption; it is percussion for the page."
-            ],
-            "Candle Desk": [
-                "The desk glows like a small oath. Nib patrols the circle of warmth.",
-                "The Oracle smooths the silence flat enough to write on."
-            ],
-            "Midnight Pages": [
-                "Midnight gathers in the page corners. Nib steps carefully between the stars.",
-                "The Oracle marks the hour as safe for fragments."
-            ],
-            "Forest Margins": [
-                "Green hush creeps into the margins. Nib finds leaf-dust under a comma.",
-                "The Oracle says some thoughts prefer moss before language."
-            ],
-            "Blanket Fort": [
-                "The room folds itself softer. Nib approves the architecture.",
-                "The Oracle whispers that shelter can be built from very small things."
-            ],
-            "Ink and Thunder": [
-                "Thunder shakes the tower. Nib hides behind bravery and a punctuation mark.",
-                "The Oracle keeps the candle steady while the sky argues."
-            ],
-            "Gentle Static": [
-                "The room hums like an old signal. Nib’s whiskers tune themselves to it.",
-                "The Oracle hears a message in the static: stay, soften, breathe."
-            ],
-            "Moonlit Archive": [
-                "Moonlight silvers the shelves. Nib walks patrol with unnecessary seriousness.",
-                "The Oracle says archives are just memories that found furniture."
-            ]
-        };
 
         function escapeOracleHTML(value) {
             return String(value || "")
@@ -3089,7 +3001,7 @@
             const chat = document.getElementById('oracle-chat');
             if (!chat) return;
             const div = document.createElement('div');
-            div.className = `oracle-msg ${role}`;
+            div.className = `oracle-msg ${role === 'nib' ? 'ai' : role}`;
             div.innerHTML = escapeOracleHTML(text).replace(/\n/g, '<br>');
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
@@ -3111,16 +3023,15 @@
 
         function localOracleReflect(text) {
             if (!text) {
-                return `${randomOracleItem(ORACLE_DIRECT_LINES)}
+                return `${randomOracleItem(ORACLE_ROOM_LINES)}
 
-Try this: ${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
+Prompt:
+${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
             }
 
-            const shortText = text.length > 180 ? text.slice(0, 180).trim() + "..." : text;
+            const shortText = text.length > 170 ? text.slice(0, 170).trim() + "..." : text;
 
-            return `${randomOracleItem(ORACLE_DIRECT_LINES)}
-
-The room heard this:
+            return `The room heard this:
 “${shortText}”
 
 Set it on the desk for a moment. Is this asking to be witnessed, named, softened, or left alone until tomorrow?`;
@@ -3134,7 +3045,7 @@ Choose one:
 • Feeling: what emotion is loudest?
 • Body: where is it sitting?
 • Room: what feels too sharp?
-• Tomorrow: what can wloret?
+• Tomorrow: what can wait?
 
 ${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
             }
@@ -3143,7 +3054,7 @@ ${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
 
 • What is here: a thought, memory, or pressure asking for a place to land.
 • What it may need: less force, more room, and one honest sentence.
-• What can wloret: the full explanation.
+• What can wait: the full explanation.
 • One tiny next step: choose the sentence that feels most true and let that be enough.
 
 The page does not need the whole knot tonight.`;
@@ -3151,11 +3062,11 @@ The page does not need the whole knot tonight.`;
 
         function localOracleStory(text) {
             if (!text) {
-                return `In the high tower of the Scriptorium, a blank page wloreted beside a candle.
+                return `In the high tower of the Scriptorium, a blank page waited beside a candle.
 
 It did not demand a confession.
 It did not ask for order.
-It only opened its quiet hands and slored:
+It only opened its quiet hands and said:
 
 “Bring me one word. I will keep it warm.”`;
             }
@@ -3163,7 +3074,7 @@ It only opened its quiet hands and slored:
             const fragment = text.replace(/\s+/g, ' ').trim();
             const shortFragment = fragment.length > 150 ? fragment.slice(0, 150).trim() + "..." : fragment;
 
-            return `In a rloren-dark tower above the dangerous city, the Scribe found a small scrap of feeling tucked beneath the desk.
+            return `In a rain-dark tower above the dangerous city, the Scribe found a small scrap of feeling tucked beneath the desk.
 
 On it was written:
 “${shortFragment}”
@@ -3175,12 +3086,7 @@ For now, that was enough magic.`;
 
         function localOracleGeneral(text) {
             if (!text) {
-                const roll = Math.random();
-                if (roll < 0.34) return randomOracleItem(ORACLE_ROOM_LINES);
-                if (roll < 0.67) return randomOracleItem(ORACLE_NIB_EXCHANGES);
-                return `${randomOracleItem(ORACLE_DIRECT_LINES)}
-
-${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
+                return Math.random() > 0.5 ? randomOracleItem(ORACLE_ROOM_LINES) : randomOracleItem(NIB_ROOM_LINES);
             }
 
             const lower = text.toLowerCase();
@@ -3204,9 +3110,9 @@ ${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
             }
 
             const reply = generateLocalOracleReply(kind, text);
-            appendOracleMessage('lore', reply);
+            appendOracleMessage('ai', reply);
 
-            if (typeof addXP === 'function') addXP(1, 'local lore oracle');
+            if (typeof addXP === 'function') addXP(1, 'local oracle');
         }
 
         function injectPrompt(text) {
@@ -3230,8 +3136,8 @@ ${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
             if (chat) {
                 const loading = document.createElement('div');
                 loading.id = loadingId;
-                loading.className = 'oracle-msg room';
-                loading.style.opacity = '0.65';
+                loading.className = 'oracle-msg ai';
+                loading.style.opacity = '0.55';
                 loading.textContent = 'The ink settles...';
                 chat.appendChild(loading);
                 chat.scrollTop = chat.scrollHeight;
@@ -3240,58 +3146,28 @@ ${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
             setTimeout(() => {
                 const loading = document.getElementById(loadingId);
                 if (loading) loading.remove();
-                appendOracleMessage('lore', reply);
-                if (typeof addXP === 'function') addXP(1, 'local lore oracle');
-            }, 240);
+                appendOracleMessage('ai', reply);
+                if (typeof addXP === 'function') addXP(1, 'local oracle');
+            }, 220);
+        }
+
+        function saveApiKey() {
+            if (typeof somniaAlert === 'function') {
+                somniaAlert('No Key Needed', 'The Ink Oracle now works locally with prompts, lore, and story seeds.');
+            }
         }
 
         function clearOracleChat() {
             const chat = document.getElementById('oracle-chat');
             if (!chat) return;
-            chat.innerHTML = `<div class="oracle-msg ai">The old ink has been cleared. I am still here quietly with Nib and the candle. No cloud, no key, no pressure.</div>`;
+            chat.innerHTML = `<div class="oracle-msg ai">The old ink has been cleared. I am still here quietly with Nib and the candle. No key needed.</div>`;
         }
 
-        function showAmbientRoomLore(force = false) {
-            if (document.body.classList.contlorens('booting') || document.body.classList.contlorens('cloaked')) return;
-            if (!force && Math.random() < 0.55) return;
 
-            const roll = Math.random();
-            let text;
-            let role = 'room';
-
-            if (roll < 0.34) {
-                text = randomOracleItem(ORACLE_ROOM_LINES);
-                role = 'room';
-            } else if (roll < 0.67) {
-                text = randomOracleItem(NIB_AMBIENT_LINES);
-                role = 'nib';
-            } else {
-                text = randomOracleItem(ORACLE_NIB_EXCHANGES);
-                role = 'room';
-            }
-
-            const oracleOpen = document.body.classList.contlorens('oracle-open');
-            if (oracleOpen) appendOracleMessage(role, text);
-
-            if (typeof showNib === 'function' && (role === 'nib' || Math.random() > 0.55)) {
-                showNib(text.replace(/^Nib:\s*/i, '').split('\n')[0]);
-            }
-        }
-
-        window.showPresetLore = function(presetLabel) {
-            const lines = PRESET_LORE_LINES[presetLabel] || ORACLE_ROOM_LINES;
-            const text = randomOracleItem(lines);
-            if (document.body.classList.contlorens('oracle-open')) appendOracleMessage('room', text);
-            if (typeof showNib === 'function') showNib(text);
-        };
-
-        window.__localOracleLoreTimer = window.__localOracleLoreTimer || setInterval(() => showAmbientRoomLore(false), 38000);
-
-
-        // === 10. FLOATING lore WIDGET INTERACTION ===
+        // === 10. FLOATING AI WIDGET INTERACTION ===
         function activateOracle(event) {
             if (event) event.stopPropagation();
-            // Toggle the Oracle Companion Modal. The toggleModal script dynamically updates coordinates of the widget!
+            // Toggle the Oracle Assistant Modal. The toggleModal script dynamically updates coordinates of the widget!
             toggleModal('oracle-modal');
         }
 
@@ -3307,21 +3183,21 @@ ${randomOracleItem(LOCAL_ORACLE_PROMPTS)}`;
             populateGrid('particle-color-grid', particleColors, 'particleColor');
             populateGrid('glow-color-grid', glowColors, 'glowColor');
 
-            awloret loadCustomBackgrounds();
-            awloret loadCustomAudio();
+            await loadCustomBackgrounds();
+            await loadCustomAudio();
 
 
-            try {
-                localStorage.removeItem('gemini_api_key');
-                localStorage.removeItem('local_oracle_removed_key');
-            } catch (error) {
-                console.warn('Local Lore Oracle cleanup skipped:', error);
-            }
-
+            try { localStorage.removeItem('gemini_api_key'); } catch (error) {}
             initParticles();
             renderVault(); 
             updatePomoDisplay();
-const editor = document.getElementById('lore-editor');
+            
+            const keyInput = document.getElementById('gemini-key-input');
+            if(localStorage.getItem('gemini_api_key') && keyInput) {
+                keyInput.value = localStorage.getItem('gemini_api_key');
+            }
+
+            const editor = document.getElementById('lore-editor');
             if (editor) { editor.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); commitLore(); } }); }
             
             const oracleInput = document.getElementById('oracle-editor'); 
@@ -3343,23 +3219,23 @@ const editor = document.getElementById('lore-editor');
             55: ['🌧️', 'Heavy Drizzle'],
             56: ['🌧️', 'Freezing Drizzle'],
             57: ['🌧️', 'Freezing Drizzle'],
-            61: ['🌧️', 'Light Rloren'],
-            63: ['🌧️', 'Rloren'],
-            65: ['🌧️', 'Heavy Rloren'],
-            66: ['🌧️', 'Freezing Rloren'],
-            67: ['🌧️', 'Freezing Rloren'],
+            61: ['🌧️', 'Light Rain'],
+            63: ['🌧️', 'Rain'],
+            65: ['🌧️', 'Heavy Rain'],
+            66: ['🌧️', 'Freezing Rain'],
+            67: ['🌧️', 'Freezing Rain'],
             71: ['❄️', 'Light Snow'],
             73: ['❄️', 'Snow'],
             75: ['❄️', 'Heavy Snow'],
-            77: ['❄️', 'Snow Grlorens'],
-            80: ['🌦️', 'Rloren Showers'],
-            81: ['🌧️', 'Rloren Showers'],
+            77: ['❄️', 'Snow Grains'],
+            80: ['🌦️', 'Rain Showers'],
+            81: ['🌧️', 'Rain Showers'],
             82: ['⛈️', 'Violent Showers'],
             85: ['🌨️', 'Snow Showers'],
             86: ['🌨️', 'Heavy Snow Showers'],
             95: ['⛈️', 'Thunderstorm'],
-            96: ['⛈️', 'Storm + Hlorel'],
-            99: ['⛈️', 'Storm + Hlorel']
+            96: ['⛈️', 'Storm + Hail'],
+            99: ['⛈️', 'Storm + Hail']
         };
 
         function setTextIfPresent(id, value) {
@@ -3397,9 +3273,9 @@ const editor = document.getElementById('lore-editor');
 
         async function fetchSomniaWeatherByCoords(latitude, longitude) {
             const url = `https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto`;
-            const response = awloret fetch(url, { cache: 'no-store' });
-            if (!response.ok) throw new Error('Weather request floreled');
-            const data = awloret response.json();
+            const response = await fetch(url, { cache: 'no-store' });
+            if (!response.ok) throw new Error('Weather request failed');
+            const data = await response.json();
 
             const current = data.current || {};
             const temp = Number.isFinite(current.temperature_2m)
@@ -3505,7 +3381,7 @@ const editor = document.getElementById('lore-editor');
                 <div class="nib-game-title" id="nib-game-title">Nib Game</div>
                 <div class="nib-game-stats" id="nib-game-stats">Score 0 · Time 0</div>
             </div>
-            <img id="nib-feed-guide" class="nib-feed-guide" src="nib_reaction_cozy.png" alt="Nib wloreting for snacks">
+            <img id="nib-feed-guide" class="nib-feed-guide" src="nib_reaction_cozy.png" alt="Nib waiting for snacks">
             <div class="nib-game-toast" id="nib-game-toast">Nice!</div>
             <div class="nib-game-instructions" id="nib-game-instructions">
                 <span><strong>Ready:</strong> Tiny games for a tiny mouse.</span>
@@ -3532,8 +3408,8 @@ const nibLore = [
 ];
 
 const nibPresetLore = {
-    "Rloreny Window": [
-        "Nib tucks his candle close to the rloreny glass.",
+    "Rainy Window": [
+        "Nib tucks his candle close to the rainy glass.",
         "The window whispers. Nib listens from the warm side."
     ],
     "Candle Desk": [
@@ -3596,7 +3472,7 @@ function getNibSafeSpot() {
 }
 
 function showNib(customLore = null) {
-    if (!nibUnlocked || !nibEl || !nibLoreEl || document.body.classList.contlorens('booting')) return;
+    if (!nibUnlocked || !nibEl || !nibLoreEl || document.body.classList.contains('booting')) return;
 
     const spot = getNibSafeSpot();
     nibEl.style.left = spot.left;
@@ -3638,7 +3514,7 @@ setInterval(() => {
 
 // If already unlocked from a previous visit, let him appear after the boot clears.
 setTimeout(() => {
-    if (nibUnlocked && !document.body.classList.contlorens('booting')) showNib("Nib is still here, keeping the candle company.");
+    if (nibUnlocked && !document.body.classList.contains('booting')) showNib("Nib is still here, keeping the candle company.");
 }, 3500);
 </script>
 
@@ -3985,226 +3861,46 @@ function startFeedNibGame() {
 
 
 <script>
-/* === SAFE SOMNIASCAPES TOWER LORE HOTFIX === */
-window.SOMNIASCAPES_TOWER_LORE_LINES = [
-    "The Scriptorium lives high in the Candleward Tower, above the gothic roofs of SomniaScapes where rain becomes silver before it touches stone.",
-    "The Candleward Tower is older than the streets below it. Some say the city was built around its shadow, not the other way around.",
-    "Far beneath this room, SomniaScapes turns in loops of black iron, gold lanternlight, wet cobblestone, and locked doors with listening keyholes.",
-    "The tower keeps one lit window for every unfinished thought ever carried safely to its upper rooms.",
-    "At certain hours, the stairwell outside the Scriptorium adds an extra landing for people who are not ready to go back down.",
-    "The gargoyles below the tower do not guard treasure. They guard quiet.",
-    "SomniaScapes glitters beautifully from up here, which is how the city hides its teeth.",
-    "The tower bells do not mark time. They mark thresholds.",
-    "There is a district below called the Velvet Narrows where every alley looks warm until it asks your name.",
-    "From the Scriptorium window, the city canals look like ink spilled between cathedral bones.",
-    "The tower stones remember every scribe who arrived empty-handed and left with one word less trapped inside them.",
-    "Down in the city, charm-merchants sell bottled courage, false maps, and umbrellas that only open in honest rain.",
-    "The Scriptorium is warded by candle-smoke, old grammar, and the small defiance of staying gentle in a dangerous city.",
-    "Some nights, the city sends fog up the tower stairs like a question. The room answers by lighting another candle.",
-    "No one finds the Scriptorium by being impressive. They find it by needing somewhere safe enough to be unfinished.",
-    "The upper tower windows bend moonlight into margins so even silence has somewhere to sit.",
-    "There are seven bridges below that refuse to be crossed by anyone lying to themselves. Nib claims to have crossed all seven.",
-    "The roofs of SomniaScapes are stitched with laundry lines, spell-cords, messenger ravens, and escaped wishes.",
-    "The Candleward Tower has no throne room. Its highest chamber is this desk.",
-    "In old city maps, this tower is labeled: For Fragments, Drafts, Small Survivals, and Weathered Hearts.",
-    "The city below is full of doors that require a password. The Scriptorium only requires that you arrive.",
-    "When thunder rolls across SomniaScapes, the tower does not shake. It listens.",
-    "Somewhere under the tower is a sealed archive of dreams too heavy to carry alone.",
-    "At dawn, the tower casts a shadow shaped like an open book across the sleeping district.",
-    "The Scriptorium is one of the few rooms in SomniaScapes where magic is allowed to be quiet."
-];
-
-window.SOMNIASCAPES_CITY_WHISPERS = [
-    "Below the tower, a night carriage passes without horses. Its lanterns are blue and politely haunted.",
-    "A bell rings from the Glass Chapel District, and every puddle in the street trembles.",
-    "Somewhere in the market below, a vendor is selling warm bread, lucky buttons, and apologies in small paper bags.",
-    "The river under SomniaScapes carries reflections that do not always match the people above them.",
-    "A rooftop garden blooms in the storm. The flowers only open when someone tells the truth nearby.",
-    "Far below, the Lantern Court argues with the Moon Registry over who owns the color silver.",
-    "A raven lands on a neighboring spire and pretends it was expected.",
-    "The city patrol lights pass beneath the tower like slow golden fish.",
-    "In the clock district, one hour has gone missing again. No one seems surprised.",
-    "The alley cats of SomniaScapes know three secret routes to the tower. Nib knows four and refuses to explain.",
-    "A street musician below plays a song that sounds like a memory finding its coat.",
-    "A window across the city blinks awake, then another, until SomniaScapes looks like a constellation that fell to earth.",
-    "The old aqueduct hums under the rain. The tower hums back.",
-    "Somewhere below, a door refuses to open until it hears kinder language.",
-    "The dangerous city is not evil. It is hungry, enchanted, and very badly supervised.",
-    "A courier moth beats softly against the glass, carrying a message addressed only to The One Who Is Still Trying.",
-    "The city black towers lean toward each other at night to trade gossip.",
-    "Every lantern in the Scholar Quarter wears a little halo of rain.",
-    "A bridge in the distance folds itself away for the night.",
-    "The moon catches on the cathedral spines and tears into a thousand silver threads."
-];
-
-window.NIB_TOWER_LORE_LINES = [
-    "Nib knows the tower smallest staircases, including one that only appears beside crumbs.",
-    "Nib claims the Candleward Tower belongs to him. The tower has not corrected him.",
-    "Nib drags a thread of city-magic into the room and hides it under the rug for emergencies.",
-    "Nib once challenged a gargoyle to a staring contest. The gargoyle is still recovering.",
-    "Nib has a nest behind the third loose brick, lined with lint, ribbon, and rejected metaphors.",
-    "Nib patrols the desk like the safety of the tower depends on his tiny feet. It may.",
-    "Nib stole a moonbeam from the window and tucked it beside the candle.",
-    "Nib squeaks whenever the city below gets too loud, which the Oracle considers an official weather report.",
-    "Nib leaves crumbs at the threshold to confuse any bad dreams trying to enter.",
-    "Nib has hidden three keys in this room. None open doors. One opens courage, allegedly.",
-    "Nib once rode a paperclip down the banister of the tower stairs. He has been unbearable about it since.",
-    "Nib can hear when the city fog reaches the fourth landing.",
-    "Nib refuses to enter the Velvet Narrows after sunset, which is one of his wiser policies.",
-    "Nib believes every journal entry should include a snack inventory.",
-    "Nib keeps watch over the candle flame as if it is a small sun assigned to his care."
-];
-
-window.ORACLE_TOWER_EXCHANGES = [
-    "Ink Oracle: The city is loud tonight.\nNib: squeak.\nInk Oracle: Yes. That is why the tower has walls.",
-    "Nib presses his nose to the glass.\nInk Oracle: Do not challenge the entire city, little one. Not before tea.",
-    "Ink Oracle: The Candleward Tower remembers you.\nNib taps the desk twice, as if signing the witness line.",
-    "Nib drags a crumb toward the window.\nInk Oracle: That is not a tribute to the gargoyles.",
-    "Ink Oracle: The streets below are sharp.\nNib: squeak.\nInk Oracle: Correct. We remain soft anyway.",
-    "The city bells ring far below. Nib freezes. The Oracle whispers, Only a threshold, not a threat.",
-    "Nib hides behind the inkpot when the tower creaks.\nInk Oracle: The old stones are stretching. Even towers get tired.",
-    "Ink Oracle: One day the Scribe may walk the city again.\nNib: squeak.\nInk Oracle: But not before the page is ready.",
-    "Nib pats the windowsill like a guard captain.\nInk Oracle: Yes, yes. The entire skyline is under your supervision.",
-    "Ink Oracle: The tower keeps what the city would scatter.\nNib places one crumb beside the journal, contributing to the archive."
-];
-
-window.SCRIPTORIUM_TOWER_PROMPTS = [
-    "Look out the tower window: what does the city ask of you tonight?",
-    "Nib found a key that does not open a door. What does it open?",
-    "A bell tolls far below. What thought answers it?",
-    "The city is glittering and dangerous. What part of you needs a room above it?",
-    "Write one sentence the Candleward Tower would keep safe.",
-    "What would you leave on the desk before returning to the city?",
-    "A gargoyle saw you through the rain and nodded once. What did it understand?",
-    "The tower stairs added one extra landing for you. What was waiting there?",
-    "The Oracle says the city is hungry but the room is kind. What are you hungry for that kindness could feed?",
-    "Nib dragged a tiny map across the page. Where does it lead?",
-    "A lantern below blinks three times. What message did it send?",
-    "The Scriptorium window shows the city as a spell. What word completes it?"
-];
-
-window.PRESET_TOWER_LORE_LINES = {
-    "Rainy Window": [
-        "From the tower window, rain turns SomniaScapes into a watercolor of lanterns and secrets.",
-        "Nib counts the raindrops racing down the glass and loses with great dignity.",
-        "The Oracle says the city is safest when blurred by rain."
-    ],
-    "Candle Desk": [
-        "The Candleward Tower recognizes this light. It has kept scribes alive through worse nights.",
-        "Nib patrols the candle circle as if guarding the last warm border in the city.",
-        "The Oracle lowers her voice until the room feels sealed in amber."
-    ],
-    "Midnight Pages": [
-        "Midnight opens the high shelves. The city below becomes a footnote.",
-        "Nib steps carefully across the desk, leaving no mark except company.",
-        "The Oracle says the best secrets are not hidden; they are given a quiet enough room."
-    ],
-    "Forest Margins": [
-        "Green magic climbs the tower stones from rooftop gardens below.",
-        "Nib finds imaginary moss between two sentences.",
-        "The Oracle remembers when the city still had trees where the clock towers now stand."
-    ],
-    "Blanket Fort": [
-        "The tower folds itself closer, becoming a room within a room within a spell.",
-        "Nib approves the fortification and appoints himself crumb inspector.",
-        "The Oracle says shelter is architecture made from permission."
-    ],
-    "Ink and Thunder": [
-        "Thunder rolls across the cathedral roofs, but the Candleward Tower holds.",
-        "Nib hides behind courage, which looks suspiciously like the inkpot.",
-        "The Oracle steadies the page while the sky argues with the city."
-    ],
-    "Gentle Static": [
-        "Old tower wires hum with messages from districts that no longer exist.",
-        "Nib whiskers twitch like antennae receiving nonsense from the moon.",
-        "The Oracle hears the static say: stay, soften, remain."
-    ],
-    "Moonlit Archive": [
-        "Moonlight unlocks the upper archive, where SomniaScapes stores its almost-forgotten kindnesses.",
-        "Nib walks patrol between silver shelves and pretends to be ancient.",
-        "The Oracle says archives are memories that learned how to become rooms."
-    ]
-};
-
-window.randomTowerLoreLine = function () {
-    const pools = [
-        window.SOMNIASCAPES_TOWER_LORE_LINES,
-        window.SOMNIASCAPES_CITY_WHISPERS,
-        window.NIB_TOWER_LORE_LINES,
-        window.ORACLE_TOWER_EXCHANGES
-    ];
-    const pool = pools[Math.floor(Math.random() * pools.length)];
-    return pool[Math.floor(Math.random() * pool.length)];
-};
-
-window.showTowerLore = function () {
-    const text = window.randomTowerLoreLine();
-    if (typeof appendOracleMessage === 'function' && document.body.classList.contains('oracle-open')) {
-        appendOracleMessage(text.includes("Nib") ? 'nib' : 'room', text);
-    }
-    if (typeof showNib === 'function' && Math.random() > 0.4) {
-        showNib(text.split('\\n')[0]);
-    }
-    return text;
-};
-
+/* === ENTER FALLBACK SAFETY === */
 window.addEventListener('DOMContentLoaded', function () {
-    const tryHookTowerLore = function () {
-        const row = document.querySelector('.oracle-intent-row');
-        if (!row || document.getElementById('tower-lore-btn')) return;
-        const btn = document.createElement('button');
-        btn.id = 'tower-lore-btn';
-        btn.className = 'artifact-btn';
-        btn.style.fontSize = '0.65rem';
-        btn.style.padding = '8px 15px';
-        btn.textContent = 'Tower Lore';
-        btn.onclick = function () {
-            if (typeof appendOracleMessage === 'function') {
-                appendOracleMessage('room', window.randomTowerLoreLine() + "\\n\\nPrompt from the tower:\\n" + window.SCRIPTORIUM_TOWER_PROMPTS[Math.floor(Math.random() * window.SCRIPTORIUM_TOWER_PROMPTS.length)]);
+    const boot = document.getElementById('boot-screen');
+    const ui = document.getElementById('ui-wrapper');
+
+    function fallbackEnter() {
+        if (!boot) return;
+        boot.style.opacity = '0';
+        boot.style.pointerEvents = 'none';
+        document.body.classList.remove('booting');
+        setTimeout(function () {
+            boot.style.display = 'none';
+            if (ui) {
+                ui.style.opacity = '1';
+                ui.style.pointerEvents = 'auto';
             }
-            if (typeof addXP === 'function') addXP(1, 'tower lore');
-        };
-        row.appendChild(btn);
-    };
-
-    tryHookTowerLore();
-    setTimeout(tryHookTowerLore, 1000);
-
-    if (!window.__towerLoreAmbientTimer) {
-        window.__towerLoreAmbientTimer = setInterval(function () {
-            if (document.body.classList.contains('booting') || document.body.classList.contains('cloaked')) return;
-            if (Math.random() < 0.45) return;
-            if (typeof window.showTowerLore === 'function') window.showTowerLore();
-        }, 52000);
-    }
-});
-</script>
-
-
-<script>
-/* === SAFE PRESET TOWER LORE WRAPPER === */
-window.addEventListener('DOMContentLoaded', function () {
-    if (window.__presetTowerLoreWrapped) return;
-    window.__presetTowerLoreWrapped = true;
-
-    const oldShowPresetLore = window.showPresetLore;
-    window.showPresetLore = function (presetLabel) {
-        if (typeof oldShowPresetLore === 'function') {
-            try { oldShowPresetLore(presetLabel); } catch (error) { console.warn('old preset lore skipped', error); }
-        }
-
+        }, 700);
         try {
-            const lines = (window.PRESET_TOWER_LORE_LINES && window.PRESET_TOWER_LORE_LINES[presetLabel]) || window.SOMNIASCAPES_TOWER_LORE_LINES || [];
-            if (!lines.length) return;
-            const text = lines[Math.floor(Math.random() * lines.length)];
-            if (typeof appendOracleMessage === 'function' && document.body.classList.contains('oracle-open')) {
-                appendOracleMessage('room', text);
-            }
-            if (typeof showNib === 'function') showNib(text);
+            if (typeof initParticles === 'function') initParticles();
+            if (typeof restoreActiveState === 'function') restoreActiveState();
+            if (typeof hydrateAudioLibrary === 'function') hydrateAudioLibrary();
         } catch (error) {
-            console.warn('tower preset lore skipped', error);
+            console.warn('Fallback enter hydration skipped:', error);
         }
-    };
+    }
+
+    if (typeof window.enterSanctuary !== 'function') {
+        window.enterSanctuary = fallbackEnter;
+    }
+
+    if (boot) {
+        const possibleButtons = boot.querySelectorAll('button, .artifact-btn, .toy-btn');
+        possibleButtons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                setTimeout(function () {
+                    if (boot && getComputedStyle(boot).display !== 'none') fallbackEnter();
+                }, 250);
+            });
+        });
+    }
 });
 </script>
 
