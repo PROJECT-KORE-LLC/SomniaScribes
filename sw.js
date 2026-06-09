@@ -1,9 +1,9 @@
 /* SOMNIASCRIBES SERVICE WORKER
-   Nib mini-games patched build.
+   Tower City Lore / Local Oracle build.
    Put beside index.html.
 */
 
-const CACHE_VERSION = 'somniascribes-v11-nib-mini-games-patched';
+const CACHE_VERSION = 'somniascribes-v15-tower-city-lore';
 
 const APP_SHELL = [
   './',
@@ -56,18 +56,10 @@ const AUDIO_ASSETS = [
   './xmasmusicbox3.mp3'
 ];
 
-const OPTIONAL_ICONS = [
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './icon-192.png',
-  './icon-512.png'
-];
-
 const PRECACHE_ASSETS = [
   ...APP_SHELL,
   ...CORE_IMAGES,
-  ...AUDIO_ASSETS,
-  ...OPTIONAL_ICONS
+  ...AUDIO_ASSETS
 ];
 
 async function cacheAsset(cache, assetUrl) {
