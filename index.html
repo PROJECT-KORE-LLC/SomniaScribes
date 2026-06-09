@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="v23-safe-nav-labels-only">
+    <meta name="somniascribes-build" content="safe-nav-no-drop-vibe-v1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>SOMNIASCRIBES // THE SCRIPTORIUM // LORE ORACLE BUILD</title>
@@ -1376,15 +1376,6 @@
         <img id="lightbox-img" src="" alt="Journal entry full size">
     </div>
     
-    <div id="drop-modal" class="modal-overlay" onclick="toggleModal('drop-modal')">
-        <div class="cast-box" onclick="event.stopPropagation()">
-            <h3 style="color: var(--primary); letter-spacing: 4px; margin-top: 0; text-transform: uppercase; font-family: 'Times New Roman', serif;">Drop Your Vibe</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; font-family: 'Georgia', serif; font-style: italic;">Copy the link below to drop this setup anywhere:</p>
-            <input type="text" id="drop-link-input" class="core-input" readonly onclick="this.select()">
-            <button class="toy-btn" style="width: 100%; border-color:var(--accent); color:var(--text-main);" onclick="toggleModal('drop-modal')">Close</button>
-        </div>
-    </div>
-
     <div id="bg-anchor"></div>
     <div id="glow-layer" class="glow-pulse"></div>
     <canvas id="particleCanvas"></canvas>
@@ -1409,7 +1400,6 @@
             <button class="artifact-btn" onclick="toggleModal('scratchpad-modal')">Journal</button>
             <button class="artifact-btn" onclick="toggleModal('cast-modal')">Project</button>
             <button class="artifact-btn" onclick="returnToCity(event)">Return to City</button>
-            <button class="artifact-btn" onclick="dropSomnia()">Drop Vibe</button>
         </div>
 
         <div class="widget-dock" onclick="event.stopPropagation()" aria-label="SomniaScribes time and weather widgets">
