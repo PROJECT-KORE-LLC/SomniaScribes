@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="lore-oracle-games-tuned-v2">
+    <meta name="somniascribes-build" content="lore-oracle-games-weather-clean-v1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>SOMNIASCRIBES // THE SCRIPTORIUM // LORE ORACLE BUILD</title>
@@ -1400,9 +1400,9 @@
                     <span class="chronicle-date" id="date-display">Loading...</span>
                 </div>
                 <div class="weather-container" title="Local weather">
-                    <span class="weather-icon" id="weather-icon">🌙</span>
-                    <span class="weather-temp" id="weather-temp">--°F</span>
-                    <span class="weather-label" id="weather-label">Sanctuary Sky</span>
+                    <span class="weather-icon" id="weather-icon-pill">🌙</span>
+                    <span class="weather-temp" id="weather-temp-pill">--°F</span>
+                    <span class="weather-label" id="weather-label-pill">Sanctuary Sky</span>
                 </div>
             </div>
             <button class="artifact-btn" onclick="toggleCloak()">Cloak UI</button>
@@ -1418,10 +1418,10 @@
                 <div class="time-display" id="clock-widget">00:00</div>
                 <div class="date-display" id="date-widget">Loading...</div>
             </div>
-            <div class="gorgeous-widget">
+            <div class="gorgeous-widget weather-card-clickable" id="weather-card" onclick="refreshSomniaWeather()" title="Tap for phone weather">
                 <div class="weather-display" id="weather-icon">🌙 --°F</div>
                 <div class="weather-desc" id="weather-text">Sanctuary Sky</div>
-                <div class="weather-subnote">LOCAL FIRST REGIONAL DATA</div>
+                <div class="weather-subnote" id="weather-subnote">TAP CARD FOR PHONE SKY</div>
             </div>
         </div>
 
@@ -3853,6 +3853,205 @@ function startFeedNibGame() {
     spawnFeedItem();
     showNibGameToast("Feed Nib eighteen treats!");
 }
+</script>
+
+
+<script>
+/* === PHONE LOCATION WEATHER // OPEN-METEO // SAFE PATCH === */
+(function () {
+    const WEATHER_CODE_MAP = {
+        0: ['☀️', 'Clear Sky'],
+        1: ['🌤️', 'Mostly Clear'],
+        2: ['⛅', 'Partly Cloudy'],
+        3: ['☁️', 'Cloudy'],
+        45: ['🌫️', 'Fog'],
+        48: ['🌫️', 'Rime Fog'],
+        51: ['🌦️', 'Light Drizzle'],
+        53: ['🌦️', 'Drizzle'],
+        55: ['🌧️', 'Heavy Drizzle'],
+        56: ['🌧️', 'Freezing Drizzle'],
+        57: ['🌧️', 'Freezing Drizzle'],
+        61: ['🌧️', 'Light Rain'],
+        63: ['🌧️', 'Rain'],
+        65: ['🌧️', 'Heavy Rain'],
+        66: ['🌧️', 'Freezing Rain'],
+        67: ['🌧️', 'Freezing Rain'],
+        71: ['🌨️', 'Light Snow'],
+        73: ['🌨️', 'Snow'],
+        75: ['❄️', 'Heavy Snow'],
+        77: ['❄️', 'Snow Grains'],
+        80: ['🌦️', 'Rain Showers'],
+        81: ['🌧️', 'Rain Showers'],
+        82: ['⛈️', 'Violent Showers'],
+        85: ['🌨️', 'Snow Showers'],
+        86: ['❄️', 'Heavy Snow Showers'],
+        95: ['⛈️', 'Thunderstorm'],
+        96: ['⛈️', 'Storm With Hail'],
+        99: ['⛈️', 'Storm With Hail']
+    };
+
+    function weatherEls() {
+        return {
+            display: document.getElementById('weather-icon'),
+            text: document.getElementById('weather-text'),
+            subnote: document.getElementById('weather-subnote'),
+            pillIcon: document.getElementById('weather-icon-pill'),
+            pillTemp: document.getElementById('weather-temp-pill'),
+            pillLabel: document.getElementById('weather-label-pill')
+        };
+    }
+
+    function setSomniaWeather(icon, main, detail, tempText) {
+        const els = weatherEls();
+        if (els.display) els.display.textContent = tempText ? `${icon} ${tempText}` : icon;
+        if (els.text) els.text.textContent = main || 'Sanctuary Sky';
+        if (els.subnote) els.subnote.textContent = detail || 'LOCAL SKY';
+        if (els.pillIcon) els.pillIcon.textContent = icon;
+        if (els.pillTemp) els.pillTemp.textContent = tempText || '--°';
+        if (els.pillLabel) els.pillLabel.textContent = main || 'Sanctuary Sky';
+    }
+
+    function setWeatherButton(label, disabled) {
+        const card = document.getElementById('weather-card');
+        const subnote = weatherEls().subnote;
+        if (subnote && label) {
+            const clean = String(label)
+                .replace('Tap for phone sky', 'Tap for phone sky')
+                .replace('Tap to refresh sky', 'Tap to refresh sky')
+                .replace('Tap to try again', 'Tap to try again')
+                .replace('Weather Unavailable', 'Weather unavailable')
+                .replace('Locating...', 'Locating sky...');
+            subnote.textContent = clean.toUpperCase();
+        }
+        if (card) {
+            card.style.pointerEvents = disabled ? 'none' : 'auto';
+            card.style.opacity = disabled ? '0.82' : '1';
+        }
+    }
+
+    function weatherUnit() {
+        const lang = (navigator.language || '').toLowerCase();
+        const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').toLowerCase();
+        // Keep Fahrenheit for US users; Celsius for the rest of the world.
+        if (lang.includes('en-us') || tz.includes('america/')) return { unit: 'fahrenheit', suffix: '°F' };
+        return { unit: 'celsius', suffix: '°C' };
+    }
+
+    async function fetchWeatherForCoords(lat, lon) {
+        const unitInfo = weatherUnit();
+        const url = new URL('https://api.open-meteo.com/v1/forecast');
+        url.searchParams.set('latitude', String(lat));
+        url.searchParams.set('longitude', String(lon));
+        url.searchParams.set('current', 'temperature_2m,weather_code');
+        url.searchParams.set('temperature_unit', unitInfo.unit);
+        url.searchParams.set('timezone', 'auto');
+
+        const response = await fetch(url.toString(), { cache: 'no-store' });
+        if (!response.ok) throw new Error('Weather fetch failed: ' + response.status);
+
+        const data = await response.json();
+        const current = data && data.current ? data.current : {};
+        const temp = Number(current.temperature_2m);
+        const code = Number(current.weather_code);
+        const mapped = WEATHER_CODE_MAP[code] || ['🌙', 'Local Sky'];
+        const tempText = Number.isFinite(temp) ? `${Math.round(temp)}${unitInfo.suffix}` : '--°';
+
+        setSomniaWeather(mapped[0], mapped[1], 'PHONE LOCATION SKY', tempText);
+        setWeatherButton('Tap to refresh sky', false);
+
+        try {
+            localStorage.setItem('somnia_weather_ok', '1');
+            localStorage.setItem('somnia_weather_last', JSON.stringify({
+                icon: mapped[0],
+                main: mapped[1],
+                detail: 'PHONE LOCATION SKY',
+                tempText,
+                at: Date.now()
+            }));
+        } catch (error) {}
+    }
+
+    function loadCachedWeather() {
+        try {
+            const raw = localStorage.getItem('somnia_weather_last');
+            if (!raw) return false;
+            const cached = JSON.parse(raw);
+            if (!cached || !cached.at || Date.now() - cached.at > 1000 * 60 * 60 * 4) return false;
+            setSomniaWeather(cached.icon, cached.main, 'CACHED PHONE SKY', cached.tempText);
+            setWeatherButton('Tap to refresh sky', false);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    window.refreshSomniaWeather = function () {
+        if (!navigator.geolocation) {
+            setSomniaWeather('🌙', 'Weather Veiled', 'LOCATION NOT SUPPORTED', '--°');
+            setWeatherButton('Weather Unavailable', true);
+            return;
+        }
+
+        setSomniaWeather('🜁', 'Locating Sky', 'ALLOW PHONE LOCATION', '--°');
+        setWeatherButton('Locating...', true);
+
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const coords = position.coords || {};
+                fetchWeatherForCoords(coords.latitude, coords.longitude)
+                    .catch(error => {
+                        console.warn('[SomniaScribes] Weather fetch failed:', error);
+                        setSomniaWeather('🌙', 'Weather Veiled', 'NETWORK OR SKY UNAVAILABLE', '--°');
+                        setWeatherButton('Tap to try again', false);
+                    });
+            },
+            error => {
+                console.warn('[SomniaScribes] Location denied/unavailable:', error);
+                setSomniaWeather('🌙', 'Weather Veiled', 'LOCATION NOT ALLOWED', '--°');
+                setWeatherButton('Tap for phone sky', false);
+            },
+            {
+                enableHighAccuracy: false,
+                timeout: 12000,
+                maximumAge: 1000 * 60 * 20
+            }
+        );
+    };
+
+    window.addEventListener('DOMContentLoaded', function () {
+        if (!loadCachedWeather()) {
+            setSomniaWeather('🌙', 'Sanctuary Sky', 'TAP CARD FOR PHONE SKY', '--°');
+            setWeatherButton('Tap for phone sky', false);
+        }
+
+        // If user already allowed before, try one quiet refresh shortly after load.
+        try {
+            if (localStorage.getItem('somnia_weather_ok') === '1') {
+                setTimeout(() => window.refreshSomniaWeather(), 1200);
+            }
+        } catch (error) {}
+    });
+})();
+</script>
+
+
+<script>
+/* === CLEAN WEATHER CARD CLICK HOOK === */
+window.addEventListener('DOMContentLoaded', function () {
+    const weatherDisplay = document.getElementById('weather-icon');
+    const card = document.getElementById('weather-card') || (weatherDisplay ? weatherDisplay.closest('.gorgeous-widget') : null);
+    if (card && !card.id) card.id = 'weather-card';
+    if (card) {
+        card.classList.add('weather-card-clickable');
+        card.title = 'Tap for phone weather';
+        card.onclick = function (event) {
+            event.stopPropagation();
+            if (typeof window.refreshSomniaWeather === 'function') {
+                window.refreshSomniaWeather();
+            }
+        };
+    }
+});
 </script>
 
 </body>
