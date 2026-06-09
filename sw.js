@@ -1,9 +1,9 @@
 /* SOMNIASCRIBES SERVICE WORKER
-   Safe Return City build from confirmed v23.
+   Lore Oracle + harder Nib games + clean phone weather build.
    Put beside index.html.
 */
 
-const CACHE_VERSION = 'somniascribes-v28-safe-return-city';
+const CACHE_VERSION = 'somniascribes-v31-safe-nav-labels-only';
 
 const APP_SHELL = [
   './',
