@@ -1075,63 +1075,7 @@
             </div>
 
             <div id="tab-canvas" class="tab-content">
-                <h4 class="section-title">Your Masterpieces</h4>
-                <label class="upload-zone" style="margin-bottom: 15px;">
-                    <span style="display:block; margin-bottom: 5px;">🖼️ Upload Local Background</span>
-                    <span style="font-size: 0.6rem; opacity: 0.6; font-style: italic;">(It's safe, we promise!)</span>
-                    <input type="file" accept="image/*" onchange="executeImageUpload(this)">
-                </label>
-                <div id="custom-bgs" style="display:flex; flex-direction:column; gap: 10px;">
-                    </div>
-            </div>
-
-            <div id="tab-atmos" class="tab-content">
-                <h4 class="section-title">Color Palettes</h4>
-                <div class="btn-grid" id="color-grid"></div>
-
-                <h4 class="section-title" style="margin-top:20px;">Sprinkles (Particles)</h4>
-                <div class="btn-grid" id="particle-grid"></div>
-
-                <h4 class="section-title" style="margin-top:20px;">Glow Styles</h4>
-                <div class="btn-grid" id="glow-grid"></div>
-
-                <h4 class="section-title" style="margin-top:20px;">Sprinkle Colors</h4>
-                <div class="btn-grid" id="particle-color-grid"></div>
-
-                <h4 class="section-title" style="margin-top:20px;">Glow Colors</h4>
-                <div class="btn-grid" id="glow-color-grid"></div>
-
-                <h4 class="section-title" style="margin-top:25px;">Engine Tweaks</h4>
-                <div class="ctrl-row"><label>Speed</label><input type="range" class="ctrl-slider" id="speed-slider" min="1" max="20" value="10" oninput="updateVar('--anim-speed', (21-this.value)+'s'); saveCurrentState();"></div>
-                <div class="ctrl-row"><label>Opacity</label><input type="range" class="ctrl-slider" id="opac-slider" min="0" max="1" step="0.1" value="0.3" oninput="updateVar('--glow-opac', this.value); saveCurrentState();"></div>
-                <div class="ctrl-row"><label>Brightness</label><input type="range" class="ctrl-slider" id="bright-slider" min="0.2" max="2" step="0.1" value="0.85" oninput="updateVar('--bg-bright', this.value); saveCurrentState();"></div>
-                <div class="ctrl-row"><label>Zoom</label><input type="range" class="ctrl-slider" id="zoom-slider" min="1" max="2" step="0.1" value="1" oninput="updateVar('--bg-zoom', this.value); saveCurrentState();"></div>
-                <div class="ctrl-row"><label>Density</label><input type="range" class="ctrl-slider" id="density-slider" min="10" max="200" value="50" step="10" oninput="updateParticleDensity(this.value); saveCurrentState();"></div>
-                <div class="ctrl-row" style="margin-top: 5px;"><label>Low GPU</label><input type="checkbox" id="lowGpuToggle" style="accent-color: var(--primary); transform: scale(1.2);" onclick="toggleLowGpu()"></div>
-            </div>
-
-            <div id="tab-pomodoro" class="tab-content">
-                <h4 class="section-title">Focus Timer</h4>
-                <div id="pomo-display" class="pomo-display">25:00</div>
-                
-                <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;">
-                    <button class="toy-btn" onclick="startPomodoro()" style="border-color: #34d399; color: #34d399; padding: 12px 25px;">▶ Start</button>
-                    <button class="toy-btn" onclick="pausePomodoro()" style="border-color: var(--accent); color: var(--accent); padding: 12px 25px;">⏸ Pause</button>
-                    <button class="toy-btn" onclick="resetPomodoro()" style="border-color: #fbbf24; color: #fbbf24; padding: 12px 25px;">↺ Reset</button>
-                </div>
-                
-                <h4 class="section-title" style="margin-top:10px;">Quick Presets</h4>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
-                    <button class="toy-btn" onclick="setPomodoro(25)" style="flex:1;">25 Min (Work)</button>
-                    <button class="toy-btn" onclick="setPomodoro(5)" style="flex:1;">5 Min (Break)</button>
-                    <button class="toy-btn" onclick="setPomodoro(15)" style="flex:1;">15 Min (Long Break)</button>
-                </div>
-            </div>
-
-            <div id="tab-vault" class="tab-content">
-                <button class="toy-btn" id="save-btn" style="border-color: var(--primary); padding: 18px; font-size: 0.75rem; border-radius: 50px;" onclick="savePreset()">💖 Save This Vibe to Vault</button>
-
-                <h4 class="section-title" style="margin-top: 12px;">Scriptorium Presets</h4>
+                                <h4 class="section-title" style="margin-top: 12px;">Scriptorium Presets</h4>
                 <div class="scriptorium-preset-gallery" id="scriptorium-preset-gallery">
                     <button class="toy-btn scriptorium-preset-card" data-preset-key="rainyWindow" onclick="applyScriptoriumPreset('rainyWindow')">
                         <img src="rainywindow.png" alt="Rainy Window preset">
@@ -1145,7 +1089,7 @@
                         <img src="midnightpages.png" alt="Midnight Pages preset">
                         <span class="preset-card-label"><span class="preset-card-kicker">Quiet Night</span>Midnight Pages</span>
                     </button>
-                    <button class="toy-btn scriptorium-preset-card" data-preset-key="forestMargins" onclick="applyScriptoriumPreset('forestMargins')">
+                    <button class="toy-btn scriptorium-preset-card" data-preset-key="forestmargins" onclick="applyScriptoriumPreset('forestmargins')">
                         <img src="forestmargins.png" alt="Forest Margins preset">
                         <span class="preset-card-label"><span class="preset-card-kicker">Green Hush</span>Forest Margins</span>
                     </button>
