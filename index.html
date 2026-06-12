@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="return-to-somniascapes-dot-com-v1">
+    <meta name="somniascribes-build" content="scriptorium-alignment-v2-collapsible-editor">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SOMNIASCRIBES // THE SCRIPTORIUM // LORE ORACLE BUILD</title>
-    
-    <link rel="manifest" href="manifest.json">
+    <title>SOMNIASCRIBES // THE SCRIPTORIUM // COLLAPSIBLE EDITOR</title>
+<!-- SOMNIASCRIBES SCRIPTORIUM ALIGNMENT V1 / INDEX-ONLY SAFE -->
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
     <link rel="prefetch" href="binarymusicbox.mp3" as="audio">
     <link rel="prefetch" href="cat.mp3" as="audio">
@@ -1343,7 +1342,196 @@
                 font-size: 0.64rem;
             }
         }
-</style>
+
+        /* --- SCRIPTORIUM ALIGNMENT V1: LORE BUBBLE ONLY ORACLE --- */
+        #oracle-modal .oracle-intent-row,
+        #oracle-modal .castellan-field-row,
+        #oracle-modal .core-input,
+        #oracle-modal input,
+        #oracle-modal textarea,
+        #oracle-modal button[onclick*="ask"],
+        #oracle-modal button[onclick*="send"],
+        #oracle-modal button[onclick*="reflect"],
+        #oracle-modal button[onclick*="untangle"],
+        #oracle-modal button[onclick*="story"] {
+            display: none !important;
+        }
+
+        #oracle-modal .scribes-bubble {
+            height: auto !important;
+            max-height: 430px !important;
+        }
+
+        #oracle-modal .oracle-chat-body {
+            min-height: 160px !important;
+            max-height: 300px !important;
+        }
+
+        #oracle-modal .oracle-msg.user {
+            display: none !important;
+        }
+
+        #oracle-modal .oracle-msg.ai {
+            max-width: 100% !important;
+            align-self: center !important;
+            border-radius: 22px !important;
+            border-bottom-left-radius: 22px !important;
+            text-align: center !important;
+        }
+
+        /* --- SCRIPTORIUM ALIGNMENT V1: EDITOR BREATHING ROOM --- */
+        @media (min-width: 950px) {
+            #maker-panel {
+                top: 106px !important;
+            }
+        }
+
+        .xp-display {
+            top: 64px !important;
+        }
+
+        /* --- SCRIPTORIUM ALIGNMENT V1: SMALLER LIFTED TIME/WEATHER WIDGETS --- */
+        .widget-dock {
+            top: 96px !important;
+            right: 30px !important;
+            gap: 14px !important;
+        }
+
+        .gorgeous-widget {
+            min-width: 248px !important;
+            padding: 20px 23px !important;
+            border-radius: 28px !important;
+        }
+
+        .time-display {
+            font-size: 3.45rem !important;
+            letter-spacing: 4px !important;
+        }
+
+        .date-display {
+            font-size: 0.9rem !important;
+            letter-spacing: 3px !important;
+        }
+
+        .weather-display {
+            font-size: 2.55rem !important;
+        }
+
+        .weather-desc {
+            font-size: 0.9rem !important;
+            letter-spacing: 1.8px !important;
+        }
+
+        .weather-subnote {
+            font-size: 0.6rem !important;
+            letter-spacing: 1.6px !important;
+            margin-top: 8px !important;
+        }
+
+        @media (max-width: 949px) {
+            .widget-dock {
+                position: static !important;
+                margin: 0 auto 12px auto !important;
+                gap: 10px !important;
+            }
+
+            .gorgeous-widget {
+                min-width: 0 !important;
+                padding: 16px 15px !important;
+            }
+
+            .time-display {
+                font-size: 2.2rem !important;
+            }
+
+            .weather-display {
+                font-size: 1.85rem !important;
+            }
+        }
+
+        /* --- SCRIPTORIUM ALIGNMENT V1: OPTIONAL EDITOR DROPDOWNS --- */
+        .editor-dropdown {
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            background: rgba(0,0,0,0.22);
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .editor-dropdown summary {
+            cursor: pointer;
+            padding: 12px 15px;
+            color: var(--primary);
+            font-family: monospace;
+            font-size: 0.68rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            user-select: none;
+            list-style: none;
+        }
+
+        .editor-dropdown summary::-webkit-details-marker { display: none; }
+        .editor-dropdown summary::after { content: "▾"; float: right; color: var(--accent); }
+        .editor-dropdown[open] summary::after { content: "▴"; }
+        .editor-dropdown-body { padding: 0 15px 15px 15px; }
+
+        /* --- SCRIPTORIUM ALIGNMENT V2: REAL COLLAPSIBLE EDITOR --- */
+        .editor-collapse-toggle {
+            width: calc(100% - 24px);
+            margin: 10px 12px 0 12px;
+            border: 1px solid var(--glass-border);
+            border-radius: 999px;
+            background: rgba(0,0,0,0.28);
+            color: var(--primary);
+            padding: 10px 14px;
+            font-family: monospace;
+            font-size: 0.66rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .editor-collapse-toggle:hover {
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 14px var(--primary-glow);
+            background: rgba(255,255,255,0.05);
+        }
+
+        #maker-panel.editor-collapsed {
+            height: auto !important;
+            bottom: auto !important;
+            max-height: none !important;
+            overflow: visible !important;
+        }
+
+        #maker-panel.editor-collapsed .tab-content {
+            display: none !important;
+        }
+
+        #maker-panel.editor-collapsed .tab-bar {
+            border-bottom: none !important;
+        }
+
+        #maker-panel.editor-collapsed .editor-collapse-toggle {
+            margin-bottom: 12px;
+        }
+
+        @media (min-width: 950px) {
+            #maker-panel.editor-collapsed {
+                bottom: auto !important;
+            }
+        }
+
+        @media (max-width: 949px) {
+            #maker-panel.editor-collapsed {
+                max-height: none !important;
+            }
+        }
+
+    </style>
 </head>
 <body id="os-body" class="booting" onclick="restoreUI()">
 
@@ -1398,7 +1586,6 @@
             </div>
             <button class="artifact-btn" onclick="toggleCloak()">Cloak UI</button>
             <button class="artifact-btn" onclick="toggleModal('scratchpad-modal')">Journal</button>
-            <button class="artifact-btn" onclick="toggleModal('cast-modal')">Project</button>
             <button class="artifact-btn" onclick="returnToCity(event)">Return to City</button>
         </div>
 
@@ -1423,6 +1610,7 @@
                 <button class="tab-btn" onclick="switchTab('tab-vault', this)">Vault</button>
                 <button class="tab-btn" onclick="switchTab('tab-protips', this)">Pro Tips</button>
             </div>
+                <button id="editor-collapse-toggle" class="editor-collapse-toggle" type="button" aria-expanded="true" onclick="toggleEditorCollapse()">Fold Editor ▴</button>
 
             <div id="tab-audio" class="tab-content active">
                 <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
@@ -1672,7 +1860,7 @@
         // PWA REGISTRATION
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
+                Promise.resolve({ scope: 'index-only-no-pwa' })
                     .then(reg => console.log('Service Worker Registered!', reg))
                     .catch(err => console.error('Service Worker Registration Failed:', err));
             });
@@ -4053,6 +4241,63 @@ window.returnToCity = function(event) {
     window.location.href = window.SOMNIASCAPES_HOME_URL;
 };
 </script>
+    <script>
 
+        // --- SCRIPTORIUM ALIGNMENT V1: POSITIVE PROTIPS COPY ---
+        function polishScribesProtips() {
+            const replacements = [
+                ["this is not therapy", "this is a quiet writing chamber"],
+                ["not therapy", "quiet writing chamber"],
+                ["this is not a therapist", "this is a lore-lit companion space"],
+                ["not a therapist", "lore-lit companion"],
+                ["this is not medical advice", "this is a soft place to gather your words"],
+                ["not medical advice", "soft reflection space"],
+                ["this is not a crisis tool", "this is a calm room for ordinary moments and gentle returns"]
+            ];
+
+            document.querySelectorAll('body *').forEach((el) => {
+                if (!el || el.children.length) return;
+                let txt = el.textContent;
+                if (!txt) return;
+                let changed = txt;
+                replacements.forEach(([a,b]) => {
+                    const rx = new RegExp(a, 'ig');
+                    changed = changed.replace(rx, b);
+                });
+                if (changed !== txt) el.textContent = changed;
+            });
+        }
+        document.addEventListener('DOMContentLoaded', polishScribesProtips);
+
+    </script>
+    <script>
+
+        // --- SCRIPTORIUM ALIGNMENT V2: REAL COLLAPSIBLE EDITOR ---
+        function toggleEditorCollapse(forceState) {
+            const panel = document.getElementById('maker-panel');
+            const toggle = document.getElementById('editor-collapse-toggle');
+            if (!panel || !toggle) return;
+
+            const shouldCollapse = typeof forceState === 'boolean'
+                ? forceState
+                : !panel.classList.contains('editor-collapsed');
+
+            panel.classList.toggle('editor-collapsed', shouldCollapse);
+            toggle.setAttribute('aria-expanded', String(!shouldCollapse));
+            toggle.textContent = shouldCollapse ? 'Open Editor ▾' : 'Fold Editor ▴';
+
+            try {
+                localStorage.setItem('somniascribes_editor_collapsed', shouldCollapse ? '1' : '0');
+            } catch (e) {}
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const saved = localStorage.getItem('somniascribes_editor_collapsed');
+                if (saved === '1') toggleEditorCollapse(true);
+            } catch (e) {}
+        });
+
+    </script>
 </body>
 </html>
