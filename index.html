@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="scriptorium-alignment-v9-oracle-buttons-working">
+    <meta name="somniascribes-build" content="scriptorium-alignment-v10-oracle-close-toggle">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SOMNIASCRIBES // THE SCRIPTORIUM // ORACLE BUTTONS WORKING</title>
+    <title>SOMNIASCRIBES // THE SCRIPTORIUM // ORACLE CLOSE TOGGLE</title>
 <!-- SOMNIASCRIBES SCRIPTORIUM ALIGNMENT V1 / INDEX-ONLY SAFE -->
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
     <link rel="prefetch" href="binarymusicbox.mp3" as="audio">
@@ -1911,6 +1911,38 @@
             .oracle-lore-btn {
                 white-space: normal;
             }
+        }
+
+        /* --- SCRIPTORIUM ALIGNMENT V10: ORACLE CLOSE BUTTON + AVATAR TOGGLE --- */
+        .oracle-lore-panel {
+            padding-top: 34px !important;
+        }
+
+        .oracle-lore-close {
+            position: absolute;
+            top: 9px;
+            right: 12px;
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--glass-border);
+            border-radius: 999px;
+            background: rgba(0,0,0,0.38);
+            color: var(--primary);
+            font-size: 1.15rem;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.25s ease;
+        }
+
+        .oracle-lore-close:hover {
+            color: #fff;
+            border-color: var(--accent);
+            box-shadow: 0 0 14px var(--primary-glow);
+            background: rgba(255,255,255,0.08);
         }
 
     </style>
@@ -4704,6 +4736,7 @@ window.returnToCity = function(event) {
     </script>
 
     <div id="oracle-lore-panel" class="oracle-lore-panel" aria-live="polite">
+        <button id="oracle-lore-close" class="oracle-lore-close" type="button" aria-label="Close Ink Oracle">×</button>
         <div id="oracle-lore-log" class="oracle-lore-log">
             <div class="oracle-msg ai">The Ink Oracle waits beside the candle. Choose a whisper when the tower should speak.</div>
         </div>
@@ -4716,8 +4749,8 @@ window.returnToCity = function(event) {
     </div>
 
     <script>
-        // --- SCRIPTORIUM ALIGNMENT V9: WORKING ORACLE BUTTONS ---
-        const ORACLE_GUIDE_LORE_V9 = {
+        // --- SCRIPTORIUM ALIGNMENT V10: WORKING ORACLE BUTTONS + CLOSE ---
+        const ORACLE_GUIDE_LORE_V10 = {
             whisper: [
                 "The candle leans toward the page. The Ink Oracle murmurs: one sentence is enough to open the door.",
                 "Rain touches the tower glass. Somewhere between the shelves, a blank page waits without judgment.",
@@ -4740,6 +4773,10 @@ window.returnToCity = function(event) {
             ]
         };
 
+        function isOracleLorePanelOpen() {
+            return document.body.classList.contains('oracle-panel-open') || document.body.classList.contains('oracle-open');
+        }
+
         function openOracleLorePanel() {
             document.body.classList.add('oracle-open', 'oracle-panel-open');
             const modal = document.getElementById('oracle-modal');
@@ -4748,6 +4785,16 @@ window.returnToCity = function(event) {
 
         function closeOracleLorePanel() {
             document.body.classList.remove('oracle-open', 'oracle-panel-open');
+            const modal = document.getElementById('oracle-modal');
+            if (modal) modal.classList.remove('active');
+        }
+
+        function toggleOracleLorePanel() {
+            if (isOracleLorePanelOpen()) {
+                closeOracleLorePanel();
+            } else {
+                openOracleLorePanel();
+            }
         }
 
         function oracleGuideSpeak(kind) {
@@ -4756,7 +4803,7 @@ window.returnToCity = function(event) {
             const log = document.getElementById('oracle-lore-log');
             if (!log) return;
 
-            const choices = ORACLE_GUIDE_LORE_V9[kind] || ORACLE_GUIDE_LORE_V9.whisper;
+            const choices = ORACLE_GUIDE_LORE_V10[kind] || ORACLE_GUIDE_LORE_V10.whisper;
             const text = choices[Math.floor(Math.random() * choices.length)];
 
             const msg = document.createElement('div');
@@ -4776,7 +4823,16 @@ window.returnToCity = function(event) {
                 oracleAvatar.addEventListener('click', (event) => {
                     event.preventDefault();
                     event.stopPropagation();
-                    openOracleLorePanel();
+                    toggleOracleLorePanel();
+                }, true);
+            }
+
+            const closeBtn = document.getElementById('oracle-lore-close');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    closeOracleLorePanel();
                 }, true);
             }
 
