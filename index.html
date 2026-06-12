@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="scriptorium-build" content="scriptorium-v16-fullscreen-home-name">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
     <meta name="somniascribes-build" content="scriptorium-alignment-v15-soft-scrollbars">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SOMNIASCRIBES // THE SCRIPTORIUM // SOFT SCROLLBARS</title>
+    <title>THE SCRIPTORIUM // SOMNIASCAPES</title>
 <!-- SOMNIASCRIBES SCRIPTORIUM ALIGNMENT V1 / INDEX-ONLY SAFE -->
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
     <link rel="prefetch" href="binarymusicbox.mp3" as="audio">
@@ -2617,6 +2618,11 @@
             background: transparent;
         }
 
+        /* --- SCRIPTORIUM v16: FULL SCREEN DESKTOP MODE --- */
+        body:fullscreen #ui-wrapper {
+            min-height: 100dvh;
+        }
+
     </style>
 </head>
 <body id="os-body" class="booting" onclick="restoreUI()">
@@ -2655,7 +2661,7 @@
     <canvas id="particleCanvas"></canvas>
 
     <div id="ui-wrapper">
-        <div class="nav-logo">SOMNIASCRIBES</div>
+        <div class="nav-logo">THE SCRIPTORIUM</div>
         <div id="xp-display" class="xp-display" aria-label="Ink XP">INK XP // 0</div>
         
         <div id="top-nav" onclick="event.stopPropagation()">
@@ -2670,12 +2676,13 @@
                     <span class="weather-label" id="weather-label-pill">Sanctuary Sky</span>
                 </div>
             </div>
+            <button class="artifact-btn" onclick="toggleFullscreen()">Full Screen</button>
             <button class="artifact-btn" onclick="toggleCloak()">Cloak UI</button>
             <button class="artifact-btn" onclick="toggleModal('scratchpad-modal')">Journal</button>
             <button class="artifact-btn" onclick="returnToCity(event)">Return to City</button>
         </div>
 
-        <div class="widget-dock" onclick="event.stopPropagation()" aria-label="SomniaScribes time and weather widgets">
+        <div class="widget-dock" onclick="event.stopPropagation()" aria-label="The Scriptorium time and weather widgets">
             <div class="gorgeous-widget">
                 <div class="time-display" id="clock-widget">00:00</div>
                 <div class="date-display" id="date-widget">Loading...</div>
@@ -3098,9 +3105,13 @@
         }
         
         function toggleFullscreen() {
-            if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(e => console.log(e));
-            else document.exitFullscreen();
-            document.getElementById('cast-modal').classList.remove('active');
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(e => console.log(e));
+            } else {
+                document.exitFullscreen().catch(e => console.log(e));
+            }
+            const castModal = document.getElementById('cast-modal');
+            if (castModal) castModal.classList.remove('active');
         }
 
         function updateVar(name, val) { document.documentElement.style.setProperty(name, val); }
