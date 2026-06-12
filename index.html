@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="scriptorium-build" content="scriptorium-v17-ink-catch-polish">
+    <meta name="scriptorium-build" content="scriptorium-v18-catch-nib-feed-polish">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
     <meta name="somniascribes-build" content="scriptorium-alignment-v15-soft-scrollbars">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>THE SCRIPTORIUM // INK CATCH POLISH</title>
+    <title>THE SCRIPTORIUM // CATCH NIB + FEED POLISH</title>
 <!-- SOMNIASCRIBES SCRIPTORIUM ALIGNMENT V1 / INDEX-ONLY SAFE -->
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
     <link rel="prefetch" href="binarymusicbox.mp3" as="audio">
@@ -2664,7 +2664,7 @@
         }
 
         .ink-catch-target::after {
-            content: 'INK';
+            content: 'NIB';
             position: absolute;
             left: 50%;
             top: calc(100% + 7px);
@@ -2751,6 +2751,143 @@
         @keyframes inkTrailFade {
             from { transform: scale(0.4); opacity: 0.62; }
             to { transform: scale(1.7); opacity: 0; }
+        }
+
+        /* --- SCRIPTORIUM v18: FEED NIB POLISH --- */
+        .nib-feed-guide {
+            width: 170px !important;
+            height: 170px !important;
+            bottom: 72px !important;
+            padding: 10px;
+            border-radius: 999px;
+            background:
+                radial-gradient(circle at 50% 48%, rgba(255,245,210,0.16), transparent 42%),
+                radial-gradient(circle at 50% 55%, rgba(251,191,36,0.12), transparent 62%),
+                rgba(0,0,0,0.12);
+            border: 1px solid rgba(251,191,36,0.18);
+            filter: drop-shadow(0 0 24px rgba(251,191,36,0.42)) drop-shadow(0 0 34px rgba(139,92,246,0.24)) drop-shadow(0 0 34px rgba(0,0,0,0.5)) !important;
+        }
+
+        .nib-feed-guide::after {
+            content: '';
+        }
+
+        .nib-feed-item {
+            border-radius: 28px !important;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            overflow: visible;
+            transition: transform 0.12s ease, filter 0.12s ease;
+        }
+
+        .nib-feed-item:hover {
+            transform: scale(1.1) rotate(-3deg);
+            filter: brightness(1.14);
+        }
+
+        .nib-feed-item span {
+            font-size: 2.05rem;
+            line-height: 1;
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.25));
+        }
+
+        .nib-feed-item small {
+            margin-top: 3px;
+            font-size: 0.46rem !important;
+            letter-spacing: 1.8px !important;
+        }
+
+        .nib-feed-item.good {
+            border-color: rgba(251,191,36,0.56) !important;
+            background:
+                radial-gradient(circle at 34% 26%, rgba(255,255,255,0.26), transparent 34%),
+                linear-gradient(145deg, rgba(251,191,36,0.26), rgba(0,0,0,0.2)) !important;
+            box-shadow:
+                0 0 18px rgba(251,191,36,0.38),
+                0 0 32px rgba(139,92,246,0.12),
+                inset 0 0 20px rgba(255,255,255,0.055) !important;
+        }
+
+        .nib-feed-item.good.rare {
+            border-color: rgba(255,245,190,0.82) !important;
+            background:
+                radial-gradient(circle at 34% 24%, rgba(255,255,255,0.34), transparent 36%),
+                linear-gradient(145deg, rgba(255,214,110,0.36), rgba(87,53,8,0.34)) !important;
+            box-shadow:
+                0 0 26px rgba(255,220,120,0.58),
+                0 0 42px rgba(139,92,246,0.18),
+                inset 0 0 22px rgba(255,255,255,0.08) !important;
+            animation: nibFoodFall linear forwards, feedRarePulse 0.9s ease-in-out infinite alternate;
+        }
+
+        .nib-feed-item.bad {
+            border-color: rgba(251,113,133,0.52) !important;
+            background:
+                radial-gradient(circle at 34% 24%, rgba(255,255,255,0.12), transparent 34%),
+                linear-gradient(145deg, rgba(90,18,38,0.42), rgba(0,0,0,0.34)) !important;
+            box-shadow:
+                0 0 18px rgba(251,113,133,0.36),
+                inset 0 0 18px rgba(255,255,255,0.035) !important;
+        }
+
+        .nib-feed-item::before {
+            content: '';
+            position: absolute;
+            inset: -9px;
+            border-radius: inherit;
+            border: 1px solid rgba(255,255,255,0.12);
+            background:
+                conic-gradient(from 30deg,
+                    transparent 0 18%,
+                    rgba(251,191,36,0.22) 19% 21%,
+                    transparent 22% 52%,
+                    rgba(165,180,252,0.18) 53% 55%,
+                    transparent 56% 100%);
+            opacity: 0.82;
+            pointer-events: none;
+            animation: feedCharmSpin 4.8s linear infinite;
+        }
+
+        .nib-feed-item.bad::before {
+            border-color: rgba(251,113,133,0.18);
+            background:
+                conic-gradient(from 30deg,
+                    transparent 0 20%,
+                    rgba(251,113,133,0.22) 21% 24%,
+                    transparent 25% 58%,
+                    rgba(129,140,248,0.14) 59% 62%,
+                    transparent 63% 100%);
+        }
+
+        .feed-spark {
+            position: absolute;
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(255,245,211,0.95), rgba(251,191,36,0.18) 62%, transparent 74%);
+            box-shadow: 0 0 14px rgba(251,191,36,0.5);
+            z-index: 12;
+            pointer-events: none;
+            animation: feedSparkBurst 640ms ease-out forwards;
+        }
+
+        .feed-spark.bad {
+            background: radial-gradient(circle, rgba(255,210,220,0.94), rgba(251,113,133,0.2) 62%, transparent 74%);
+            box-shadow: 0 0 14px rgba(251,113,133,0.48);
+        }
+
+        @keyframes feedCharmSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes feedRarePulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.06) rotate(2deg); }
+        }
+
+        @keyframes feedSparkBurst {
+            from { transform: translate(-50%, -50%) scale(0.28); opacity: 1; }
+            to { transform: translate(var(--spark-x), var(--spark-y)) scale(1.22); opacity: 0; }
         }
 
     </style>
@@ -2946,7 +3083,7 @@
 
                 <h4 class="section-title" style="margin-top: 18px;">Nib Games</h4>
                 <div class="nib-games-panel" id="nib-games-panel">
-                    <button class="toy-btn nib-game-btn" onclick="openNibGame('catch')"><span>🖋️</span>Ink Catch</button>
+                    <button class="toy-btn nib-game-btn" onclick="openNibGame('catch')"><span>🐭</span>Catch Nib</button>
                     <button class="toy-btn nib-game-btn" onclick="openNibGame('feed')"><span>🍓</span>Feed Nib</button>
                 </div>
 
@@ -4997,9 +5134,9 @@ function setNibGameInstructions(mode) {
     if (!instructions || !tip) return;
 
     if (mode === 'catch') {
-        instructions.innerHTML = `<span><strong>Ink Catch:</strong> Tap Nib inside the glowing ink-ring before he blinks across the page.</span><span id="nib-game-tip">Catch twelve ink-jumps before the candle gutters.</span>`;
+        instructions.innerHTML = `<span><strong>Catch Nib:</strong> Tap Nib inside the glowing spell-ring before he blinks across the page.</span><span id="nib-game-tip">Catch him twelve times before the candle gutters.</span>`;
     } else {
-        instructions.innerHTML = `<span><strong>Feed Nib:</strong> Tap the falling snacks before they hit the floor.</span><span id="nib-game-tip">Good treats help. Junk, rocks, and puddles cost points.</span>`;
+        instructions.innerHTML = `<span><strong>Feed Nib:</strong> Catch the glowing pantry charms before they hit the floor.</span><span id="nib-game-tip">Warm treats help. Cursed crumbs and soggy scraps cost points.</span>`;
     }
 }
 
@@ -5129,9 +5266,9 @@ function finishNibGame(won) {
     if (typeof somniaAlert === 'function') {
         if (won) {
             somniaAlert(
-                mode === 'catch' ? "Ink Catch Complete" : "Nib Was Fed",
+                mode === 'catch' ? "Nib Was Caught" : "Nib Was Fed",
                 mode === 'catch'
-                    ? `You caught ${score} ink-jumps with Nib. +${xp} Ink XP.`
+                    ? `You caught Nib ${score} times. +${xp} Ink XP.`
                     : `Nib accepted ${score} tiny offerings. +${xp} Ink XP.`
             );
         } else {
@@ -5208,7 +5345,7 @@ function startCatchNibGame() {
     const target = document.createElement('button');
     target.className = 'nib-catch-target ink-catch-target';
     target.type = 'button';
-    target.setAttribute('aria-label', 'Catch Nib in the ink ring');
+    target.setAttribute('aria-label', 'Catch Nib in the spell ring');
     target.innerHTML = `
         <img src="${getNibSpritePath('nib_reaction_curious.png')}" alt="">
         <span class="ink-catch-mote"></span>
@@ -5237,7 +5374,7 @@ function startCatchNibGame() {
         burstInkCatch(stage, rect.left - stageRect.left + rect.width / 2, rect.top - stageRect.top + rect.height / 2);
 
         NIB_GAME_STATE.score += 1;
-        showNibGameToast(["Ink caught!", "Nib blinked!", "Tiny comet!", "Mouse in the margin!", "Quill spark!"][Math.floor(Math.random() * 5)]);
+        showNibGameToast(["Caught Nib!", "Nib blinked!", "Tiny comet!", "Mouse in the margin!", "Candle hop!"][Math.floor(Math.random() * 5)]);
         updateNibGameStats();
 
         if (NIB_GAME_STATE.score >= NIB_GAME_STATE.target) {
@@ -5256,7 +5393,24 @@ function startCatchNibGame() {
         if (NIB_GAME_STATE.active && NIB_GAME_STATE.mode === 'catch') moveCatchTarget(target);
     }, 820);
 
-    showNibGameToast("Catch twelve ink-jumps!");
+    showNibGameToast("Catch Nib twelve times!");
+}
+
+
+function burstFeedCharm(stage, x, y, bad = false) {
+    if (!stage) return;
+    for (let i = 0; i < 8; i++) {
+        const spark = document.createElement('span');
+        spark.className = `feed-spark ${bad ? 'bad' : ''}`;
+        const angle = (Math.PI * 2 * i / 8) + Math.random() * 0.3;
+        const dist = 28 + Math.random() * 34;
+        spark.style.left = `${x}px`;
+        spark.style.top = `${y}px`;
+        spark.style.setProperty('--spark-x', `${Math.cos(angle) * dist}px`);
+        spark.style.setProperty('--spark-y', `${Math.sin(angle) * dist}px`);
+        stage.appendChild(spark);
+        setTimeout(() => spark.remove(), 700);
+    }
 }
 
 function spawnFeedItem() {
@@ -5266,26 +5420,27 @@ function spawnFeedItem() {
     if (!stage) return;
 
     const item = document.createElement('button');
-    const good = Math.random() > 0.32;
+    const good = Math.random() > 0.34;
     const goodFood = [
-        { emoji: '🍓', label: 'Berry' },
-        { emoji: '🫐', label: 'Blue' },
-        { emoji: '🍎', label: 'Apple' },
-        { emoji: '🍪', label: 'Cookie' },
-        { emoji: '🧀', label: 'Cheese' },
-        { emoji: '🌰', label: 'Nut' }
+        { emoji: '🍯', label: 'Honey', rare: true, points: 2 },
+        { emoji: '🧀', label: 'Cheese', points: 1 },
+        { emoji: '🍓', label: 'Berry', points: 1 },
+        { emoji: '🌰', label: 'Nut', points: 1 },
+        { emoji: '🍪', label: 'Biscuit', points: 1 },
+        { emoji: '☕', label: 'Steam', points: 1 }
     ];
     const badFood = [
-        { emoji: '🕳️', label: 'Hole' },
-        { emoji: '🪨', label: 'Rock' },
-        { emoji: '💧', label: 'Spill' }
+        { emoji: '🕯️', label: 'Wax', points: -1 },
+        { emoji: '🪨', label: 'Stone', points: -1 },
+        { emoji: '💧', label: 'Soggy', points: -1 },
+        { emoji: '🕸️', label: 'Web', points: -1 }
     ];
 
     const payload = good
         ? goodFood[Math.floor(Math.random() * goodFood.length)]
         : badFood[Math.floor(Math.random() * badFood.length)];
 
-    item.className = `nib-feed-item ${good ? 'good' : 'bad'}`;
+    item.className = `nib-feed-item ${good ? 'good' : 'bad'} ${payload.rare ? 'rare' : ''}`;
     item.type = 'button';
     item.innerHTML = `<span>${payload.emoji}</span><small>${payload.label}</small>`;
     item.setAttribute('aria-label', good ? 'Nib snack' : 'Not food');
@@ -5293,17 +5448,23 @@ function spawnFeedItem() {
     const bounds = getNibGameBounds(78);
     item.style.left = `${12 + Math.random() * bounds.maxX}px`;
     item.style.top = `-84px`;
-    item.style.animationDuration = `${2.7 + Math.random() * 1.15}s`;
+    item.style.animationDuration = `${2.35 + Math.random() * 1.05}s`;
 
     item.addEventListener('click', event => {
         event.stopPropagation();
 
+        const rect = item.getBoundingClientRect();
+        const stageRect = stage.getBoundingClientRect();
+        burstFeedCharm(stage, rect.left - stageRect.left + rect.width / 2, rect.top - stageRect.top + rect.height / 2, !good);
+
         if (good) {
-            NIB_GAME_STATE.score += 1;
-            showNibGameToast(["Nib accepts.", "Tiny feast!", "Good snack.", "Nib is pleased."][Math.floor(Math.random() * 4)]);
+            NIB_GAME_STATE.score += payload.points || 1;
+            showNibGameToast(payload.rare
+                ? "Golden honey!"
+                : ["Nib accepts.", "Tiny feast!", "Good charm.", "Nib is pleased."][Math.floor(Math.random() * 4)]);
         } else {
-            NIB_GAME_STATE.score = Math.max(0, NIB_GAME_STATE.score - 1);
-            showNibGameToast("Not for Nib.");
+            NIB_GAME_STATE.score = Math.max(0, NIB_GAME_STATE.score + (payload.points || -1));
+            showNibGameToast(["Cursed crumb.", "Not for Nib.", "Soggy scrap!", "Nib refuses."][Math.floor(Math.random() * 4)]);
         }
 
         updateNibGameStats();
@@ -5320,11 +5481,11 @@ function spawnFeedItem() {
 
 function startFeedNibGame() {
     NIB_GAME_STATE.timer = setInterval(tickNibGameTimer, 1000);
-    NIB_GAME_STATE.spawner = setInterval(spawnFeedItem, 520);
+    NIB_GAME_STATE.spawner = setInterval(spawnFeedItem, 460);
     spawnFeedItem();
     spawnFeedItem();
     spawnFeedItem();
-    showNibGameToast("Feed Nib eighteen treats!");
+    showNibGameToast("Catch eighteen pantry charms!");
 }
 </script>
 
