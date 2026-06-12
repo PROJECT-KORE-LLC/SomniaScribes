@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="scriptorium-alignment-v14-journal-dom-fix">
+    <meta name="somniascribes-build" content="scriptorium-alignment-v15-soft-scrollbars">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SOMNIASCRIBES // THE SCRIPTORIUM // JOURNAL DOM FIX</title>
+    <title>SOMNIASCRIBES // THE SCRIPTORIUM // SOFT SCROLLBARS</title>
 <!-- SOMNIASCRIBES SCRIPTORIUM ALIGNMENT V1 / INDEX-ONLY SAFE -->
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
     <link rel="prefetch" href="binarymusicbox.mp3" as="audio">
@@ -2542,6 +2542,79 @@
             #scratchpad-modal .journal-bubble > .command-array label {
                 width: 100% !important;
             }
+        }
+
+        /* --- SCRIPTORIUM ALIGNMENT V15: SOFT SCROLLBARS --- */
+        #scratchpad-modal .journal-bubble,
+        #scratchpad-modal .journal-bubble .annals-body,
+        #scratchpad-modal .journal-bubble .archive-vault,
+        #scratchpad-modal .journal-bubble .lore-input,
+        #oracle-lore-log,
+        #oracle-modal .oracle-chat-body {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(224,231,255,0.34) rgba(0,0,0,0.18);
+        }
+
+        #scratchpad-modal .journal-bubble::-webkit-scrollbar,
+        #scratchpad-modal .journal-bubble .annals-body::-webkit-scrollbar,
+        #scratchpad-modal .journal-bubble .archive-vault::-webkit-scrollbar,
+        #scratchpad-modal .journal-bubble .lore-input::-webkit-scrollbar,
+        #oracle-lore-log::-webkit-scrollbar,
+        #oracle-modal .oracle-chat-body::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        #scratchpad-modal .journal-bubble::-webkit-scrollbar-track,
+        #scratchpad-modal .journal-bubble .annals-body::-webkit-scrollbar-track,
+        #scratchpad-modal .journal-bubble .archive-vault::-webkit-scrollbar-track,
+        #scratchpad-modal .journal-bubble .lore-input::-webkit-scrollbar-track,
+        #oracle-lore-log::-webkit-scrollbar-track,
+        #oracle-modal .oracle-chat-body::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.16);
+            border-radius: 999px;
+            margin: 10px 0;
+        }
+
+        #scratchpad-modal .journal-bubble::-webkit-scrollbar-thumb,
+        #scratchpad-modal .journal-bubble .annals-body::-webkit-scrollbar-thumb,
+        #scratchpad-modal .journal-bubble .archive-vault::-webkit-scrollbar-thumb,
+        #scratchpad-modal .journal-bubble .lore-input::-webkit-scrollbar-thumb,
+        #oracle-lore-log::-webkit-scrollbar-thumb,
+        #oracle-modal .oracle-chat-body::-webkit-scrollbar-thumb {
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(224,231,255,0.42),
+                    rgba(163,177,255,0.24)
+                );
+            border: 2px solid rgba(0,0,0,0.22);
+            border-radius: 999px;
+            box-shadow: 0 0 10px rgba(224,231,255,0.14);
+        }
+
+        #scratchpad-modal .journal-bubble::-webkit-scrollbar-thumb:hover,
+        #scratchpad-modal .journal-bubble .annals-body::-webkit-scrollbar-thumb:hover,
+        #scratchpad-modal .journal-bubble .archive-vault::-webkit-scrollbar-thumb:hover,
+        #scratchpad-modal .journal-bubble .lore-input::-webkit-scrollbar-thumb:hover,
+        #oracle-lore-log::-webkit-scrollbar-thumb:hover,
+        #oracle-modal .oracle-chat-body::-webkit-scrollbar-thumb:hover {
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(255,255,255,0.55),
+                    rgba(224,231,255,0.34)
+                );
+            box-shadow: 0 0 14px rgba(224,231,255,0.22);
+        }
+
+        #scratchpad-modal .journal-bubble::-webkit-scrollbar-corner,
+        #scratchpad-modal .journal-bubble .annals-body::-webkit-scrollbar-corner,
+        #scratchpad-modal .journal-bubble .archive-vault::-webkit-scrollbar-corner,
+        #scratchpad-modal .journal-bubble .lore-input::-webkit-scrollbar-corner,
+        #oracle-lore-log::-webkit-scrollbar-corner,
+        #oracle-modal .oracle-chat-body::-webkit-scrollbar-corner {
+            background: transparent;
         }
 
     </style>
