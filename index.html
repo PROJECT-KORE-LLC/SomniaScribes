@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="scriptorium-build" content="scriptorium-v16-fullscreen-home-name">
+    <meta name="scriptorium-build" content="scriptorium-v17-ink-catch-polish">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
     <meta name="somniascribes-build" content="scriptorium-alignment-v15-soft-scrollbars">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>THE SCRIPTORIUM // SOMNIASCAPES</title>
+    <title>THE SCRIPTORIUM // INK CATCH POLISH</title>
 <!-- SOMNIASCRIBES SCRIPTORIUM ALIGNMENT V1 / INDEX-ONLY SAFE -->
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
     <link rel="prefetch" href="binarymusicbox.mp3" as="audio">
@@ -2623,6 +2623,136 @@
             min-height: 100dvh;
         }
 
+        /* --- SCRIPTORIUM v17: INK CATCH POLISH --- */
+        .ink-catch-target {
+            width: 124px !important;
+            height: 124px !important;
+            border: 0 !important;
+            border-radius: 999px !important;
+            padding: 0 !important;
+            background:
+                radial-gradient(circle at 50% 48%, rgba(255,245,210,0.22), transparent 38%),
+                radial-gradient(circle at 50% 55%, rgba(139,92,246,0.18), transparent 58%),
+                radial-gradient(circle at 50% 50%, rgba(0,0,0,0.42), rgba(0,0,0,0.1) 63%, transparent 72%) !important;
+            box-shadow:
+                0 0 18px rgba(251,191,36,0.58),
+                0 0 34px rgba(139,92,246,0.32),
+                inset 0 0 28px rgba(255,255,255,0.06) !important;
+            filter: drop-shadow(0 0 18px rgba(251,191,36,0.62)) drop-shadow(0 0 30px rgba(0,0,0,0.55)) !important;
+            overflow: visible;
+            animation: inkCatchPulse 1s infinite alternate ease-in-out;
+        }
+
+        .ink-catch-target::before {
+            content: '';
+            position: absolute;
+            inset: -15px;
+            border-radius: 999px;
+            border: 1px solid rgba(251,191,36,0.34);
+            background:
+                conic-gradient(from 40deg,
+                    transparent 0 12%,
+                    rgba(251,191,36,0.34) 13% 16%,
+                    transparent 17% 38%,
+                    rgba(165,180,252,0.32) 39% 42%,
+                    transparent 43% 68%,
+                    rgba(236,72,153,0.22) 69% 72%,
+                    transparent 73% 100%);
+            box-shadow: 0 0 24px rgba(251,191,36,0.18);
+            animation: inkCatchOrbit 3.8s linear infinite;
+            pointer-events: none;
+        }
+
+        .ink-catch-target::after {
+            content: 'INK';
+            position: absolute;
+            left: 50%;
+            top: calc(100% + 7px);
+            transform: translateX(-50%);
+            font-family: monospace;
+            font-size: 0.52rem;
+            letter-spacing: 3px;
+            color: rgba(255,238,190,0.88);
+            text-shadow: 0 0 10px rgba(0,0,0,0.9), 0 0 12px rgba(251,191,36,0.38);
+            pointer-events: none;
+        }
+
+        .ink-catch-target img {
+            position: absolute;
+            inset: 12px;
+            width: calc(100% - 24px);
+            height: calc(100% - 24px);
+            object-fit: contain;
+            z-index: 2;
+            filter: drop-shadow(0 0 10px rgba(255,236,180,0.45));
+            pointer-events: none;
+        }
+
+        .ink-catch-mote {
+            position: absolute;
+            width: 11px;
+            height: 11px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(255,244,203,0.95), rgba(251,191,36,0.18) 58%, transparent 72%);
+            box-shadow: 0 0 14px rgba(251,191,36,0.58);
+            pointer-events: none;
+            z-index: 3;
+            animation: inkMoteFloat 1.4s infinite alternate ease-in-out;
+        }
+
+        .ink-catch-mote:nth-child(2) { left: 8px; top: 25px; animation-delay: -0.2s; }
+        .ink-catch-mote:nth-child(3) { right: 10px; top: 38px; animation-delay: -0.6s; background: radial-gradient(circle, rgba(210,222,255,0.96), rgba(129,140,248,0.18) 58%, transparent 72%); }
+        .ink-catch-mote:nth-child(4) { left: 50%; bottom: 4px; animation-delay: -0.9s; background: radial-gradient(circle, rgba(255,210,235,0.96), rgba(236,72,153,0.16) 58%, transparent 72%); }
+
+        .ink-catch-burst {
+            position: absolute;
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(255,245,211,0.95), rgba(251,191,36,0.2) 60%, transparent 72%);
+            box-shadow: 0 0 14px rgba(251,191,36,0.5);
+            z-index: 11;
+            pointer-events: none;
+            animation: inkBurst 620ms ease-out forwards;
+        }
+
+        .ink-catch-trail {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            border: 1px solid rgba(251,191,36,0.22);
+            background: radial-gradient(circle, rgba(251,191,36,0.12), transparent 68%);
+            box-shadow: 0 0 18px rgba(139,92,246,0.18);
+            pointer-events: none;
+            z-index: 4;
+            animation: inkTrailFade 700ms ease-out forwards;
+        }
+
+        @keyframes inkCatchPulse {
+            from { transform: scale(0.98) rotate(-1deg); }
+            to { transform: scale(1.04) rotate(1.5deg); }
+        }
+
+        @keyframes inkCatchOrbit {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes inkMoteFloat {
+            from { transform: translateY(-3px) scale(0.86); opacity: 0.72; }
+            to { transform: translateY(5px) scale(1.12); opacity: 1; }
+        }
+
+        @keyframes inkBurst {
+            from { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
+            to { transform: translate(var(--burst-x), var(--burst-y)) scale(1.25); opacity: 0; }
+        }
+
+        @keyframes inkTrailFade {
+            from { transform: scale(0.4); opacity: 0.62; }
+            to { transform: scale(1.7); opacity: 0; }
+        }
+
     </style>
 </head>
 <body id="os-body" class="booting" onclick="restoreUI()">
@@ -2816,7 +2946,7 @@
 
                 <h4 class="section-title" style="margin-top: 18px;">Nib Games</h4>
                 <div class="nib-games-panel" id="nib-games-panel">
-                    <button class="toy-btn nib-game-btn" onclick="openNibGame('catch')"><span>🐭</span>Catch Nib</button>
+                    <button class="toy-btn nib-game-btn" onclick="openNibGame('catch')"><span>🖋️</span>Ink Catch</button>
                     <button class="toy-btn nib-game-btn" onclick="openNibGame('feed')"><span>🍓</span>Feed Nib</button>
                 </div>
 
@@ -4867,7 +4997,7 @@ function setNibGameInstructions(mode) {
     if (!instructions || !tip) return;
 
     if (mode === 'catch') {
-        instructions.innerHTML = `<span><strong>Catch Nib:</strong> Tap the glowing mouse every time he hops.</span><span id="nib-game-tip">Catch him 12 times before the clock runs out.</span>`;
+        instructions.innerHTML = `<span><strong>Ink Catch:</strong> Tap Nib inside the glowing ink-ring before he blinks across the page.</span><span id="nib-game-tip">Catch twelve ink-jumps before the candle gutters.</span>`;
     } else {
         instructions.innerHTML = `<span><strong>Feed Nib:</strong> Tap the falling snacks before they hit the floor.</span><span id="nib-game-tip">Good treats help. Junk, rocks, and puddles cost points.</span>`;
     }
@@ -4999,9 +5129,9 @@ function finishNibGame(won) {
     if (typeof somniaAlert === 'function') {
         if (won) {
             somniaAlert(
-                mode === 'catch' ? "Nib Was Caught" : "Nib Was Fed",
+                mode === 'catch' ? "Ink Catch Complete" : "Nib Was Fed",
                 mode === 'catch'
-                    ? `You caught Nib ${score} times. +${xp} Ink XP.`
+                    ? `You caught ${score} ink-jumps with Nib. +${xp} Ink XP.`
                     : `Nib accepted ${score} tiny offerings. +${xp} Ink XP.`
             );
         } else {
@@ -5030,35 +5160,84 @@ function getNibGameBounds(itemSize = 90) {
 }
 
 function moveCatchTarget(target) {
-    const bounds = getNibGameBounds(112);
-    const x = 12 + Math.random() * bounds.maxX;
-    const y = 78 + Math.random() * Math.max(24, bounds.maxY - 40);
+    const stage = document.getElementById('nib-game-stage');
+    if (stage && target && target.parentNode === stage) {
+        const oldX = parseFloat(target.style.left || '0') + 58;
+        const oldY = parseFloat(target.style.top || '0') + 58;
+        if (oldX > 58 || oldY > 58) paintInkCatchTrail(stage, oldX, oldY);
+    }
+
+    const bounds = getNibGameBounds(124);
+    const x = 16 + Math.random() * bounds.maxX;
+    const y = 82 + Math.random() * Math.max(24, bounds.maxY - 44);
     target.style.left = `${x}px`;
     target.style.top = `${y}px`;
+}
+
+
+function paintInkCatchTrail(stage, x, y) {
+    if (!stage) return;
+    const trail = document.createElement('span');
+    trail.className = 'ink-catch-trail';
+    trail.style.left = `${x - 14}px`;
+    trail.style.top = `${y - 14}px`;
+    stage.appendChild(trail);
+    setTimeout(() => trail.remove(), 760);
+}
+
+function burstInkCatch(stage, x, y) {
+    if (!stage) return;
+    for (let i = 0; i < 9; i++) {
+        const burst = document.createElement('span');
+        burst.className = 'ink-catch-burst';
+        const angle = (Math.PI * 2 * i / 9) + Math.random() * 0.35;
+        const dist = 34 + Math.random() * 42;
+        burst.style.left = `${x}px`;
+        burst.style.top = `${y}px`;
+        burst.style.setProperty('--burst-x', `${Math.cos(angle) * dist}px`);
+        burst.style.setProperty('--burst-y', `${Math.sin(angle) * dist}px`);
+        stage.appendChild(burst);
+        setTimeout(() => burst.remove(), 700);
+    }
 }
 
 function startCatchNibGame() {
     const stage = document.getElementById('nib-game-stage');
     if (!stage) return;
 
-    const target = document.createElement('img');
-    target.className = 'nib-catch-target';
-    target.alt = 'Catch Nib';
-    target.src = getNibSpritePath('nib_reaction_curious.png');
-    target.onerror = function () {
-        if (this.src.includes('nib_reaction_curious.png')) {
-            this.src = 'nib_candle_mouse.png';
-        } else if (this.src.includes('nib_candle_mouse.png')) {
-            this.src = 'nib_reaction_cozy.png';
-        } else {
-            this.onerror = null;
-        }
-    };
+    const target = document.createElement('button');
+    target.className = 'nib-catch-target ink-catch-target';
+    target.type = 'button';
+    target.setAttribute('aria-label', 'Catch Nib in the ink ring');
+    target.innerHTML = `
+        <img src="${getNibSpritePath('nib_reaction_curious.png')}" alt="">
+        <span class="ink-catch-mote"></span>
+        <span class="ink-catch-mote"></span>
+        <span class="ink-catch-mote"></span>
+    `;
+
+    const img = target.querySelector('img');
+    if (img) {
+        img.onerror = function () {
+            if (this.src.includes('nib_reaction_curious.png')) {
+                this.src = 'nib_candle_mouse.png';
+            } else if (this.src.includes('nib_candle_mouse.png')) {
+                this.src = 'nib_reaction_cozy.png';
+            } else {
+                this.onerror = null;
+            }
+        };
+    }
 
     target.addEventListener('click', event => {
         event.stopPropagation();
+
+        const rect = target.getBoundingClientRect();
+        const stageRect = stage.getBoundingClientRect();
+        burstInkCatch(stage, rect.left - stageRect.left + rect.width / 2, rect.top - stageRect.top + rect.height / 2);
+
         NIB_GAME_STATE.score += 1;
-        showNibGameToast(["Caught!", "Tiny squeak!", "Almost too fast!", "Nib blinked!"][Math.floor(Math.random() * 4)]);
+        showNibGameToast(["Ink caught!", "Nib blinked!", "Tiny comet!", "Mouse in the margin!", "Quill spark!"][Math.floor(Math.random() * 5)]);
         updateNibGameStats();
 
         if (NIB_GAME_STATE.score >= NIB_GAME_STATE.target) {
@@ -5075,9 +5254,9 @@ function startCatchNibGame() {
     NIB_GAME_STATE.timer = setInterval(tickNibGameTimer, 1000);
     NIB_GAME_STATE.mover = setInterval(() => {
         if (NIB_GAME_STATE.active && NIB_GAME_STATE.mode === 'catch') moveCatchTarget(target);
-    }, 900);
+    }, 820);
 
-    showNibGameToast("Catch Nib twelve times!");
+    showNibGameToast("Catch twelve ink-jumps!");
 }
 
 function spawnFeedItem() {
