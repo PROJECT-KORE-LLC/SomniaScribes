@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="scriptorium-alignment-v2-collapsible-editor">
+    <meta name="somniascribes-build" content="scriptorium-alignment-v5-oracle-buttons-fixed">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SOMNIASCRIBES // THE SCRIPTORIUM // COLLAPSIBLE EDITOR</title>
+    <title>SOMNIASCRIBES // THE SCRIPTORIUM // ORACLE BUTTONS FIXED</title>
 <!-- SOMNIASCRIBES SCRIPTORIUM ALIGNMENT V1 / INDEX-ONLY SAFE -->
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
     <link rel="prefetch" href="binarymusicbox.mp3" as="audio">
@@ -1531,6 +1531,175 @@
             }
         }
 
+        /* --- SCRIPTORIUM ALIGNMENT V3: LORE ORACLE + TOWER CHIME COPY --- */
+        #oracle-modal .oracle-local-badge {
+            letter-spacing: 2px !important;
+        }
+
+        #oracle-modal .vault-header h2::after {
+            content: " ✦";
+            color: var(--accent);
+            text-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        /* --- SCRIPTORIUM ALIGNMENT V4: ORACLE BUTTONS ONLY, NO TYPING FIELD --- */
+        #oracle-modal .editor-container,
+        #oracle-modal .lore-actions,
+        #oracle-modal .command-array,
+        #oracle-modal .oracle-intent-row,
+        #oracle-modal .castellan-field-row,
+        #oracle-modal .core-input,
+        #oracle-modal .lore-input,
+        #oracle-modal input,
+        #oracle-modal textarea,
+        #oracle-modal form,
+        #oracle-modal label.upload-zone,
+        #oracle-modal .upload-zone {
+            display: none !important;
+        }
+
+        #oracle-modal .scribes-bubble {
+            height: auto !important;
+            max-height: 470px !important;
+        }
+
+        #oracle-modal .oracle-chat-body {
+            min-height: 150px !important;
+            max-height: 255px !important;
+            margin-bottom: 12px !important;
+        }
+
+        .oracle-guide-buttons {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 9px;
+            padding-top: 12px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .oracle-guide-btn {
+            border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.045);
+            color: var(--primary);
+            border-radius: 999px;
+            padding: 10px 12px;
+            font-family: monospace;
+            font-size: 0.62rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .oracle-guide-btn:hover {
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 14px var(--primary-glow);
+            background: rgba(255,255,255,0.075);
+        }
+
+        @media (max-width: 767px) {
+            .oracle-guide-buttons {
+                grid-template-columns: 1fr 1fr;
+                gap: 7px;
+            }
+
+            .oracle-guide-btn {
+                padding: 9px 8px;
+                font-size: 0.56rem;
+                letter-spacing: 0.9px;
+            }
+        }
+
+        /* --- SCRIPTORIUM ALIGNMENT V5: FIXED VISIBLE ORACLE GUIDE BUTTONS --- */
+        .oracle-guide-dock {
+            position: fixed;
+            right: 300px;
+            bottom: 30px;
+            width: min(450px, calc(100vw - 340px));
+            z-index: 10080;
+            display: none;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 9px;
+            padding: 12px;
+            border: 1px solid var(--glass-border);
+            border-radius: 26px;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(224,231,255,0.08), transparent 48%),
+                rgba(5, 8, 12, 0.76);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 22px 50px rgba(0,0,0,0.64), 0 0 18px var(--primary-glow);
+            pointer-events: auto;
+        }
+
+        body.oracle-open .oracle-guide-dock {
+            display: grid !important;
+        }
+
+        .oracle-guide-btn {
+            border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.055);
+            color: var(--primary);
+            border-radius: 999px;
+            padding: 11px 12px;
+            font-family: monospace;
+            font-size: 0.62rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.25s ease;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        .oracle-guide-btn:hover {
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 14px var(--primary-glow);
+            background: rgba(255,255,255,0.09);
+            transform: translateY(-1px);
+        }
+
+        body.cloaked .oracle-guide-dock,
+        body.booting .oracle-guide-dock {
+            display: none !important;
+        }
+
+        @media (max-width: 767px) {
+            .oracle-guide-dock {
+                right: 20px;
+                left: 20px;
+                bottom: 170px;
+                width: auto;
+                grid-template-columns: 1fr 1fr;
+                gap: 7px;
+                padding: 10px;
+            }
+
+            .oracle-guide-btn {
+                padding: 9px 8px;
+                font-size: 0.56rem;
+                letter-spacing: 0.9px;
+            }
+        }
+
+        /* Keep Oracle as lore guide only: no typing/composer inside the Oracle modal. */
+        #oracle-modal .editor-container,
+        #oracle-modal .lore-actions,
+        #oracle-modal .command-array,
+        #oracle-modal .oracle-intent-row,
+        #oracle-modal .castellan-field-row,
+        #oracle-modal .core-input,
+        #oracle-modal .lore-input,
+        #oracle-modal input,
+        #oracle-modal textarea,
+        #oracle-modal form,
+        #oracle-modal label.upload-zone,
+        #oracle-modal .upload-zone {
+            display: none !important;
+        }
+
     </style>
 </head>
 <body id="os-body" class="booting" onclick="restoreUI()">
@@ -1738,17 +1907,17 @@
                 </p>
                 <ul style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; padding-left: 20px;">
                     <li><strong>The Journal:</strong> Click the "Journal" button in the top navigation. Your thoughts and attached images are stored safely and permanently inside your device. We use IndexedDB to ensure you don't hit pesky storage limits.</li>
-                    <li><strong>Pomodoro Timer:</strong> Use the "Timer" tab to execute 25-minute focus sprints. The chime will alert you when it's time to take a break.</li>
+                    <li><strong>Pomodoro Timer:</strong> Use the "Timer" tab for candlelit focus rounds. When the round ends, the tower gives a soft chime and the timer face flashes.</li>
                     <li><strong>Vibe Architecture:</strong> Mix and match up to 60 total aesthetic variables. Try "Gothic" + "Bats" + "Inferno" for a dark vibe, or "Library" + "Motes" + "Sepia" for deep focus!</li>
                     <li><strong>Cloak UI:</strong> Once your vibe is set, hit "Cloak UI" to hide all menus so you can focus entirely on the atmosphere. Click anywhere on the screen to bring the menus back.</li>
                     <li><strong>Data Safety:</strong> This app runs entirely on your device (no local!). Make sure you regularly open your Journal and click <strong>"Export Journal"</strong> to save a backup file to your computer.</li>
                 </ul>
 
-                <h4 class="section-title" style="margin-top: 15px; color: var(--primary);">🕯️ Pro Tip: The Local Ink Oracle</h4>
+                <h4 class="section-title" style="margin-top: 15px; color: var(--primary);">🕯️ Pro Tip: The Ink Oracle</h4>
                 <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
-                    The Ink Oracle now lives entirely inside the Scriptorium as local lore, room whispers, Nib chatter, and writing atmosphere. No key, account, subscription, or outside service is required.
-                    Use <strong>Oracle Whisper</strong>, <strong>Nib & Oracle</strong>, and <strong>Tower Lore</strong> when you want the room to feel alive beside you.
-                    Your journal stays local unless you choose to export or share something yourself.
+                    The Ink Oracle is the candlelit voice of the Scriptorium: tower hush, ink-memory, margin-magic, and Nib’s tiny patrols woven into one room presence.
+                    Open <strong>Oracle Whisper</strong>, <strong>Nib & Oracle</strong>, or <strong>Tower Lore</strong> when you want the chamber to feel awake beside you.
+                    Your pages remain in your keeping, like sealed letters on the desk.
                 </p>
                 
                 <h4 class="section-title" style="margin-top: 15px; color: var(--primary);">PWA Support</h4>
@@ -1777,7 +1946,7 @@
                     <input type="text" id="search-annals" placeholder="Find a memory..." oninput="renderAnnals()">
                 </div>
 
-                <div id="annals" class="annals-body"></div>
+                <div id="annals" class="annals-body"></div></div>
                 
                 <div class="editor-container">
                     <div class="sticker-bar" id="sticker-bar"></div>
@@ -1816,10 +1985,10 @@
                 <div class="vault-header">
                     <div>
                         <h2>Ink Oracle</h2>
-                        <div style="font-size: 0.65rem; opacity: 0.7; letter-spacing: 5px; font-family: monospace; color: var(--accent);">CALM QUIET COMPANION</div>
+                        <div style="font-size: 0.65rem; opacity: 0.7; letter-spacing: 5px; font-family: monospace; color: var(--accent);">CANDLEWARD LOREKEEPER</div>
                     </div>
-                    <div class="oracle-local-badge" title="The Ink Oracle runs locally as lore and room presence.">
-                        LOCAL LORE // OFFLINE
+                    <div class="oracle-local-badge" title="The Ink Oracle keeps the tower lore awake.">
+                        CANDLEWARD LORE
                     </div>
                 </div>
                 
@@ -1831,11 +2000,11 @@
                 </div>
 
                 <div id="oracle-chat" class="oracle-chat-body">
-                    <div class="oracle-msg ai">Hello, little inkling. The room is awake in small ways. I am not a faraway intelligence; I am the candle, the tower, the ink, and Nib keeping you company.</div>
+                    <div class="oracle-msg ai">The Ink Oracle waits beside the candle. She is the tower’s margin-voice: part old library, part rain at the glass, part Nib rustling under the desk. Tap her when the room should speak in lore.</div>
                 </div>
                 <div class="editor-container">
                     <textarea id="oracle-editor" class="lore-input" rows="2" placeholder="Leave the Oracle a fragment... [ENTER to send]"></textarea>
-                    <button class="toy-btn" style="align-self:flex-end; padding: 8px 22px; border-color: var(--accent);" onclick="summonOracle()">Send</button>
+                    <button class="toy-btn" style="align-self:flex-end; padding: 8px 22px; border-color: var(--accent);" onclick="summonOracle()">Listen</button>
                 </div>
             </div>
         </div>
@@ -2622,6 +2791,36 @@
             }
         }
 
+        function playTimerChime() {
+            initAudioContext();
+            const ctx = window.audioCtx || audioCtx;
+            if (!ctx) return;
+
+            const master = window.masterGainNode || ctx.destination;
+            const now = ctx.currentTime;
+            const notes = [880, 1174.66, 1318.51];
+
+            notes.forEach((freq, i) => {
+                try {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + (i * 0.16));
+                    gain.gain.setValueAtTime(0.0001, now + (i * 0.16));
+                    gain.gain.exponentialRampToValueAtTime(0.22, now + (i * 0.16) + 0.04);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + (i * 0.16) + 1.15);
+                    osc.connect(gain);
+                    gain.connect(master);
+                    osc.start(now + (i * 0.16));
+                    osc.stop(now + (i * 0.16) + 1.2);
+                } catch(e) {}
+            });
+
+            if (typeof somniaAlert === 'function') {
+                somniaAlert('The Tower Chimes', 'The candle-round is complete. Step back through the margin when you are ready.');
+            }
+        }
+
         function startPomodoro() {
             if (pomoInterval) return;
             pomoInterval = setInterval(() => {
@@ -2629,20 +2828,7 @@
                     pomoSeconds--;
                     updatePomoDisplay();
                     if(pomoSeconds === 0) {
-                        initAudioContext();
-                        if(window.audioCtx) {
-                            try {
-                                const osc = audioCtx.createOscillator();
-                                const gain = audioCtx.createGain();
-                                osc.connect(gain);
-                                gain.connect(audioCtx.destination);
-                                osc.frequency.setValueAtTime(880, audioCtx.currentTime);
-                                gain.gain.setValueAtTime(0, audioCtx.currentTime);
-                                gain.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.1);
-                                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 2);
-                                osc.start(); osc.stop(audioCtx.currentTime + 2);
-                            } catch(e) {}
-                        }
+                        playTimerChime();
                     }
                 } else {
                     clearInterval(pomoInterval);
@@ -3129,7 +3315,10 @@
             somniaAlert('Preset Loaded', `${preset.label} is active.`);
         }
 
-        const INK_ORACLE_PERSONALITY = `The Ink Oracle is not a local service or conversational model. It is local Scriptorium lore: room whispers, Nib exchanges, tower fragments, and journal sparks that help the room feel alive.`;
+        const INK_ORACLE_PERSONALITY = `The Ink Oracle is the candlelit lore-voice of the Scriptorium.
+She speaks as old paper, rain on tower glass, candle-smoke, Nib's tiny patrols, and the safe hush of a room that keeps unfinished things.
+She offers room whispers, tower lore, small story fragments, and gentle page-magic.
+She does not explain herself by what she used to be. She simply belongs to the Scriptorium.`;
 
         const ORACLE_ROOM_WHISPERS = [
             "The candle leans closer, as if the room has noticed you returned.",
@@ -4299,5 +4488,74 @@ window.returnToCity = function(event) {
         });
 
     </script>
+
+    <div id="oracle-guide-dock" class="oracle-guide-dock" aria-label="Ink Oracle guide choices">
+        <button class="oracle-guide-btn" type="button" data-oracle-guide="whisper">Oracle Whisper</button>
+        <button class="oracle-guide-btn" type="button" data-oracle-guide="tower">Tower Lore</button>
+        <button class="oracle-guide-btn" type="button" data-oracle-guide="nib">Ask Nib</button>
+        <button class="oracle-guide-btn" type="button" data-oracle-guide="prompt">Page Spark</button>
+    </div>
+
+    <script>
+        // --- SCRIPTORIUM ALIGNMENT V5: FIXED ORACLE BUTTON GUIDES ---
+        const ORACLE_GUIDE_LORE_V5 = {
+            whisper: [
+                "The candle leans toward the page. The Ink Oracle murmurs: one sentence is enough to open the door.",
+                "Rain touches the tower glass. Somewhere between the shelves, a blank page waits without judgment.",
+                "The Scriptorium breathes softer when you begin with one small truth."
+            ],
+            tower: [
+                "Candleward Tower was built for unfinished things: drafts, memories, fragments, and names too heavy to carry outside the room.",
+                "Every shelf in the Scriptorium keeps a different weather. Some hold storms. Some hold moonlight. Some hold the quiet after.",
+                "The oldest rule of the tower is simple: no page has to become a masterpiece before it is allowed to exist."
+            ],
+            nib: [
+                "Nib patrols the desk-edge with a candle crumb tucked under one paw. He reports that the room is safe enough for one tiny beginning.",
+                "Nib found a margin-spark behind the ink bottle. He recommends putting down one word before it escapes.",
+                "Nib has declared the next sentence a treasure. He is very serious about this."
+            ],
+            prompt: [
+                "Page Spark: What color is today, and where do you feel it in the room?",
+                "Page Spark: Write the thing sitting on your chest as if it were weather passing over the tower.",
+                "Page Spark: What can wait until tomorrow, and what wants one gentle line tonight?"
+            ]
+        };
+
+        function oracleGuideSpeak(kind) {
+            const modal = document.getElementById('oracle-modal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.classList.add('oracle-open');
+            }
+
+            const log =
+                document.querySelector('#oracle-modal .oracle-chat-body') ||
+                document.querySelector('#oracle-chat-log') ||
+                document.querySelector('.oracle-chat-body');
+
+            if (!log) return;
+
+            const choices = ORACLE_GUIDE_LORE_V5[kind] || ORACLE_GUIDE_LORE_V5.whisper;
+            const text = choices[Math.floor(Math.random() * choices.length)];
+
+            const msg = document.createElement('div');
+            msg.className = 'oracle-msg ai';
+            msg.textContent = text;
+
+            log.appendChild(msg);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.oracle-guide-btn').forEach((btn) => {
+                btn.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    oracleGuideSpeak(btn.dataset.oracleGuide || 'whisper');
+                });
+            });
+        });
+    </script>
+
 </body>
 </html>
