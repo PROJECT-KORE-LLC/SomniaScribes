@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="scriptorium-alignment-v5-oracle-buttons-fixed">
+    <meta name="somniascribes-build" content="scriptorium-alignment-v9-oracle-buttons-working">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SOMNIASCRIBES // THE SCRIPTORIUM // ORACLE BUTTONS FIXED</title>
+    <title>SOMNIASCRIBES // THE SCRIPTORIUM // ORACLE BUTTONS WORKING</title>
 <!-- SOMNIASCRIBES SCRIPTORIUM ALIGNMENT V1 / INDEX-ONLY SAFE -->
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
     <link rel="prefetch" href="binarymusicbox.mp3" as="audio">
@@ -1611,79 +1611,6 @@
                 letter-spacing: 0.9px;
             }
         }
-
-        /* --- SCRIPTORIUM ALIGNMENT V5: FIXED VISIBLE ORACLE GUIDE BUTTONS --- */
-        .oracle-guide-dock {
-            position: fixed;
-            right: 300px;
-            bottom: 30px;
-            width: min(450px, calc(100vw - 340px));
-            z-index: 10080;
-            display: none;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 9px;
-            padding: 12px;
-            border: 1px solid var(--glass-border);
-            border-radius: 26px;
-            background:
-                radial-gradient(circle at 50% 0%, rgba(224,231,255,0.08), transparent 48%),
-                rgba(5, 8, 12, 0.76);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            box-shadow: 0 22px 50px rgba(0,0,0,0.64), 0 0 18px var(--primary-glow);
-            pointer-events: auto;
-        }
-
-        body.oracle-open .oracle-guide-dock {
-            display: grid !important;
-        }
-
-        .oracle-guide-btn {
-            border: 1px solid var(--glass-border);
-            background: rgba(255,255,255,0.055);
-            color: var(--primary);
-            border-radius: 999px;
-            padding: 11px 12px;
-            font-family: monospace;
-            font-size: 0.62rem;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: 0.25s ease;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-        }
-
-        .oracle-guide-btn:hover {
-            border-color: var(--accent);
-            color: #fff;
-            box-shadow: 0 0 14px var(--primary-glow);
-            background: rgba(255,255,255,0.09);
-            transform: translateY(-1px);
-        }
-
-        body.cloaked .oracle-guide-dock,
-        body.booting .oracle-guide-dock {
-            display: none !important;
-        }
-
-        @media (max-width: 767px) {
-            .oracle-guide-dock {
-                right: 20px;
-                left: 20px;
-                bottom: 170px;
-                width: auto;
-                grid-template-columns: 1fr 1fr;
-                gap: 7px;
-                padding: 10px;
-            }
-
-            .oracle-guide-btn {
-                padding: 9px 8px;
-                font-size: 0.56rem;
-                letter-spacing: 0.9px;
-            }
-        }
-
         /* Keep Oracle as lore guide only: no typing/composer inside the Oracle modal. */
         #oracle-modal .editor-container,
         #oracle-modal .lore-actions,
@@ -1698,6 +1625,292 @@
         #oracle-modal label.upload-zone,
         #oracle-modal .upload-zone {
             display: none !important;
+        }
+}
+
+        /* --- SCRIPTORIUM ALIGNMENT V7: INLINE ORACLE BUTTONS FIXED --- */
+        #oracle-guide-buttons-inline.oracle-guide-buttons-inline {
+            width: 100% !important;
+            display: grid !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 9px !important;
+            margin-top: 12px !important;
+            padding-top: 12px !important;
+            border-top: 1px solid var(--glass-border) !important;
+            pointer-events: auto !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            position: relative !important;
+            z-index: 3 !important;
+        }
+
+        #oracle-modal #oracle-guide-buttons-inline .oracle-guide-btn {
+            display: block !important;
+            border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.055);
+            color: var(--primary);
+            border-radius: 999px;
+            padding: 10px 12px;
+            font-family: monospace;
+            font-size: 0.62rem;
+            letter-spacing: 1.1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.25s ease;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+            white-space: normal;
+            line-height: 1.2;
+            min-height: 38px;
+            pointer-events: auto !important;
+        }
+
+        #oracle-modal #oracle-guide-buttons-inline .oracle-guide-btn:hover {
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 14px var(--primary-glow);
+            background: rgba(255,255,255,0.09);
+            transform: translateY(-1px);
+        }
+
+        #oracle-modal .oracle-chat-body {
+            max-height: 235px !important;
+            overflow-y: auto !important;
+        }
+
+        @media (max-width: 767px) {
+            #oracle-guide-buttons-inline.oracle-guide-buttons-inline {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 7px !important;
+            }
+
+            #oracle-modal #oracle-guide-buttons-inline .oracle-guide-btn {
+                padding: 9px 8px;
+                font-size: 0.56rem;
+                letter-spacing: 0.85px;
+                min-height: 34px;
+            }
+        }
+
+        /* Keep Oracle as lore guide only: hide typing/composer but NEVER hide inline guide buttons. */
+        #oracle-modal .editor-container,
+        #oracle-modal .lore-actions,
+        #oracle-modal .command-array,
+        #oracle-modal .oracle-intent-row,
+        #oracle-modal .castellan-field-row,
+        #oracle-modal .core-input,
+        #oracle-modal .lore-input,
+        #oracle-modal input,
+        #oracle-modal textarea,
+        #oracle-modal form,
+        #oracle-modal label.upload-zone,
+        #oracle-modal .upload-zone {
+            display: none !important;
+        }
+
+        #oracle-modal #oracle-guide-buttons-inline,
+        #oracle-modal #oracle-guide-buttons-inline button {
+            display: grid !important;
+        }
+
+        #oracle-modal #oracle-guide-buttons-inline button {
+            display: block !important;
+        }
+
+        /* --- SCRIPTORIUM ALIGNMENT V8: READABLE ORACLE BUTTONS --- */
+        #oracle-modal .scribes-bubble {
+            max-height: 520px !important;
+            overflow: visible !important;
+        }
+
+        #oracle-modal .oracle-chat-body {
+            min-height: 115px !important;
+            max-height: 185px !important;
+            overflow-y: auto !important;
+        }
+
+        #oracle-guide-buttons-inline.oracle-guide-buttons-inline {
+            grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+            gap: 7px !important;
+            margin-top: 10px !important;
+            padding-top: 10px !important;
+        }
+
+        #oracle-modal #oracle-guide-buttons-inline .oracle-guide-btn {
+            min-height: 32px !important;
+            padding: 8px 6px !important;
+            font-size: 0.58rem !important;
+            letter-spacing: 0.8px !important;
+            line-height: 1.1 !important;
+            white-space: nowrap !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+        }
+
+        @media (max-width: 767px) {
+            #oracle-modal .scribes-bubble {
+                max-height: 60dvh !important;
+            }
+
+            #oracle-modal .oracle-chat-body {
+                max-height: 150px !important;
+            }
+
+            #oracle-guide-buttons-inline.oracle-guide-buttons-inline {
+                grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+                gap: 5px !important;
+            }
+
+            #oracle-modal #oracle-guide-buttons-inline .oracle-guide-btn {
+                min-height: 30px !important;
+                padding: 7px 4px !important;
+                font-size: 0.52rem !important;
+                letter-spacing: 0.5px !important;
+            }
+        }
+
+        @media (max-width: 420px) {
+            #oracle-guide-buttons-inline.oracle-guide-buttons-inline {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+
+            #oracle-modal #oracle-guide-buttons-inline .oracle-guide-btn {
+                white-space: normal !important;
+            }
+        }
+
+        /* --- SCRIPTORIUM ALIGNMENT V9: WORKING ORACLE BUTTON PANEL --- */
+        #oracle-modal {
+            display: none !important;
+            pointer-events: none !important;
+        }
+
+        .oracle-lore-panel {
+            position: fixed;
+            right: 210px;
+            bottom: 38px;
+            width: min(430px, calc(100vw - 270px));
+            max-height: 430px;
+            z-index: 10070;
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            padding: 16px;
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            background:
+                radial-gradient(circle at 20% 0%, rgba(224,231,255,0.08), transparent 42%),
+                rgba(5, 8, 12, 0.82);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            box-shadow: 0 30px 65px rgba(0,0,0,0.72), 0 0 20px var(--primary-glow);
+            pointer-events: auto;
+        }
+
+        body.oracle-open .oracle-lore-panel,
+        body.oracle-panel-open .oracle-lore-panel {
+            display: flex !important;
+        }
+
+        .oracle-lore-log {
+            width: 100%;
+            min-height: 135px;
+            max-height: 235px;
+            overflow-y: auto;
+            padding: 12px;
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            background: rgba(0,0,0,0.34);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.3);
+        }
+
+        .oracle-lore-log .oracle-msg.ai {
+            max-width: 100% !important;
+            margin-bottom: 10px;
+            color: var(--primary);
+            border: 1px solid rgba(224,231,255,0.22);
+            background: rgba(0,0,0,0.32);
+            border-radius: 18px;
+            padding: 12px 14px;
+            line-height: 1.55;
+            text-align: left;
+            font-style: italic;
+        }
+
+        .oracle-lore-buttons {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 7px;
+        }
+
+        .oracle-lore-btn {
+            display: block !important;
+            min-height: 34px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.06);
+            color: var(--primary);
+            border-radius: 999px;
+            padding: 8px 6px;
+            font-family: monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.8px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.25s ease;
+            pointer-events: auto !important;
+            user-select: none;
+        }
+
+        .oracle-lore-btn:hover {
+            border-color: var(--accent);
+            color: #fff;
+            background: rgba(255,255,255,0.1);
+            box-shadow: 0 0 14px var(--primary-glow);
+            transform: translateY(-1px);
+        }
+
+        body.cloaked .oracle-lore-panel,
+        body.booting .oracle-lore-panel {
+            display: none !important;
+            pointer-events: none !important;
+        }
+
+        @media (max-width: 767px) {
+            .oracle-lore-panel {
+                left: 18px;
+                right: 18px;
+                bottom: 145px;
+                width: auto;
+                max-height: 55dvh;
+            }
+
+            .oracle-lore-log {
+                min-height: 105px;
+                max-height: 185px;
+            }
+
+            .oracle-lore-buttons {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 5px;
+            }
+
+            .oracle-lore-btn {
+                min-height: 31px;
+                padding: 7px 4px;
+                font-size: 0.52rem;
+                letter-spacing: 0.5px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .oracle-lore-buttons {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .oracle-lore-btn {
+                white-space: normal;
+            }
         }
 
     </style>
@@ -1993,15 +2206,16 @@
                 </div>
                 
                 <div class="oracle-intent-row">
-                    <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('reflect')">Oracle Whisper</button>
+                    <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('reflect')">Whisper</button>
                     <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('untangle')">Nib & Oracle</button>
-                    <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('story')">Tower Lore</button>
+                    <button class="artifact-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="oracleQuick('story')">Tower</button>
                     <button class="artifact-btn oracle-clear-btn" style="font-size: 0.65rem; padding: 8px 15px;" onclick="clearOracleChat()">Clear</button>
                 </div>
 
                 <div id="oracle-chat" class="oracle-chat-body">
                     <div class="oracle-msg ai">The Ink Oracle waits beside the candle. She is the tower’s margin-voice: part old library, part rain at the glass, part Nib rustling under the desk. Tap her when the room should speak in lore.</div>
                 </div>
+
                 <div class="editor-container">
                     <textarea id="oracle-editor" class="lore-input" rows="2" placeholder="Leave the Oracle a fragment... [ENTER to send]"></textarea>
                     <button class="toy-btn" style="align-self:flex-end; padding: 8px 22px; border-color: var(--accent);" onclick="summonOracle()">Listen</button>
@@ -4489,16 +4703,21 @@ window.returnToCity = function(event) {
 
     </script>
 
-    <div id="oracle-guide-dock" class="oracle-guide-dock" aria-label="Ink Oracle guide choices">
-        <button class="oracle-guide-btn" type="button" data-oracle-guide="whisper">Oracle Whisper</button>
-        <button class="oracle-guide-btn" type="button" data-oracle-guide="tower">Tower Lore</button>
-        <button class="oracle-guide-btn" type="button" data-oracle-guide="nib">Ask Nib</button>
-        <button class="oracle-guide-btn" type="button" data-oracle-guide="prompt">Page Spark</button>
+    <div id="oracle-lore-panel" class="oracle-lore-panel" aria-live="polite">
+        <div id="oracle-lore-log" class="oracle-lore-log">
+            <div class="oracle-msg ai">The Ink Oracle waits beside the candle. Choose a whisper when the tower should speak.</div>
+        </div>
+        <div id="oracle-lore-buttons" class="oracle-lore-buttons" aria-label="Ink Oracle lore choices">
+            <button class="oracle-lore-btn" type="button" data-oracle-guide="whisper">Whisper</button>
+            <button class="oracle-lore-btn" type="button" data-oracle-guide="tower">Tower</button>
+            <button class="oracle-lore-btn" type="button" data-oracle-guide="nib">Nib</button>
+            <button class="oracle-lore-btn" type="button" data-oracle-guide="prompt">Spark</button>
+        </div>
     </div>
 
     <script>
-        // --- SCRIPTORIUM ALIGNMENT V5: FIXED ORACLE BUTTON GUIDES ---
-        const ORACLE_GUIDE_LORE_V5 = {
+        // --- SCRIPTORIUM ALIGNMENT V9: WORKING ORACLE BUTTONS ---
+        const ORACLE_GUIDE_LORE_V9 = {
             whisper: [
                 "The candle leans toward the page. The Ink Oracle murmurs: one sentence is enough to open the door.",
                 "Rain touches the tower glass. Somewhere between the shelves, a blank page waits without judgment.",
@@ -4521,38 +4740,56 @@ window.returnToCity = function(event) {
             ]
         };
 
-        function oracleGuideSpeak(kind) {
+        function openOracleLorePanel() {
+            document.body.classList.add('oracle-open', 'oracle-panel-open');
             const modal = document.getElementById('oracle-modal');
-            if (modal) {
-                modal.classList.add('active');
-                document.body.classList.add('oracle-open');
-            }
+            if (modal) modal.classList.remove('active');
+        }
 
-            const log =
-                document.querySelector('#oracle-modal .oracle-chat-body') ||
-                document.querySelector('#oracle-chat-log') ||
-                document.querySelector('.oracle-chat-body');
+        function closeOracleLorePanel() {
+            document.body.classList.remove('oracle-open', 'oracle-panel-open');
+        }
 
+        function oracleGuideSpeak(kind) {
+            openOracleLorePanel();
+
+            const log = document.getElementById('oracle-lore-log');
             if (!log) return;
 
-            const choices = ORACLE_GUIDE_LORE_V5[kind] || ORACLE_GUIDE_LORE_V5.whisper;
+            const choices = ORACLE_GUIDE_LORE_V9[kind] || ORACLE_GUIDE_LORE_V9.whisper;
             const text = choices[Math.floor(Math.random() * choices.length)];
 
             const msg = document.createElement('div');
             msg.className = 'oracle-msg ai';
             msg.textContent = text;
-
             log.appendChild(msg);
             log.scrollTop = log.scrollHeight;
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.oracle-guide-btn').forEach((btn) => {
-                btn.addEventListener('click', (event) => {
+            const oracleAvatar =
+                document.querySelector('.ink-oracle-outer') ||
+                document.getElementById('ink-oracle') ||
+                document.querySelector('.oracle-avatar');
+
+            if (oracleAvatar) {
+                oracleAvatar.addEventListener('click', (event) => {
                     event.preventDefault();
                     event.stopPropagation();
-                    oracleGuideSpeak(btn.dataset.oracleGuide || 'whisper');
-                });
+                    openOracleLorePanel();
+                }, true);
+            }
+
+            document.addEventListener('click', (event) => {
+                const btn = event.target.closest('.oracle-lore-btn');
+                if (!btn) return;
+                event.preventDefault();
+                event.stopPropagation();
+                oracleGuideSpeak(btn.dataset.oracleGuide || 'whisper');
+            }, true);
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') closeOracleLorePanel();
             });
         });
     </script>
