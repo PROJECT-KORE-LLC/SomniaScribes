@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SOMNIASCRIBES // A private, offline-first digital workshop and journal.">
     <meta name="theme-color" content="#020204">
-    <meta name="somniascribes-build" content="scriptorium-alignment-v10-oracle-close-toggle">
+    <meta name="somniascribes-build" content="scriptorium-alignment-v14-journal-dom-fix">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SOMNIASCRIBES // THE SCRIPTORIUM // ORACLE CLOSE TOGGLE</title>
+    <title>SOMNIASCRIBES // THE SCRIPTORIUM // JOURNAL DOM FIX</title>
 <!-- SOMNIASCRIBES SCRIPTORIUM ALIGNMENT V1 / INDEX-ONLY SAFE -->
     <!-- SOMNIASCRIBES BUILT-IN AUDIO LIBRARY PREFETCH -->
     <link rel="prefetch" href="binarymusicbox.mp3" as="audio">
@@ -1945,6 +1945,605 @@
             background: rgba(255,255,255,0.08);
         }
 
+        /* --- SCRIPTORIUM ALIGNMENT V11: CLEAN JOURNAL LAYOUT --- */
+        #scratchpad-modal .journal-bubble {
+            max-width: min(1120px, 94vw) !important;
+            width: min(1120px, 94vw) !important;
+            height: min(82dvh, 760px) !important;
+            padding: 24px !important;
+            gap: 16px !important;
+            display: grid !important;
+            grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
+            grid-template-rows: minmax(0, 1fr) auto auto;
+            grid-template-areas:
+                "archive editor"
+                "actions actions"
+                "footer footer";
+            overflow: hidden !important;
+        }
+
+        #scratchpad-modal .journal-bubble .archive-vault {
+            grid-area: archive;
+            min-height: 0 !important;
+            height: 100% !important;
+            padding: 20px !important;
+            gap: 14px !important;
+            overflow: hidden !important;
+            border-radius: 28px !important;
+            background:
+                radial-gradient(circle at 20% 0%, rgba(224,231,255,0.06), transparent 42%),
+                rgba(0,0,0,0.30) !important;
+        }
+
+        #scratchpad-modal .journal-bubble .vault-header {
+            align-items: center !important;
+            padding-bottom: 14px !important;
+            gap: 12px !important;
+        }
+
+        #scratchpad-modal .journal-bubble .vault-header h2 {
+            font-size: 1.45rem !important;
+            letter-spacing: 5px !important;
+        }
+
+        #scratchpad-modal #search-annals {
+            width: min(250px, 100%) !important;
+            border-radius: 999px !important;
+            border: 1px solid var(--glass-border) !important;
+            background: rgba(0,0,0,0.28) !important;
+            padding: 10px 14px !important;
+        }
+
+        #scratchpad-modal .journal-bubble .annals-body {
+            min-height: 0 !important;
+            flex: 1 !important;
+            padding: 6px 8px 6px 2px !important;
+            overflow-y: auto !important;
+        }
+
+        #scratchpad-modal .journal-bubble .lore-entry {
+            margin-bottom: 14px !important;
+            padding: 14px 38px 14px 14px !important;
+            border: 1px solid rgba(255,255,255,0.07) !important;
+            border-radius: 18px !important;
+            border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+            background: rgba(0,0,0,0.20) !important;
+            line-height: 1.55 !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .editor-container {
+            grid-area: editor;
+            min-height: 0 !important;
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            padding: 18px !important;
+            border-radius: 28px !important;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(224,231,255,0.07), transparent 48%),
+                rgba(0,0,0,0.26) !important;
+            box-shadow: inset 0 0 42px rgba(0,0,0,0.34);
+        }
+
+        #scratchpad-modal .journal-bubble .sticker-bar {
+            flex-shrink: 0 !important;
+            padding-bottom: 8px !important;
+        }
+
+        #scratchpad-modal .journal-bubble .lore-input {
+            flex: 1 !important;
+            min-height: 230px !important;
+            border: 1px solid var(--glass-border) !important;
+            border-left: 2px solid var(--primary) !important;
+            border-radius: 20px !important;
+            background: rgba(0,0,0,0.24) !important;
+            padding: 16px 18px !important;
+            font-size: 1.08rem !important;
+            line-height: 1.7 !important;
+        }
+
+        #scratchpad-modal .journal-bubble .lore-actions {
+            flex-shrink: 0 !important;
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: end !important;
+            gap: 12px !important;
+            padding-top: 4px !important;
+        }
+
+        #scratchpad-modal .journal-bubble .lore-actions > div {
+            gap: 8px !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .command-array {
+            grid-area: actions;
+            justify-content: center !important;
+            gap: 10px !important;
+            padding-top: 2px !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .kore-footer {
+            grid-area: footer;
+            margin-top: 0 !important;
+            opacity: 0.36 !important;
+        }
+
+        #scratchpad-modal .journal-bubble #import-trigger {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 949px) {
+            #scratchpad-modal .journal-bubble {
+                width: 94vw !important;
+                height: 84dvh !important;
+                padding: 16px !important;
+                grid-template-columns: 1fr;
+                grid-template-rows: minmax(0, 1fr) auto auto auto;
+                grid-template-areas:
+                    "archive"
+                    "editor"
+                    "actions"
+                    "footer";
+                overflow-y: auto !important;
+            }
+
+            #scratchpad-modal .journal-bubble .archive-vault {
+                min-height: 260px !important;
+            }
+
+            #scratchpad-modal .journal-bubble > .editor-container {
+                min-height: 270px !important;
+            }
+
+            #scratchpad-modal .journal-bubble .lore-input {
+                min-height: 145px !important;
+            }
+
+            #scratchpad-modal .journal-bubble .lore-actions {
+                grid-template-columns: 1fr !important;
+            }
+
+            #scratchpad-modal .journal-bubble .lore-actions .toy-btn {
+                width: 100%;
+            }
+
+            #scratchpad-modal #search-annals {
+                width: 100% !important;
+            }
+        }
+
+        /* --- SCRIPTORIUM ALIGNMENT V12: JOURNAL STACK FIX --- */
+        #scratchpad-modal .journal-bubble {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            justify-content: flex-start !important;
+            width: min(940px, 94vw) !important;
+            max-width: min(940px, 94vw) !important;
+            height: min(86dvh, 780px) !important;
+            padding: 22px !important;
+            gap: 14px !important;
+            overflow: hidden !important;
+            position: relative !important;
+            grid-template-columns: none !important;
+            grid-template-rows: none !important;
+            grid-template-areas: none !important;
+        }
+
+        #scratchpad-modal .journal-bubble .archive-vault {
+            width: 100% !important;
+            height: 38% !important;
+            min-height: 230px !important;
+            max-height: 320px !important;
+            flex: 0 0 auto !important;
+            padding: 18px !important;
+            overflow: hidden !important;
+            position: relative !important;
+            grid-area: auto !important;
+        }
+
+        #scratchpad-modal .journal-bubble .vault-header {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            padding-bottom: 12px !important;
+        }
+
+        #scratchpad-modal .journal-bubble .vault-header h2 {
+            margin: 0 !important;
+            font-size: 1.35rem !important;
+            letter-spacing: 4px !important;
+            line-height: 1.1 !important;
+        }
+
+        #scratchpad-modal #search-annals {
+            width: min(260px, 100%) !important;
+            flex: 0 1 260px !important;
+            position: relative !important;
+            z-index: 2 !important;
+        }
+
+        #scratchpad-modal .journal-bubble .annals-body {
+            flex: 1 1 auto !important;
+            min-height: 0 !important;
+            height: auto !important;
+            overflow-y: auto !important;
+            padding: 4px 8px 4px 2px !important;
+            position: relative !important;
+            z-index: 1 !important;
+        }
+
+        #scratchpad-modal .journal-bubble .lore-entry {
+            position: relative !important;
+            margin: 0 0 10px 0 !important;
+            padding: 12px 38px 12px 12px !important;
+            border: 1px solid rgba(255,255,255,0.07) !important;
+            border-radius: 16px !important;
+            background: rgba(0,0,0,0.22) !important;
+            line-height: 1.5 !important;
+            word-break: break-word !important;
+            overflow-wrap: anywhere !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .editor-container {
+            width: 100% !important;
+            flex: 1 1 auto !important;
+            min-height: 240px !important;
+            height: auto !important;
+            padding: 16px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+            position: relative !important;
+            grid-area: auto !important;
+            overflow: hidden !important;
+        }
+
+        #scratchpad-modal .journal-bubble .sticker-bar {
+            flex: 0 0 auto !important;
+            width: 100% !important;
+            overflow-x: auto !important;
+            padding-bottom: 8px !important;
+        }
+
+        #scratchpad-modal .journal-bubble .lore-input {
+            flex: 1 1 auto !important;
+            width: 100% !important;
+            min-height: 150px !important;
+            max-height: none !important;
+            position: relative !important;
+            z-index: 1 !important;
+            display: block !important;
+        }
+
+        #scratchpad-modal .journal-bubble .lore-actions {
+            flex: 0 0 auto !important;
+            width: 100% !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            position: relative !important;
+            z-index: 2 !important;
+        }
+
+        #scratchpad-modal .journal-bubble .lore-actions > div {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 8px !important;
+            align-items: center !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .command-array {
+            width: 100% !important;
+            flex: 0 0 auto !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            grid-area: auto !important;
+            position: relative !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .kore-footer {
+            width: 100% !important;
+            flex: 0 0 auto !important;
+            text-align: center !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            grid-area: auto !important;
+            position: relative !important;
+        }
+
+        #scratchpad-modal .journal-bubble #import-trigger {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        @media (max-width: 949px) {
+            #scratchpad-modal .journal-bubble {
+                width: 94vw !important;
+                height: 86dvh !important;
+                padding: 16px !important;
+                overflow-y: auto !important;
+            }
+
+            #scratchpad-modal .journal-bubble .archive-vault {
+                height: auto !important;
+                min-height: 240px !important;
+                max-height: none !important;
+            }
+
+            #scratchpad-modal .journal-bubble > .editor-container {
+                min-height: 280px !important;
+            }
+
+            #scratchpad-modal #search-annals {
+                width: 100% !important;
+                flex-basis: 100% !important;
+            }
+
+            #scratchpad-modal .journal-bubble .lore-actions {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+
+            #scratchpad-modal .journal-bubble .lore-actions > div,
+            #scratchpad-modal .journal-bubble .lore-actions .toy-btn {
+                width: 100% !important;
+            }
+        }
+
+        /* --- SCRIPTORIUM ALIGNMENT V13: JOURNAL BUTTONS + COPYRIGHT ROW FIX --- */
+        #scratchpad-modal .journal-bubble,
+        #scratchpad-modal .journal-bubble * {
+            box-sizing: border-box !important;
+        }
+
+        #scratchpad-modal .journal-bubble {
+            display: block !important;
+            width: min(900px, 94vw) !important;
+            max-width: min(900px, 94vw) !important;
+            height: min(86dvh, 780px) !important;
+            padding: 22px !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            position: relative !important;
+            grid-template-columns: none !important;
+            grid-template-rows: none !important;
+            grid-template-areas: none !important;
+            column-count: auto !important;
+        }
+
+        #scratchpad-modal .journal-bubble > * {
+            display: block !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            float: none !important;
+            clear: both !important;
+            position: relative !important;
+            left: auto !important;
+            right: auto !important;
+            top: auto !important;
+            bottom: auto !important;
+            transform: none !important;
+            grid-area: auto !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .archive-vault {
+            height: auto !important;
+            max-height: 310px !important;
+            min-height: 230px !important;
+            margin-bottom: 14px !important;
+            overflow: hidden !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .editor-container {
+            height: auto !important;
+            min-height: 280px !important;
+            margin-bottom: 14px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+            overflow: visible !important;
+        }
+
+        #scratchpad-modal .journal-bubble .lore-input {
+            width: 100% !important;
+            min-height: 170px !important;
+            flex: 1 1 auto !important;
+            display: block !important;
+        }
+
+        #scratchpad-modal .journal-bubble .lore-actions {
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .command-array {
+            width: 100% !important;
+            max-width: 100% !important;
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: center !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            padding: 12px 0 8px 0 !important;
+            margin: 0 0 8px 0 !important;
+            text-align: center !important;
+            border-top: 1px solid rgba(255,255,255,0.06) !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .command-array .toy-btn,
+        #scratchpad-modal .journal-bubble > .command-array button,
+        #scratchpad-modal .journal-bubble > .command-array label {
+            flex: 0 0 auto !important;
+            width: auto !important;
+            max-width: 100% !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            float: none !important;
+            margin: 0 !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .kore-footer {
+            width: 100% !important;
+            max-width: 100% !important;
+            display: block !important;
+            clear: both !important;
+            text-align: center !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            opacity: 0.42 !important;
+            font-size: 0.62rem !important;
+            letter-spacing: 1.2px !important;
+            white-space: normal !important;
+        }
+
+        #scratchpad-modal .journal-bubble #import-trigger {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        @media (max-width: 949px) {
+            #scratchpad-modal .journal-bubble {
+                width: 94vw !important;
+                height: 86dvh !important;
+                padding: 16px !important;
+            }
+
+            #scratchpad-modal .journal-bubble > .archive-vault {
+                max-height: none !important;
+            }
+
+            #scratchpad-modal .journal-bubble > .command-array {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+
+            #scratchpad-modal .journal-bubble > .command-array .toy-btn,
+            #scratchpad-modal .journal-bubble > .command-array button,
+            #scratchpad-modal .journal-bubble > .command-array label {
+                width: 100% !important;
+            }
+
+            #scratchpad-modal .journal-bubble .lore-actions {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+        }
+
+        /* --- SCRIPTORIUM ALIGNMENT V14: JOURNAL DOM FIX FINAL --- */
+        #scratchpad-modal .journal-bubble {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            width: min(900px, 94vw) !important;
+            max-width: min(900px, 94vw) !important;
+            height: min(86dvh, 780px) !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            padding: 22px !important;
+            gap: 14px !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .archive-vault,
+        #scratchpad-modal .journal-bubble > .editor-container,
+        #scratchpad-modal .journal-bubble > .command-array,
+        #scratchpad-modal .journal-bubble > .kore-footer {
+            width: 100% !important;
+            max-width: 100% !important;
+            flex: 0 0 auto !important;
+            float: none !important;
+            clear: both !important;
+            position: relative !important;
+            left: auto !important;
+            right: auto !important;
+            transform: none !important;
+            grid-area: auto !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .archive-vault {
+            min-height: 230px !important;
+            max-height: 310px !important;
+            overflow: hidden !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .editor-container {
+            min-height: 280px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+            overflow: visible !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .command-array {
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: center !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            padding: 12px 0 8px !important;
+            margin: 0 !important;
+            text-align: center !important;
+            border-top: 1px solid rgba(255,255,255,0.06) !important;
+        }
+
+        #scratchpad-modal .journal-bubble > .kore-footer {
+            display: block !important;
+            text-align: center !important;
+            margin: 0 !important;
+            padding: 0 0 4px 0 !important;
+            opacity: 0.42 !important;
+        }
+
+        @media (max-width: 949px) {
+            #scratchpad-modal .journal-bubble {
+                width: 94vw !important;
+                height: 86dvh !important;
+                padding: 16px !important;
+            }
+
+            #scratchpad-modal .journal-bubble > .command-array {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+
+            #scratchpad-modal .journal-bubble > .command-array .toy-btn,
+            #scratchpad-modal .journal-bubble > .command-array button,
+            #scratchpad-modal .journal-bubble > .command-array label {
+                width: 100% !important;
+            }
+        }
+
     </style>
 </head>
 <body id="os-body" class="booting" onclick="restoreUI()">
@@ -2181,21 +2780,21 @@
     </div>
 
     <div id="scratchpad-modal" class="modal-overlay" onclick="toggleModal('scratchpad-modal')">
-        <div class="scribes-bubble" onclick="event.stopPropagation()">
+        <div class="scribes-bubble journal-bubble" onclick="event.stopPropagation()">
             <div class="archive-vault">
                 <div class="vault-header">
                     <div>
-                        <h2>SomniaScribes</h2>
-                        <div style="font-size: 0.65rem; opacity: 0.6; letter-spacing: 4px; font-family: monospace;">YOUR COZY THOUGHT LOG</div>
+                        <h2>The Scriptorium</h2>
+                        <div style="font-size: 0.65rem; opacity: 0.6; letter-spacing: 4px; font-family: monospace;">PRIVATE PAGES // SAFE FRAGMENTS</div>
                     </div>
-                    <input type="text" id="search-annals" placeholder="Find a memory..." oninput="renderAnnals()">
+                    <input type="text" id="search-annals" placeholder="Find a page..." oninput="renderAnnals()">
                 </div>
 
                 <div id="annals" class="annals-body"></div></div>
                 
                 <div class="editor-container">
                     <div class="sticker-bar" id="sticker-bar"></div>
-                    <textarea id="lore-editor" class="lore-input" rows="3" placeholder="Pour out a cozy thought here... [ENTER to save]"></textarea>
+                    <textarea id="lore-editor" class="lore-input" rows="3" placeholder="Set one fragment on the desk... [ENTER to save]"></textarea>
                     
                     <div class="lore-actions">
                         <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
@@ -2206,10 +2805,9 @@
                             <button class="toy-btn journal-soft-prompt" style="padding: 8px 16px; font-size:0.65rem;" onclick="offerJournalPrompt(event)">I don't know what to write</button>
                             <span id="journal-media-name" style="font-size:0.65rem; color:var(--accent); font-family:monospace;"></span>
                         </div>
-                        <button class="toy-btn" style="padding: 8px 25px; border-color:var(--accent); background:rgba(255,255,255,0.05); color:var(--text-main);" onclick="commitLore()">Jot it Down ✨</button>
+                        <button class="toy-btn" style="padding: 8px 25px; border-color:var(--accent); background:rgba(255,255,255,0.05); color:var(--text-main);" onclick="commitLore()">Set It Down ✨</button>
                     </div>
                 </div>
-            </div>
 
             <div class="command-array">
                 <button class="toy-btn" onclick="jolt('noir')">Noir</button>
